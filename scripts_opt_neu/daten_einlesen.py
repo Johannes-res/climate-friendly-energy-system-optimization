@@ -11,7 +11,7 @@ df_erzeuger_wärme.index = pd.to_datetime(df_erzeuger_wärme.iloc[:, 0], format=
 df_bedarf = pd.DataFrame({
     'Strom': df_bedarf_org['Last_prognose [MWh]'].values * 4,
     'Wasserstoff': df_bedarf_org['Wasserstoff'].values * 4,
-    'Wärme': df_bedarf_org['Wärmepumpen'].values * 4 + df_bedarf_org['Thermie'].values,
+    'Wärme': df_bedarf_org['Wärmepumpen'].values * 4 + df_bedarf_org['Thermie'].values*4,
     'E-Fuel': df_bedarf_org['E-Fuels'].values * 4,
     'Biomasse': df_bedarf_org['Biomasse'].values * 4
 }, index=pd.to_datetime(df_bedarf_org['Datum (UTC)']))
@@ -21,6 +21,9 @@ df_bedarf = pd.DataFrame({
 # Annahme: df_bedarf hat eine Spalte 'Datum' oder einen DatetimeIndex
 start_date = '2022-03-07 00:00:00'  # Beispiel: Montag der gewünschten Woche
 end_date = '2022-03-13 00:00:00'    # Beispiel: Sonntag der gewünschten Woche
+
+# start_date = '2022-05-01 00:00:00'  # Beispiel: Montag der gewünschten Woche
+# end_date = '2022-05-31 23:45:00'    # Beispiel: Sonntag der gewünschten Woche
 
 def begrenze_auf_zeitraum(df, start_date, end_date):
     """
@@ -49,6 +52,7 @@ df_erzeuger_wärme = df_erzeuger_wärme.loc[common_index]
 # Normieren der Werte aus df_erzeuger_strom auf deren Maximalwerte (ohne die Datetime-Spalte)
 datetime_col = df_erzeuger_strom.columns[0]
 df_erzeuger_strom = df_erzeuger_strom.drop(columns=[datetime_col])
+df_erzeuger_strom = df_erzeuger_strom.drop(columns=['Pumpspeicher'], errors='ignore')  # 'Pumpspeicher' entfernen, falls vorhanden
 df_erzeuger_strom[df_erzeuger_strom.columns] = df_erzeuger_strom / df_erzeuger_strom.abs().max()
 
 df_erzeuger_strom['Wind_Onshore'] = df_erzeuger_strom['Wind Onshore']

@@ -1,5 +1,5 @@
 #Hier wird Schritt für Schritt das Energiemodell und dessen Optimierung aufgebaut.
-# Als erstes wird nur der Sektor Strom betrachtet. Nur die Erzeugertechnologien gleichen den Strombedarf aus.
+# Als erstes wird nur der Sektor Strom betrachtet. Erzeuger und Stromspeicher gleichen den Bedarf aus.
 # Die Optimierung wird mit dem Paket Pyomo durchgeführt.
 
 import pyomo.environ as pyo
@@ -7,7 +7,7 @@ from pyomo.opt import SolverFactory
 import pandas as pd
 
 # Daten einlesen
-from daten_einlesen import df_bedarf, df_erzeuger_strom
+from daten_einlesen import df_bedarf, df_erzeuger_strom, df_erzeuger_wärme
 #ACHTUNG: df_bedarf addiert zu strom bereits wp und emob bedarf!
 
 # Parameter laden
@@ -30,8 +30,10 @@ technologieart = list(set(art_dict.values()))
 kosten = (df_parameter['Kosten'] * 1000).to_dict() #Kosten mal 1000 um von €/kW in €/MW zu konvertieren
 
 # Nur die Spalten aus df_erzeuger_strom übernehmen, die auch im Index von df_parameter sind
-gemeinsame_techs = [t for t in df_erzeuger_strom.columns if t in df_parameter.index]
-df_erzeuger_strom = df_erzeuger_strom[gemeinsame_techs]
+gemeinsame_s_techs = [t for t in df_erzeuger_strom.columns if t in df_parameter.index and traeger_dict[t] == 'Strom']
+df_erzeuger_strom = df_erzeuger_strom[gemeinsame_s_techs]
+
+gemeinsame_wae_techs = [t for t in df_erzeuger_wärme.columns if t in df_parameter.index and traeger_dict[t] == 'Wärme']
 
 
 
@@ -91,24 +93,33 @@ def define_objective(model, df_parameter):
 # Nebenbedingungen/Einschränkungen
 
 # Vor define_constraints():
-verf_dict = {}
+verf_s_dict = {}
+verf_wae_dict = {}
 # Nur Technologien verwenden, die sowohl in df_erzeuger_strom als auch in df_parameter vorhanden sind
-gueltige_techs = [t for t in df_erzeuger_strom.columns if t in df_parameter.index]
-for t in gueltige_techs:
+gueltige_s_techs = [t for t in df_erzeuger_strom.columns if t in df_parameter.index]
+for t in gueltige_s_techs:
     for ti in df_erzeuger_strom.index:
-        verf_dict[(t, ti)] = df_erzeuger_strom.loc[ti, t]
+        verf_s_dict[(t, ti)] = df_erzeuger_strom.loc[ti, t]
+
+#Nur Technologien verwenden, die sowohl in df_erzeuger_wärme als auch in df_parameter vorhanden sind
+gueltige_wae_techs = [t for t in df_erzeuger_wärme.columns if t in df_parameter.index]
+for t in gueltige_wae_techs:
+    for ti in df_erzeuger_wärme.index:
+        verf_wae_dict[(t, ti)] = df_erzeuger_wärme.loc[ti, t]
 
 
 def define_constraints(model, df_bedarf):
     # Strombedarf als Parameter
     model.Strombedarf = pyo.Param(model.T, initialize=df_bedarf['Strom'].to_dict())
+    model.Waermebedarf = pyo.Param(model.T, initialize=df_bedarf['Wärme'].to_dict())
 
     # Verfügbarkeit der Stromtechnologien als Parameter
-    model.Verf = pyo.Param(model.techs, model.T, initialize=verf_dict, default=0)
+    model.Verf_s = pyo.Param(model.techs, model.T, initialize=verf_s_dict, default=0)
+    model.Verf_wae = pyo.Param(model.techs, model.T, initialize=verf_wae_dict, default=0)
     # Erzeugungsgleichung
-    def generation_constraint_rule(m, time):
+    def strom_erzeuger_regel(m, time):
         stromerzeuger_summe = sum(
-            m.inst_leistung[t,'Strom'] * m.Verf[t, time]
+            m.inst_leistung[t,'Strom'] * m.Verf_s[t, time]
             for t in m.techs
             if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Strom'
         ) 
@@ -119,7 +130,17 @@ def define_constraints(model, df_bedarf):
     )
         return stromerzeuger_summe + stromspeicher_summe >= m.Strombedarf[time]
     
-    model.generation_constraint = pyo.Constraint(model.T, rule=generation_constraint_rule)
+    model.strom_erzeuger_bedingung = pyo.Constraint(model.T, rule=strom_erzeuger_regel)
+    
+
+    def waerme_erzeuger_regel(m, time):
+        waermeerzeuger_summe = sum(
+            m.inst_leistung[t,'Wärme'] * m.Verf_wae[t, time]
+            for t in m.techs
+            if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Wärme'
+        )
+        return waermeerzeuger_summe >= m.Waermebedarf[time]
+    model.waerme_erzeuger_bedingung = pyo.Constraint(model.T, rule=waerme_erzeuger_regel)
     return model
 
 
@@ -309,7 +330,7 @@ def main():
     return solved_model
 
 
-print(df_erzeuger_strom[gemeinsame_techs].describe())
+print(df_erzeuger_strom[gemeinsame_s_techs].describe())
 ergebnis_model = main()
 
 #%% Ergebnisse auswerten
@@ -364,5 +385,5 @@ for t in df_Erzeugergang.columns:
     leistung = installierte_leistungen.get((t, 'Strom'), 0)
     df_Erzeugergang[t] = df_Erzeugergang[t] * leistung
 
-
+#%%
 print("Ende der Optimierung")
