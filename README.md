@@ -1,10 +1,11 @@
-# knEBiD
-klimaneutrale Energiebereitstellung in Deutschland
+# Optimierungsmodell für klimafreundliche Energiebereitstellung
+(soon in english as well)
 
 
-Hier wird eine Modellierung einer klimaneutralen Energieversorgung für Deutschland erstellt.
-Dazu wird zunächst der Verbrauch bzw. Bedarf anhand vorhandener Prognosen in Zeitreihen modelliert.
+Hier wird eine Modellierung einer klimafreundlichen Energieversorgung für Deutschland erstellt.
+Dazu wird zunächst der Verbrauch bzw. Bedarf anhand vorhandener Endenergiebedarfe und Prognosen in Zeitreihen modelliert.
 Danach kann dieser Bedarf mittels Variation verschiedener regenerativen Umwandlungstechnologien gedeckt werden.
+Eine Optimierung zwischen den installierten Leistungen der verschiedenen Technologien sucht unter der Hauptbedingung, dass zu jedem Zeitpunkt der Bedarf gedeckt werden kann, die Kostengünstigste technische Lösung zur Energiebereitstellung.
 
 
 # Datenstruktur
