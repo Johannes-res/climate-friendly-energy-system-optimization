@@ -7,7 +7,7 @@ from pyomo.opt import SolverFactory
 import pandas as pd
 
 # Daten einlesen
-from daten_einlesen import df_bedarf, df_erzeuger_strom, df_erzeuger_wärme
+from a_Eingangsdaten.daten_einlesen import df_bedarf, df_erzeuger_strom, df_erzeuger_wärme
 #ACHTUNG: df_bedarf addiert zu strom bereits wp und emob bedarf!
 
 # Parameter laden

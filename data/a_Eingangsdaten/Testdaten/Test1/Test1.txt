@@ -1,0 +1,6 @@
+1. Test
+		- Stetige Stromnachfrage von 10GW
+		- 1 stetiger, teuer erzeuger
+		- 2 fluktuale billige erzeuger, sinuskurve bei einem und 2. gerade gegenläufig (1- erster)
+		- Zu erwartendes Ergebnis:
+			§ Billige Technologien sollten eigentlich mit gleicher inst. Leistung genutzt werden. Teure eig. Gar nicht, ausser wg. Rundungsfehler in kleinem Maßsstab
