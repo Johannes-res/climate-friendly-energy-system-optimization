@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+
+# Sektoren und deren Anteile am Endenergieverbrauch
+sektoren = ['Haushalte', 'Verkehr', 'Industrie', 'Gewerbe/Dienstleistung']
+anteile = [30, 25, 35, 10]  # Hier Beispielwerte, selbst ergänzen
+
+# Anteil erneuerbarer Energien pro Sektor (in Prozent der Sektor-Energie)
+regenerativ_anteil = [10, 7, 15, 20]  # Beispielwerte, selbst ergänzen
+
+fig, ax = plt.subplots()
+
+# Haupt-Kuchendiagramm
+wedges, texts = ax.pie(anteile, labels=sektoren, startangle=90, wedgeprops=dict(width=0.4), labeldistance=0.7)
+
+# Schattierte Anteile erneuerbarer Energien
+regen_anteile = [a * (r / 100) for a, r in zip(anteile, regenerativ_anteil)]
+ax.pie(regen_anteile, radius=0.8, colors=['#8fd694', '#7fd6d6', '#f7fb84', '#f9b384'], 
+       wedgeprops=dict(width=0.3, alpha=0.7))
+
+plt.title('Endenergieverbrauch nach Sektor\nSchattiert: Anteile erneuerbare Energien')
+plt.show()
+
+print("Diagramm erstellt und angezeigt.")
