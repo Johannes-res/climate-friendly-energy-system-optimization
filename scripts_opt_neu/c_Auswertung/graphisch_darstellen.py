@@ -35,11 +35,6 @@ cd_palette = [
 ]
 
 
-
-
-
-
-
 #%% Graphische Darstellung für den Jahresgang
 
 def plot_daily_aggregation(df, columns, highlight_date=None, title=None, ylabel=None, legend_labels=None):
@@ -260,7 +255,7 @@ fig, ax = plot_daily_aggregation(df, selected_columns,
                                  legend_labels=custom_labels)
 
 # Speichern der Figur
-plt.savefig(f'data/c_Auswertung/test/{df_name}_{title}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'data/c_Auswertung/{df_name}_{title}.png', dpi=300, bbox_inches='tight')
 plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 
@@ -283,7 +278,7 @@ fig, ax = plot_selected_days(df, selected_columns, selected_days,
                    ylabel,
                    legend_labels=custom_labels)
 
-plt.savefig(f'data/c_Auswertung/test/{df_name}_{selected_days}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'data/c_Auswertung/{df_name}_{selected_days}.png', dpi=300, bbox_inches='tight')
 plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 # Beispielaufruf für die Darstellung einer Woche
@@ -298,7 +293,7 @@ fig, ax = plot_weekly_aggregation(df, selected_columns, week_start,
                                   ylabel,
                                   legend_labels=custom_labels)
 
-plt.savefig(f'data/c_Auswertung/test/{df_name}_{week_start}.png', dpi=300, bbox_inches='tight')
+plt.savefig(f'data/c_Auswertung/{df_name}_{week_start}.png', dpi=300, bbox_inches='tight')
 plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 print("Grafiken wurden erfolgreich erstellt und gespeichert.")

@@ -1,6 +1,6 @@
 import pyomo.environ as pyo
 from pyomo.opt import SolverFactory
-from scripts_opt_neu.b_Optimierung.a_inputs import kosten, df_parameter
+from a_inputs import kosten, df_parameter
 
 def solve_model(model):
     solver = SolverFactory('cbc')  # oder 'glpk'

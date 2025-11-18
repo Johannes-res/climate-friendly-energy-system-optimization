@@ -25,7 +25,7 @@ def define_variables(model, df_parameter):
             df_parameter.loc[t, 'obere Grenze [MW]']
         )
     )
-    # model.kapazitaet_index = [(t, c) for t in model.techs for c in model.traeger if art_dict[t] == 'Speicher' and traeger_dict[t] == c]
+    # model.kapazitaet_index = [(t, traeger_dict[t]) for t in model.techs if art_dict[t] == 'Speicher']
     # model.kapazitaet = pyo.Var(
     #     model.kapazitaet_index,
     #     domain=pyo.NonNegativeReals,
@@ -45,3 +45,5 @@ def define_objective(model, df_parameter):
         )
     model.objective = pyo.Objective(rule=cost_rule, sense=pyo.minimize)
     return model
+
+print('Ende b_model_structure.py')

@@ -27,9 +27,15 @@ def prepare_energy_charts(df, year):
 
 strom_last_23 = prepare_energy_charts(strom_last_23, 2023)
 
+#Biomasse und Müll von der Last abziehen, da diese nicht erweitert werden können
+strom_last_23['Last'] = strom_last_23['Last'] - strom_last_23['Biomasse'] - strom_last_23['Müll']
 
 #Aus dem df strom_last_23 alles bis auf die Spalte 'Last' droppen
 strom_last_23 = strom_last_23[['Last']]
 strom_last_23.rename(columns={'Last': 'Strom_Last [MW]'}, inplace=True)
+
+#Zu strom_last_23 noch eine Spalte mit dem gleichverteilenten Jahresstrombedarf der Industrie hinzufügen
+jahresstrombedarf_industrie = 400000  # in GWh
+strom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24 * 4)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 print('Ende x_strombedarf_org.py')
