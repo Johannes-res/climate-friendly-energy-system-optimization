@@ -282,7 +282,7 @@ def erstelle_jahreszeitreihe(df_lastprofile):
 df_jahr = erstelle_jahreszeitreihe(df_Lastprofil_EMob_jahr)
 
 
-df_jahr['EEV_aufgeteilt'] = df_jahr['Zeitreihe'] * 261.05*1e3/365  # Annahme: 261,05 TWh/Jahr E-Mobilität in Deutschland --> in GWh umrechnen/365 Tage
+df_jahr['EEV_aufgeteilt'] = df_jahr['Zeitreihe'] * 261.05*1e6/365  # Annahme: 261,05 TWh/Jahr E-Mobilität in Deutschland --> in GWh umrechnen/365 Tage
 df_jahr['Last_emob'] = df_jahr['EEV_aufgeteilt']*4  # Umrechnung von 15min Energiewerten auf Leistung in GW (4*15min = 1h)
 
 
@@ -315,7 +315,7 @@ ax.plot(
     marker='o',
     markersize=4,
     alpha=0.95,
-    label='E-Mobilitätsbedarf [GW]'
+    label='E-Mobilitätsbedarf [MW]'
 )
 
 # Hintergrund weiß
@@ -329,7 +329,7 @@ ax.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinie
 # Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen
 ax.set_title('modellierter E-Mobilitätsbedarf 2023', fontsize=14, fontweight='bold', color=text_color)
 ax.set_xlabel('Datum', fontsize=12, color=text_color)
-ax.set_ylabel('E-Mobilitätsbedarf [GW]', fontsize=12, color=text_color)
+ax.set_ylabel('E-Mobilitätsbedarf [MW]', fontsize=12, color=text_color)
 
 # Y-Achse bei 0 beginnen lassen
 ax.set_ylim(bottom=0)

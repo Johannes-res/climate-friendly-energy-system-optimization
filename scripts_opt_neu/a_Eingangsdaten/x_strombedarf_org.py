@@ -36,6 +36,6 @@ strom_last_23.rename(columns={'Last': 'Strom_Last [MW]'}, inplace=True)
 
 #Zu strom_last_23 noch eine Spalte mit dem gleichverteilenten Jahresstrombedarf der Industrie hinzufügen
 jahresstrombedarf_industrie = 400000  # in GWh
-strom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24 * 4)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
+strom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 print('Ende x_strombedarf_org.py')
