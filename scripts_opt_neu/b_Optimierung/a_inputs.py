@@ -6,7 +6,7 @@ from pathlib import Path
 # 'scripts_opt_neu.a_Eingangsdaten...' can be resolved
 # sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 # from scripts_opt_neu.a_Eingangsdaten.x_Bedarfe_gesamt import bedarf_gesamt
-bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx', index_col=0)
+bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx', index_col=0)
 #Verfügbarkeitsfaktoren für Stromerzeuger laden
 #from scripts_opt_neu.a_Eingangsdaten.y_verfügbarkeiten_strom import strom_verfügbarkeiten_23
 strom_verfügbarkeiten_23 = pd.read_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index_col=0)

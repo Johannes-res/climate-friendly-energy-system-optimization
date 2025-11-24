@@ -1,12 +1,20 @@
 import pandas as pd
 
+import os
+from pathlib import Path
+
+# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)
+project_root = Path(__file__).parent.parent.parent
+os.chdir(project_root)
+print(f"Working Directory: {os.getcwd()}")
 #Hier darzustellenden DataFrame importieren
 opt_inst_Leistung = pd.read_excel(r'data\b_Optimierung\opt_inst_Leistung.xlsx', index_col=0, sheet_name='inst_leistung')
 
 Batterie_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Batteriespeicher_Batterie')
 Pumpspeicher_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Pumpspeicher_Pump')
+H2_speicher_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Wasserstoffkaverne_H2')
 
-bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_15min_2023.xlsx', index_col=0)
+bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx', index_col=0)
 
 verfügbarkeiten_strom = pd.read_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index_col=0)
 
@@ -35,8 +43,9 @@ bedarf_deckung['Summe_Stromerzeugung [MW]'] = bedarf_deckung.sum(axis=1)
 
 bedarf_deckung['Batterie_Leistung [MW]'] = Batterie_zeitreihen['Leistung [MW]']
 bedarf_deckung['Pumpspeicher_Leistung [MW]'] = Pumpspeicher_zeitreihen['Leistung [MW]'].reindex(bedarf_deckung.index, method='ffill')
+bedarf_deckung['H2_Speicher_Leistung [MW]'] = H2_speicher_zeitreihen['Leistung [MW]'].reindex(bedarf_deckung.index, method='ffill')
 
-bedarf_deckung['Summe_Stromerzeugung [MW]'] += bedarf_deckung['Batterie_Leistung [MW]'] + bedarf_deckung['Pumpspeicher_Leistung [MW]']
+bedarf_deckung['Summe_Stromerzeugung [MW]'] += bedarf_deckung['Batterie_Leistung [MW]'] + bedarf_deckung['Pumpspeicher_Leistung [MW]'] + bedarf_deckung['H2_Speicher_Leistung [MW]']
 
 bedarf_deckung['Strom_Gesamt_Bedarf [MW]'] = bedarf_gesamt['Strom_Gesamt_Bedarf [MW]']
 

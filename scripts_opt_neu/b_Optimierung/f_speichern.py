@@ -113,6 +113,38 @@ def speichere_ergebnisse(model):
             df_pump.set_index('Zeitstempel', inplace=True)
             
             speicher_daten[f'{tech}_Pump'] = df_pump
+    # Wasserstoffspeicher (stündliche Auflösung)
+        if hasattr(model, 'h2_stand'):
+            h2_techs = [s for s in model.techs 
+                       if model.art_map[s] == 'Speicher' 
+                       and 'Wasserstoff' in s]
+            
+            for tech in h2_techs:
+                # SOC
+                soc_data = {t: pyo.value(model.h2_stand[tech, t]) 
+                           for t in model.T_hourly 
+                           if model.h2_stand[tech, t].value is not None}
+                
+                # Leistung
+                power_data = {t: pyo.value(model.h2_leistung[tech, t]) 
+                             for t in model.T_hourly 
+                             if model.h2_leistung[tech, t].value is not None}
+                
+                # Kapazität
+                capacity = pyo.value(model.h2_kapazitaet[tech])
+                
+                # DataFrame erstellen
+                df_h2 = pd.DataFrame({
+                    'Zeitstempel': list(soc_data.keys()),
+                    'SOC [MWh]': list(soc_data.values()),
+                    'Leistung [MW]': list(power_data.values()),
+                    'Kapazität [MWh]': [capacity] * len(soc_data),
+                    'SOC [%]': [soc_data[t] / capacity * 100 if capacity > 0 else 0 
+                               for t in soc_data.keys()]
+                })
+                df_h2.set_index('Zeitstempel', inplace=True)
+                
+                speicher_daten[f'{tech}_H2'] = df_h2
     
     # Speicher-Zeitreihen in Excel schreiben
     if speicher_daten:

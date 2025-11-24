@@ -1,4 +1,11 @@
 import pandas as pd
+import os
+from pathlib import Path
+
+# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)
+project_root = Path(__file__).parent.parent.parent
+os.chdir(project_root)
+print(f"Working Directory: {os.getcwd()}")
 
 strom_last_23 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2023.xlsx')
 
@@ -34,8 +41,6 @@ strom_last_23['Last'] = strom_last_23['Last'] - strom_last_23['Biomasse'] - stro
 strom_last_23 = strom_last_23[['Last']]
 strom_last_23.rename(columns={'Last': 'Strom_Last [MW]'}, inplace=True)
 
-#Zu strom_last_23 noch eine Spalte mit dem gleichverteilenten Jahresstrombedarf der Industrie hinzufügen
-jahresstrombedarf_industrie = 400000  # in GWh
-strom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24 * 4)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
+
 
 print('Ende x_strombedarf_org.py')

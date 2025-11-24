@@ -214,6 +214,104 @@ def stromspeicher_regeln(model):
         )
         
         print(f"  Pumpspeicher: {len(pump_techs)} × {len(time_hourly)} Variablen (mit Ramping-Limit)")
+
+        # ========== WASSERSTOFFSPEICHER (stündlich, noch trägere als Pumpspeicher) ==========
+        h2_speicher_techs = [s for s in alle_speicher if 'Wasserstoff' in s or 'H2' in s]
+            
+        if h2_speicher_techs:
+                print(f"Wasserstoffspeicher (1h, sehr träge): {h2_speicher_techs}")
+                
+                model.h2_kapazitaet = pyo.Var(
+                    h2_speicher_techs,
+                    domain=pyo.NonNegativeReals,
+                    bounds=lambda m, s: (
+                        a_inputs.df_parameter.loc[s, 'untere Kapagrenze [MWh]'],
+                        a_inputs.df_parameter.loc[s, 'obere Kapagrenze [MWh]']
+                    )
+                )
+                
+                model.h2_stand = pyo.Var(
+                    h2_speicher_techs, 
+                    model.T_hourly,
+                    domain=pyo.NonNegativeReals
+                )
+                
+                model.h2_leistung = pyo.Var(
+                    h2_speicher_techs,
+                    model.T_hourly,
+                    domain=pyo.Reals
+                )
+
+                def h2_power_upper_rule(m, s, t):
+                    return m.h2_leistung[s, t] <= m.inst_leistung[s, 'Strom']
+                model.h2_power_upper = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_power_upper_rule
+                )
+
+                def h2_power_lower_rule(m, s, t):
+                    return m.h2_leistung[s, t] >= -m.inst_leistung[s, 'Strom']
+                model.h2_power_lower = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_power_lower_rule
+                )
+                
+                def h2_level_constraint_rule(m, s, t):
+                    return m.h2_stand[s, t] <= m.h2_kapazitaet[s]
+                model.h2_level_constraint = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_level_constraint_rule
+                )
+                
+                def h2_init_rule(m, s):
+                    first_time = time_hourly[0]
+                    return m.h2_stand[s, first_time] == 0.5*m.h2_kapazitaet[s]
+                model.h2_init = pyo.Constraint(h2_speicher_techs, rule=h2_init_rule)
+                
+                def h2_balance_rule(m, s, t):
+                    time_idx = time_hourly.index(t)
+                    if time_idx == 0:
+                        return pyo.Constraint.Skip
+                    
+                    prev_time = time_hourly[time_idx - 1]
+                    eta = a_inputs.df_parameter.loc[s, 'Wirkungsgrad']
+                    
+                    return m.h2_stand[s, t] == (
+                        m.h2_stand[s, prev_time] - 
+                        m.h2_leistung[s, t] * eta * 1.0
+                    )
+                model.h2_balance = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_balance_rule
+                )
+                
+                # SEHR TRÄGE: Noch stärkere Leistungsbegrenzung als bei Pumpspeichern
+                def h2_ramping_upper_rule(m, s, t):
+                    """Maximale Erhöhung der Leistung pro Stunde (nur 10% statt 20%)"""
+                    time_idx = time_hourly.index(t)
+                    if time_idx == 0:
+                        return pyo.Constraint.Skip
+                    
+                    prev_time = time_hourly[time_idx - 1]
+                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.1  # Max 10% Änderung pro Stunde
+                    
+                    return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] <= max_ramp
+                
+                def h2_ramping_lower_rule(m, s, t):
+                    """Maximale Reduktion der Leistung pro Stunde (nur 10% statt 20%)"""
+                    time_idx = time_hourly.index(t)
+                    if time_idx == 0:
+                        return pyo.Constraint.Skip
+                    
+                    prev_time = time_hourly[time_idx - 1]
+                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.1
+                    
+                    return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] >= -max_ramp
+                
+                model.h2_ramping_upper = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_ramping_upper_rule
+                )
+                model.h2_ramping_lower = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_ramping_lower_rule
+                )
+                
+                print(f"  Wasserstoffspeicher: {len(h2_speicher_techs)} × {len(time_hourly)} Variablen (mit starkem Ramping-Limit)")
     
     print(f"\nSpeichermodell erstellt (OHNE Binärvariablen)")
     print(f"  Gesamt Variablen: ~{len(batterie_techs) * len(time_list) * 2 + len(pump_techs) * len(time_hourly) * 3}")

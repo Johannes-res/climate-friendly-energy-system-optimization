@@ -239,7 +239,7 @@ def plot_weekly_aggregation(df, columns, week_start, title=None, ylabel=None, le
 #%% Grafik generieren
 
 # Grafik generieren für den Jahresgang
-selected_columns =      ['Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]']
+selected_columns =      ['Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]', 'H2_Speicher_Leistung [MW]']
 
 custom_labels = selected_columns
 
