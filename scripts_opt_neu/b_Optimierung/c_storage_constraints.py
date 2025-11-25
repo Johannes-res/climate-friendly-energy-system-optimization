@@ -72,12 +72,21 @@ def stromspeicher_regeln(model):
         
         # Kapazitätsgrenze
         def batterie_level_constraint_rule(m, s, t):
-            return m.batterie_stand[s, t] <= m.batterie_kapazitaet[s]
+            return m.batterie_stand[s, t] <=m.batterie_kapazitaet[s]
         
         model.batterie_level_constraint = pyo.Constraint(
             batterie_techs,
             model.T,
             rule=batterie_level_constraint_rule
+        )
+        
+        def batterie_capa_crate_constraint_rule(m, s, t):
+            return m.batterie_kapazitaet[s] <= m.inst_leistung[s, 'Strom']/a_inputs.c_rate[s]
+        
+        model.batterie_capa_crate_constraint = pyo.Constraint(
+            batterie_techs,
+            model.T,
+            rule=batterie_capa_crate_constraint_rule
         )
         
         # Anfangsbedingung
@@ -160,6 +169,14 @@ def stromspeicher_regeln(model):
             return m.pump_stand[s, t] <= m.pump_kapazitaet[s]
         model.pump_level_constraint = pyo.Constraint(
             pump_techs, model.T_hourly, rule=pump_level_constraint_rule
+        )
+        
+        def pump_capa_crate_constraint_rule(m, s, t):
+            return m.pump_kapazitaet[s] <= m.inst_leistung[s, 'Strom']/a_inputs.c_rate[s]
+        model.pump_capa_crate_constraint = pyo.Constraint(
+            pump_techs,
+            model.T_hourly,
+            rule=pump_capa_crate_constraint_rule
         )
         
         def pump_init_rule(m, s):
@@ -271,6 +288,12 @@ def stromspeicher_regeln(model):
                     return m.h2_stand[s, t] <= m.h2_kapazitaet[s]
                 model.h2_level_constraint = pyo.Constraint(
                     h2_speicher_techs, model.T_hourly, rule=h2_level_constraint_rule
+                )
+                
+                def h2_capa_crate_constraint_rule(m, s, t):
+                    return m.h2_kapazitaet[s] <= m.inst_leistung[s, 'Strom']/a_inputs.c_rate[s]
+                model.h2_capa_crate_constraint = pyo.Constraint(
+                    h2_speicher_techs, model.T_hourly, rule=h2_capa_crate_constraint_rule
                 )
                 
                 def h2_init_rule(m, s):

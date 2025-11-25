@@ -52,7 +52,7 @@ bedarf_deckung['Strom_Gesamt_Bedarf [MW]'] = bedarf_gesamt['Strom_Gesamt_Bedarf 
 bedarf_deckung['Deckungsgrad [%]'] = (bedarf_deckung['Summe_Stromerzeugung [MW]'] / bedarf_deckung['Strom_Gesamt_Bedarf [MW]']) * 100
 
 print("Zeitpunkte mit Deckungsgrad < 100%:")
-print(bedarf_deckung[bedarf_deckung['Deckungsgrad [%]'] < 100].index.tolist())
+print(bedarf_deckung[bedarf_deckung['Deckungsgrad [%]'] < 99.999].index.tolist())
 
 bedarf_deckung.to_excel(r'data\c_Auswertung\bedarf_deckung.xlsx', index=True)
 
