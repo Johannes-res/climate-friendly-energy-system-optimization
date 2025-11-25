@@ -109,18 +109,18 @@ def stromspeicher_regeln(model):
         
         print(f"  Batterie: {len(batterie_techs)} × {len(time_list)} = {len(batterie_techs) * len(time_list)} Variablen")
     
-    #   # Zyklische Bedingung für konsistente Jahressimulation
-    #     def batterie_cyclic_rule(m, s):
-    #         first_time = time_list[0]
-    #         last_time = time_list[-1]
-    #         return m.batterie_stand[s, last_time] == m.batterie_stand[s, first_time]
+      # Zyklische Bedingung für konsistente Jahressimulation
+        def batterie_cyclic_rule(m, s):
+            first_time = time_list[0]
+            last_time = time_list[-1]
+            return m.batterie_stand[s, last_time] == m.batterie_stand[s, first_time]
         
-    #     model.batterie_cyclic = pyo.Constraint(
-    #         batterie_techs,
-    #         rule=batterie_cyclic_rule
-    #     )
+        model.batterie_cyclic = pyo.Constraint(
+            batterie_techs,
+            rule=batterie_cyclic_rule
+        )
         
-    #     print(f"  Batterie: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")
+        print(f"  Batterie: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")
        # ========== PUMPSPEICHER (stündlich, OHNE Binärvariablen) ==========
     if pump_techs:
         model.pump_kapazitaet = pyo.Var(
@@ -191,7 +191,7 @@ def stromspeicher_regeln(model):
                 return pyo.Constraint.Skip
             
             prev_time = time_hourly[time_idx - 1]
-            max_ramp = m.inst_leistung[s, 'Strom'] * 0.2  # Max 20% Änderung pro Stunde
+            max_ramp = m.inst_leistung[s, 'Strom'] * 0.8  # Max 80% Änderung pro Stunde
             
             return m.pump_leistung[s, t] - m.pump_leistung[s, prev_time] <= max_ramp
         
@@ -202,7 +202,7 @@ def stromspeicher_regeln(model):
                 return pyo.Constraint.Skip
             
             prev_time = time_hourly[time_idx - 1]
-            max_ramp = m.inst_leistung[s, 'Strom'] * 0.2
+            max_ramp = m.inst_leistung[s, 'Strom'] * 0.8
             
             return m.pump_leistung[s, t] - m.pump_leistung[s, prev_time] >= -max_ramp
         
@@ -214,6 +214,19 @@ def stromspeicher_regeln(model):
         )
         
         print(f"  Pumpspeicher: {len(pump_techs)} × {len(time_hourly)} Variablen (mit Ramping-Limit)")
+
+        # Zyklische Bedingung für konsistente Jahressimulation
+        def pump_cyclic_rule(m, s):
+            first_time = time_hourly[0]
+            last_time = time_hourly[-1]
+            return m.pump_stand[s, last_time] == m.pump_stand[s, first_time]
+
+        model.pump_cyclic = pyo.Constraint(
+            pump_techs,
+            rule=pump_cyclic_rule
+        )
+
+        print(f"  Pumpspeicher: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")
 
         # ========== WASSERSTOFFSPEICHER (stündlich, noch trägere als Pumpspeicher) ==========
         h2_speicher_techs = [s for s in alle_speicher if 'Wasserstoff' in s or 'H2' in s]
@@ -289,7 +302,7 @@ def stromspeicher_regeln(model):
                         return pyo.Constraint.Skip
                     
                     prev_time = time_hourly[time_idx - 1]
-                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.1  # Max 10% Änderung pro Stunde
+                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.5  # Max 50% Änderung pro Stunde
                     
                     return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] <= max_ramp
                 
@@ -300,7 +313,7 @@ def stromspeicher_regeln(model):
                         return pyo.Constraint.Skip
                     
                     prev_time = time_hourly[time_idx - 1]
-                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.1
+                    max_ramp = m.inst_leistung[s, 'Strom'] * 0.5
                     
                     return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] >= -max_ramp
                 
@@ -312,6 +325,19 @@ def stromspeicher_regeln(model):
                 )
                 
                 print(f"  Wasserstoffspeicher: {len(h2_speicher_techs)} × {len(time_hourly)} Variablen (mit starkem Ramping-Limit)")
+
+                # Zyklische Bedingung für konsistente Jahressimulation
+                def h2_cyclic_rule(m, s):
+                    first_time = time_hourly[0]
+                    last_time = time_hourly[-1]
+                    return m.h2_stand[s, last_time] == m.h2_stand[s, first_time]
+
+                model.h2_cyclic = pyo.Constraint(
+                    h2_speicher_techs,
+                    rule=h2_cyclic_rule
+                )
+
+                print(f"  Wasserstoffspeicher: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")
     
     print(f"\nSpeichermodell erstellt (OHNE Binärvariablen)")
     print(f"  Gesamt Variablen: ~{len(batterie_techs) * len(time_list) * 2 + len(pump_techs) * len(time_hourly) * 3}")
