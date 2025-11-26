@@ -1,7 +1,14 @@
 import pandas as pd
+import os
 #Bedarfe laden
 import sys
 from pathlib import Path
+
+# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)
+project_root = Path(__file__).parent.parent.parent
+os.chdir(project_root)
+print(f"Working Directory: {os.getcwd()}")
+
 # ensure the parent of 'scripts_opt_neu' (project root) is on sys.path so imports like
 # 'scripts_opt_neu.a_Eingangsdaten...' can be resolved
 # sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -28,7 +35,7 @@ wirkungsgrade = (df_parameter['Wirkungsgrad']).to_dict()
 #untere_kapazitaetsgrenzen = (df_parameter['untere Kapagrenze [MWh]']).to_dict()
 #obere_kapazitaetsgrenzen = (df_parameter['obere Kapagrenze [MWh]']).to_dict()
 #selbstentladungsrate = (df_parameter['Selbstentladungsrate [%/Tag]']).to_dict()
-#c_rate = (df_parameter['C-Rate']).to_dict()
+c_rate = (df_parameter['C-Rate']).to_dict()
 
 # Filter für gemeinsame Technologien in Erzeuger-Verfügbarkeits-Daten
 gemeinsame_s_techs = [t for t in strom_verfügbarkeiten_23.columns if t in df_parameter.index and traeger_dict[t] == 'Strom']

@@ -8,14 +8,14 @@ import matplotlib.dates as mdates
 from vorbereitung import bedarf_deckung as df
 
 #Hier noch Namen eintragen um Grafiken zu benennen
-df_name = 'bedarf_und_deckung_basis_23'  # Name des DataFrames für die Dateinamen der Grafiken
+df_name = 'bedarf_und_deckung_elektrifizierung_23'  # Name des DataFrames für die Dateinamen der Grafiken
 
 
 cd_palette = [
      # (0/255, 20/255, 80/255),
     (0/255, 0/255, 140/255),
-    (47/255, 87/255, 178/255),
-    (115/255, 105/255, 190/255),
+    #(47/255, 87/255, 178/255),
+    #(115/255, 105/255, 190/255),
     (188/255, 21/255, 137/255),
     (210/255, 15/255, 65/255),
     (200/255, 80/255, 0/255),
@@ -57,7 +57,7 @@ def plot_daily_aggregation(df, columns, highlight_date=None, title=None, ylabel=
     lines = []
     for idx, column in enumerate(columns):
         # Tägliche Aggregation
-        df_daily = df[column].resample('D').agg(['mean', 'min', 'max'])
+        df_daily = df[column].resample('D').agg(['mean', 'min', 'max']) / 1000  # Umrechnung von MW in GW
 
         # Diagramm erstellen
         # Ensure data is numeric and drop NaN values
@@ -135,7 +135,7 @@ def plot_selected_days(df, columns, days, highlight_time=None, title=None, ylabe
         # Plotte die Daten für diesen Tag und jede Spalte
         for column in columns:
             # Stelle sicher, dass Werte numerisch sind und NaNs entfernt werden
-            series = pd.to_numeric(day_data[column], errors='coerce').dropna()
+            series = pd.to_numeric(day_data[column], errors='coerce').dropna() / 1000  # Umrechnung von MW in GW
             if series.empty:
                 print(f"Warnung: Keine gültigen Daten für Spalte '{column}' am {day}.")
                 continue
@@ -201,8 +201,8 @@ def plot_weekly_aggregation(df, columns, week_start, title=None, ylabel=None, le
 
     lines = []
     for idx, column in enumerate(columns):
-        # Stündliche Aggregation
-        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max'])
+        # Stündliche Aggregation mit Umrechnung von MW in GW
+        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max']) / 1000
 
         # Ensure data is numeric and drop NaN values
         df_hourly_clean = df_hourly.dropna().apply(pd.to_numeric, errors='coerce')
@@ -243,9 +243,9 @@ selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Summe_Stromerzeugung [MW]'
 
 custom_labels = selected_columns
 
-title =                 'Netzlast und modellierte Erzeugung für das Jahr 2023'
-ylabel =                'Leistung in MW'
-highlight_date=         '2023-11-30'
+title =                 'Strombedarf und modellierte Erzeugung für das Jahr 2023'
+ylabel =                'Leistung in GW'
+highlight_date=         None
 
 
 fig, ax = plot_daily_aggregation(df, selected_columns, 
@@ -267,13 +267,13 @@ plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 # Beispielaufruf für die Darstellung eines spezifischen Tages
 selected_days =                         ['2023-11-30']
-# selected_columns =                       ['EMobilität', 'Wärmepumpen']
-# custom_labels =                         ['Netzlast', 'modellierter Verbrauch']
-title=                                  f'Netzlast und modellierte Erzeugung für den {selected_days}'
-ylabel=                                 'Leistung in MW'
+selected_columns =                       ['Strom_Gesamt_Bedarf [MW]', 'Summe_Stromerzeugung [MW]', 'Batterie_Leistung [MW]' ]
+custom_labels =                         selected_columns
+title=                                  f'Strombedarf und modellierte Erzeugung für den {selected_days}'
+ylabel=                                 'Leistung in GW'
 
 fig, ax = plot_selected_days(df, selected_columns, selected_days, 
-                   #highlight_time='08:45',  # Hervorheben des Werts um 08:45 Uhr
+                   None,  # Hervorheben des Werts um 08:45 Uhr
                    title, 
                    ylabel,
                    legend_labels=custom_labels)
@@ -283,10 +283,10 @@ plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 # Beispielaufruf für die Darstellung einer Woche
 week_start =                            '2023-11-27'  # Startdatum der Woche
-# selected_columns =                       ['EMobilität', 'Wärmepumpen']
-# custom_labels =                         ['Netzlast', 'Modellierung']
-title =                                 f'Netzlast und modellierter Verbrauch für die Woche ab {week_start}'
-ylabel =                                'Leistung in MW'
+#selected_columns =                       ['EMobilität', 'Wärmepumpen']
+#custom_labels =                         ['Netzlast', 'Modellierung']
+title =                                 f'Strombedarf und modellierte Erzeugung für die Woche ab {week_start}'
+ylabel =                                'Leistung in GW'
 
 fig, ax = plot_weekly_aggregation(df, selected_columns, week_start,
                                   title, 
