@@ -1,0 +1,9 @@
+- minimaler Deckungsgrad sind 99,9999 --> wichtigste constraint eingehalten
+- deckungsgrad meist 100% --> sieht nach optimnaler speichernutzung aus
+- Batterieleistung/Ladung sehr sprunghaft --> entspricht gewünschtem verhalten eines schnellen Speichers
+- Pumpspeicher träger, scheint tägliche Schwankungen auszugleichen --> ebenso gewünschtes verhalten
+- Wasserstoffspeicher noch träger --> scheint saisonale Schwankungen auszugleichen wie gewünscht
+
+--> wie fest sollte man an der C-Rate festhalten?
+
+- ausbaugrad erzeuger siehe opt_inst_leistung
