@@ -1,9 +1,12 @@
 import pyomo.environ as pyo
+import pandas as pd
 from a_inputs import technologien, energietraeger, technologieart, traeger_dict, art_dict, kosten
 #Erstellen des pyomo Modells
-def create_energy_system_model(df_bedarf):
+def create_energy_system_model(df_bedarf, df_bedarf_daily):
     model = pyo.ConcreteModel()
     model.T = pyo.Set(initialize=df_bedarf.index, ordered=True)
+    time_daily = pd.to_datetime(df_bedarf_daily.index).date
+    model.T_daily = pyo.Set(initialize=time_daily)
     return model
 
 #Definieren der Variablen mittels pyomo-Sets und -Params

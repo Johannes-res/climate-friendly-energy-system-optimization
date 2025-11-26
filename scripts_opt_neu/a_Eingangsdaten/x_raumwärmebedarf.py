@@ -39,10 +39,13 @@ df.loc[(df.index >= '2023-05-01') & (df.index <= '2023-09-30'), 'Gradtagzahl'] =
 #Gradtagzahlen durch die Summe der Gradtagzahlen teilen.
 df['Raumwärmebedarf [GWh]'] = df['Gradtagzahl'] / df['Gradtagzahl'].sum() * RWB_a
 
-
+df['Raumwärmebedarf [MWh]'] = df['Raumwärmebedarf [GWh]'] * 1000.0  # in MWh
+rwb = df['Raumwärmebedarf [MWh]'].copy()
 # Ergebnis in eine Excel-Datei speichern
 df.to_excel(r'data\a_Eingangsdaten\Wärme\Raumwärmebedarf_täglich_23.xlsx')
 
+
+#%% Grafik
 # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -179,6 +182,6 @@ df_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Raumwärmebedarf_15min_23.xlsx')
 
 #ggf. kann hier noch eine Tag-Nacht-Wichtung eingebaut werden
 
-
+#%%
 
 print('Raumwärme skript beendet')

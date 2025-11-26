@@ -57,7 +57,16 @@ def debug_print_model_info(model):
     # Check capacity vs demand
     try:
         max_demand = a_inputs.df_bedarf['Strom_Gesamt_Bedarf [MW]'].max()
-        total_capacity = a_inputs.df_parameter['obere Grenze [MW]'].sum()
+        total_capacity = a_inputs.df_parameter[a_inputs.df_parameter['Energieträger'] == 'Strom']['obere Grenze [MW]'].sum()
+        print(f"  Max Demand: {max_demand:.2f} MW")
+        print(f"  Total Capacity: {total_capacity:.2f} MW")
+        print(f"  Capacity Ratio: {total_capacity/max_demand:.2f}")
+    except Exception as e:
+        print(f"  Capacity check failed: {e}")
+    # Check capacity vs demand
+    try:
+        max_demand = a_inputs.df_bedarf_daily['Wärme_Gesamt_Bedarf [MWh]'].max()
+        total_capacity = a_inputs.df_parameter[a_inputs.df_parameter['Energieträger'] == 'Wärme']['obere Grenze [MW]'].sum()
         print(f"  Max Demand: {max_demand:.2f} MW")
         print(f"  Total Capacity: {total_capacity:.2f} MW")
         print(f"  Capacity Ratio: {total_capacity/max_demand:.2f}")
@@ -65,12 +74,12 @@ def debug_print_model_info(model):
         print(f"  Capacity check failed: {e}")
 
 def main():
-    model = b_model_structure.create_energy_system_model(a_inputs.df_bedarf)
+    model = b_model_structure.create_energy_system_model(a_inputs.df_bedarf, a_inputs.df_bedarf_daily)
     model = b_model_structure.define_variables(model, a_inputs.df_parameter)
     model = b_model_structure.define_objective(model, a_inputs.df_parameter)
     model = c_storage_constraints.stromspeicher_regeln(model)
     #model = c_storage_constraints.weitere_speicher_regeln(model)
-    model = c_constraints.define_constraints(model, a_inputs.df_bedarf)
+    model = c_constraints.define_constraints(model, a_inputs.df_bedarf, a_inputs.df_bedarf_daily)
     
     debug_print_model_info(model)
     

@@ -8,7 +8,7 @@ start = datetime(2023, 1, 1)
 end = datetime(2023, 12, 31)
 
 # Warmwasserbedarf für das Jahr 2023 in GWh (Beispielwert, bitte anpassen)
-WWB_a = 80e3  # WWB_Gebäude 2023 in GWh
+WWB_a = 97e3  # WWB_Gebäude 2023 in GWh
 
 # Erstellt einen DataFrame mit konstantem Warmwasserbedarf pro Tag, variiert durch eine saisonale Sinusfunktion (±10%),
 # mit Minimum im Sommer (Juni/Juli/August) und Maximum im Winter (Dezember/Januar/Februar).
@@ -36,11 +36,18 @@ daily_values_gwh = daily_base_gwh * seasonal_factor
 
 # DataFrame erstellen mit erwarteter Spaltenbezeichnung
 df = pd.DataFrame({'Warmwasserbedarf [GWh]': daily_values_gwh}, index=dates)
+df['Warmwasserbedarf [MWh]'] = df['Warmwasserbedarf [GWh]'] * 1000.0  # in MWh
 
+wwb=df.copy()
 
+wwb.index = wwb.index.tz_localize('UTC')
+wwb.index = wwb.index.strftime('%Y-%m-%d')
 # Ergebnis in eine Excel-Datei speichern
 df.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23.xlsx')
 
+
+
+#%% Grafik
 # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
@@ -176,6 +183,6 @@ df_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_15min_23.xlsx')
 
 #ggf. kann hier noch eine Tag-Nacht-Wichtung eingebaut werden
 
-
+#%%
 
 print('Warmwasserbedarf skript beendet')

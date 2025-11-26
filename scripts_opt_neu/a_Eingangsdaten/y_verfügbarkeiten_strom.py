@@ -40,5 +40,15 @@ strom_verfügbarkeiten_23 = prepare_energy_charts(strom_erzeuger_23, 2023)
 
 strom_verfügbarkeiten_23.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index=True)
 
+#durchschnittliche tägliche Verfügbarkeit für Solarthermie ermitteln
+solarthermie_verfügbarkeiten_23 = strom_verfügbarkeiten_23[['Fotovoltaik']].copy()
+solarthermie_verfügbarkeiten_23['Datum'] = solarthermie_verfügbarkeiten_23.index.date
+solarthermie_tageswerte = solarthermie_verfügbarkeiten_23.groupby('Datum')['Fotovoltaik'].mean()
+solarthermie_tageswerte.rename('Solarthermie', inplace=True)
+
+
+
+solarthermie_tageswerte.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Solarthermie_täglich_2023.xlsx', index=True)
+
 
 print('Ende y_verfügbarkeiten_strom.py')
