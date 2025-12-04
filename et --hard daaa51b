@@ -1,0 +1,20 @@
+[33mdaaa51b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mvollständige_Elektrifizierung[m[33m, [m[1;31morigin/vollständige_Elektrifizierung[m[33m)[m Auswertung zunächst in excel
+[33m5309ce9[m c_rate als constraint den speichern hinzugefügt
+[33me4ca30e[m ramping angepasst und h2-kaverne erweitert. grafische auswertung akutalisiert
+[33mcd0df37[m vollständige_Elektrifizierung_grundgerüst
+[33m57bad4e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m strom_bedarf_erzeuger_speicher
+[33m4d17f4e[m bedarfsdekung ohne speicher 1.0
+[33m110dec4[m bedarfsdeckung ohne speicher 1.0
+[33ma73280c[m Merge branch 'main' of https://github.com/Johannes-res/knEBiD
+[33me4de1b2[m neue ordnerstruktur
+[33mf349dc6[m Update README.md
+[33m857d1f1[m wärmeerzeuger und beedarf mit hinzugefügt
+[33m4e92c88[m[33m ([m[1;31morigin/new-structure[m[33m)[m strom mit speicher funzt, jedoch noch 'sinnlose' schwankung in be und entladung.
+[33m839a8d3[m attribute 'Art' und 'Träger' hinzugefügt. vorbereitung für implementierung wandler und speicher. kosten*(inst_leistung-untere grenze)
+[33md4ea562[m mit opt 0.1.py stufenweiser Aufbau des Optimierungsmodells. zunächst nur Stromerzeuger zur Strombedarfsdeckung mit Mischung aus rech. Werten und Annahmen.
+[33m92204ee[m Bedarf bereit und erste Versuche mit Optimierung
+[33m2bb41f2[m klimaneutral heute 0.2
+[33mbe2c329[m klimaneutral heute 0.1
+[33m7526345[m erstellung der erzeugerseite
+[33m6f50e38[m verbraucher initial hinzugefügt und erzeuger begonnen
+[33m48ed6c6[m darstellungsfunktion angepasst prognose bereit für daten

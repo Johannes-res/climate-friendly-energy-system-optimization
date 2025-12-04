@@ -90,6 +90,8 @@ ergebnis_model = main()
 
 results= speichere_ergebnisse(ergebnis_model)
 
+
+
 # if identify_infeasible_constraints is not None:
 #     bad = list(identify_infeasible_constraints(ergebnis_model, tol=1e-6))
 #     for c in bad[:50]:
