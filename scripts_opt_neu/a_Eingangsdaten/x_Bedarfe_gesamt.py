@@ -1,5 +1,7 @@
 import pandas as pd
 from x_strombedarf_org import strom_last_23
+print("✓ strom_last_23 importiert")
+
 from x_emobbedarf import e_mob_bedarf
 from x_raumwärmebedarf import rwb
 from x_warmwasserbedarf import wwb

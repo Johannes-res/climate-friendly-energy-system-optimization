@@ -113,6 +113,38 @@ def speichere_ergebnisse(model):
             df_pump.set_index('Zeitstempel', inplace=True)
             
             speicher_daten[f'{tech}_Pump'] = df_pump
+    # Wasserstoffspeicher (stündliche Auflösung)
+        if hasattr(model, 'h2_stand'):
+            h2_techs = [s for s in model.techs 
+                       if model.art_map[s] == 'Speicher' 
+                       and 'Wasserstoff' in s]
+            
+            for tech in h2_techs:
+                # SOC
+                soc_data = {t: pyo.value(model.h2_stand[tech, t]) 
+                           for t in model.T_hourly 
+                           if model.h2_stand[tech, t].value is not None}
+                
+                # Leistung
+                power_data = {t: pyo.value(model.h2_leistung[tech, t]) 
+                             for t in model.T_hourly 
+                             if model.h2_leistung[tech, t].value is not None}
+                
+                # Kapazität
+                capacity = pyo.value(model.h2_kapazitaet[tech])
+                
+                # DataFrame erstellen
+                df_h2 = pd.DataFrame({
+                    'Zeitstempel': list(soc_data.keys()),
+                    'SOC [MWh]': list(soc_data.values()),
+                    'Leistung [MW]': list(power_data.values()),
+                    'Kapazität [MWh]': [capacity] * len(soc_data),
+                    'SOC [%]': [soc_data[t] / capacity * 100 if capacity > 0 else 0 
+                               for t in soc_data.keys()]
+                })
+                df_h2.set_index('Zeitstempel', inplace=True)
+                
+                speicher_daten[f'{tech}_H2'] = df_h2
     
     # Speicher-Zeitreihen in Excel schreiben
     if speicher_daten:
@@ -150,6 +182,73 @@ def speichere_ergebnisse(model):
     print(f"1. Installierte Leistungen: data\\b_Optimierung\\opt_inst_Leistung.xlsx")
     print(f"2. Speicher-Zeitreihen: data\\b_Optimierung\\opt_speicher_zeitreihen.xlsx")
     print(f"3. Speicher-Statistiken: data\\b_Optimierung\\opt_speicher_statistiken.xlsx")
+    # Drucke annualisierte Kosten pro Technologie (als Pyomo-Ausdrücke, nach Lösung)
+    
+    WACC = 0.05  # 5% Standard für Energieprojekte
+
+    
+    from a_inputs import kosten, df_parameter, lebensdauer
+    per_tech = {}
+
+    def calculate_crf(lifetime, wacc=WACC):
+        """Berechnet Capital Recovery Factor"""
+        try:
+            lifetime = float(lifetime)
+        except Exception:
+            return 1.0
+        if lifetime <= 0:
+            return 1.0
+        if wacc == 0:
+            return 1.0 / lifetime
+        return (wacc * (1 + wacc) ** lifetime) / ((1 + wacc) ** lifetime - 1)
+
+    # Numerische Berechnung der annualisierten CAPEX pro Technologie
+    for (t, c) in getattr(model, 'inst_leistung_index', []):
+        # sichere Wertauslese (kann None oder ein Pyomo-Ausdruck sein)
+        try:
+            installed_val = pyo.value(model.inst_leistung[t, c])
+        except Exception:
+            continue
+
+        if installed_val is None:
+            continue
+
+        # untere Grenze aus df_parameter (falls vorhanden)
+        if t in df_parameter.index:
+            try:
+                lower_bound = float(df_parameter.loc[t, 'untere Grenze [MW]'])
+            except Exception:
+                lower_bound = 0.0
+        else:
+            lower_bound = 0.0
+
+        added_capacity = max(0.0, installed_val - lower_bound)
+
+        unit_cost = float(kosten.get(t, 0.0))
+        capex_total = unit_cost * added_capacity  # einmalige CAPEX in EUR (oder Einheit von kosten)
+
+        life = lebensdauer.get(t, 1)
+        crf = calculate_crf(life, WACC)
+        annualized_capex = capex_total * crf
+
+        per_tech.setdefault(t, 0.0)
+        per_tech[t] += float(annualized_capex)
+
+    print("\nAnnualisierte CAPEX pro Technologie (numerisch):")
+    for t, val in per_tech.items():
+        print(f"  {t}: {val:.2f} pro Jahr")
+
+    total_annualized = sum(per_tech.values())
+    print(f"Gesamt annualisierte CAPEX: {total_annualized:.2f} pro Jahr")
+    
+    # Speichere Kosten in opt_inst_Leistung.xlsx
+    with pd.ExcelWriter(r'data\b_Optimierung\opt_inst_Leistung.xlsx', mode='a', if_sheet_exists='replace') as writer:
+        df_costs = pd.DataFrame({
+            'Technologie': list(per_tech.keys()),
+            'Annualisierte CAPEX [EUR/Jahr]': list(per_tech.values())
+        })
+        df_costs.set_index('Technologie', inplace=True)
+        df_costs.to_excel(writer, sheet_name='Kosten')
     
     return results
 

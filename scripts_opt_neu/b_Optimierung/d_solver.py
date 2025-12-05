@@ -3,7 +3,7 @@ from pyomo.opt import SolverFactory
 from a_inputs import kosten, df_parameter
 
 def solve_model(model):
-    solver = SolverFactory('cbc')  # oder 'glpk'
+    solver = SolverFactory('cbc')
     results = solver.solve(model, tee=True)
     if results.solver.termination_condition == pyo.TerminationCondition.optimal:
         print("Optimale Lösung gefunden:")

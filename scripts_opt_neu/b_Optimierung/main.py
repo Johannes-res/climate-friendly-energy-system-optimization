@@ -1,3 +1,12 @@
+import os
+from pathlib import Path
+
+# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)
+project_root = Path(__file__).parent.parent.parent
+os.chdir(project_root)
+print(f"Working Directory: {os.getcwd()}")
+
+
 import a_inputs as a_inputs
 import b_model_structure as b_model_structure
 import c_storage_constraints as c_storage_constraints
@@ -89,6 +98,8 @@ def main():
 ergebnis_model = main()
 
 results= speichere_ergebnisse(ergebnis_model)
+
+
 
 # if identify_infeasible_constraints is not None:
 #     bad = list(identify_infeasible_constraints(ergebnis_model, tol=1e-6))

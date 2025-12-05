@@ -57,9 +57,25 @@ def define_constraints(model, df_bedarf, df_bedarf_daily):
                 time_idx = time_list.index(time)
                 hourly_idx = time_idx // 4
                 
-                if hourly_idx < len(list(m.T_hourly)):
-                    hourly_time = list(m.T_hourly)[hourly_idx]
-                    pump_beitrag = sum(m.pump_leistung[s, hourly_time] for s in pump_techs)
+                # Pumpspeicher-Leistung der aktuellen Stunde nutzen
+                pump_beitrag = sum(m.pump_leistung[s, hourly_time] for s in pump_techs)
+
+                # Wasserstoffspeicher (stündlich → auf 15min interpolieren)
+                h2_beitrag = 0
+                if hasattr(m, 'h2_leistung'):
+                    h2_techs = [t for t in m.techs 
+                                if m.art_map[t] == 'Speicher' 
+                                and 'Wasserstoff' in t]
+                    
+                    if h2_techs:
+                        # Finde nächste volle Stunde (abrunden)
+                        hourly_idx = time_idx // 4
+                        hourly_time = list(m.T_hourly)[hourly_idx]
+                        
+                        # Wasserstoffspeicher-Leistung der aktuellen Stunde nutzen
+                        h2_beitrag = sum(m.h2_leistung[s, hourly_time] for s in h2_techs)
+
+                return erzeugung + batterie_beitrag + pump_beitrag + h2_beitrag >= m.Strombedarf[time]
         
         return erzeugung + batterie_beitrag + pump_beitrag >= m.Strombedarf[time]
 

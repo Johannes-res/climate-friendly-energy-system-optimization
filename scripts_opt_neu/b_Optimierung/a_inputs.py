@@ -28,7 +28,8 @@ wirkungsgrade = (df_parameter['Wirkungsgrad']).to_dict()
 #untere_kapazitaetsgrenzen = (df_parameter['untere Kapagrenze [MWh]']).to_dict()
 #obere_kapazitaetsgrenzen = (df_parameter['obere Kapagrenze [MWh]']).to_dict()
 #selbstentladungsrate = (df_parameter['Selbstentladungsrate [%/Tag]']).to_dict()
-#c_rate = (df_parameter['C-Rate']).to_dict()
+c_rate = (df_parameter['C-Rate']).to_dict()
+lebensdauer = (df_parameter['Lebensdauer']).to_dict()
 
 # Filter für gemeinsame Technologien in Erzeuger-Verfügbarkeits-Daten
 gemeinsame_s_techs = [t for t in strom_verfügbarkeiten_23.columns if t in df_parameter.index and traeger_dict[t] == 'Strom']

@@ -1,4 +1,11 @@
 import pandas as pd
+import os
+from pathlib import Path
+
+# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)
+project_root = Path(__file__).parent.parent.parent
+os.chdir(project_root)
+print(f"Working Directory: {os.getcwd()}")
 
 strom_last_23 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2023.xlsx')
 
