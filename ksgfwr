@@ -1,0 +1,2534 @@
+[1mdiff --git a/.gitignore b/.gitignore[m
+[1mdeleted file mode 100644[m
+[1mindex 86bcd47..0000000[m
+[1m--- a/.gitignore[m
+[1m+++ /dev/null[m
+[36m@@ -1,3 +0,0 @@[m
+[31m-[m
+[31m-# VS Code settings[m
+[31m-.vscode/[m
+[1mdiff --git a/data/Auswertung_elektrifizierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx b/data/Auswertung_elektrifizierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 709c4bc..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/Erkenntnisse.txt b/data/Auswertung_elektrifizierung/Erkenntnisse.txt[m
+[1mdeleted file mode 100644[m
+[1mindex bea460c..0000000[m
+[1m--- a/data/Auswertung_elektrifizierung/Erkenntnisse.txt[m
+[1m+++ /dev/null[m
+[36m@@ -1,9 +0,0 @@[m
+[31m-- minimaler Deckungsgrad sind 99,9999 --> wichtigste constraint eingehalten[m
+[31m-- deckungsgrad meist 100% --> sieht nach optimnaler speichernutzung aus[m
+[31m-- Batterieleistung/Ladung sehr sprunghaft --> entspricht gewünschtem verhalten eines schnellen Speichers[m
+[31m-- Pumpspeicher träger, scheint tägliche Schwankungen auszugleichen --> ebenso gewünschtes verhalten[m
+[31m-- Wasserstoffspeicher noch träger --> scheint saisonale Schwankungen auszugleichen wie gewünscht[m
+[31m-[m
+[31m---> wie fest sollte man an der C-Rate festhalten?[m
+[31m-[m
+[31m-- ausbaugrad erzeuger siehe opt_inst_leistung[m
+\ No newline at end of file[m
+[1mdiff --git "a/data/Auswertung_elektrifizierung/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx" "b/data/Auswertung_elektrifizierung/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex ec632a6..0000000[m
+Binary files "a/data/Auswertung_elektrifizierung/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx" and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/bedarf_deckung.xlsx b/data/Auswertung_elektrifizierung/bedarf_deckung.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 6944511..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/bedarf_deckung.xlsx and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png b/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png[m
+[1mdeleted file mode 100644[m
+[1mindex e191e66..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png and /dev/null differ
+[1mdiff --git "a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex 9ea9183..0000000[m
+Binary files "a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png b/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png[m
+[1mdeleted file mode 100644[m
+[1mindex 930b0b9..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_2023-11-27.png b/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_2023-11-27.png[m
+[1mdeleted file mode 100644[m
+[1mindex e842203..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_2023-11-27.png and /dev/null differ
+[1mdiff --git "a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex 02dc7ad..0000000[m
+Binary files "a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_['2023-11-30'].png b/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_['2023-11-30'].png[m
+[1mdeleted file mode 100644[m
+[1mindex 2bf10d4..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/bedarf_und_deckung_speicher_['2023-11-30'].png and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/opt_inst_Leistung.xlsx b/data/Auswertung_elektrifizierung/opt_inst_Leistung.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 35e33e2..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/opt_inst_Leistung.xlsx and /dev/null differ
+[1mdiff --git "a/data/Auswertung_elektrifizierung/opt_inst_Leistung_verf\303\274gbar.xlsx" "b/data/Auswertung_elektrifizierung/opt_inst_Leistung_verf\303\274gbar.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex b277600..0000000[m
+Binary files "a/data/Auswertung_elektrifizierung/opt_inst_Leistung_verf\303\274gbar.xlsx" and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/opt_speicher_statistiken.xlsx b/data/Auswertung_elektrifizierung/opt_speicher_statistiken.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 632ac6d..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/opt_speicher_statistiken.xlsx and /dev/null differ
+[1mdiff --git a/data/Auswertung_elektrifizierung/opt_speicher_zeitreihen.xlsx b/data/Auswertung_elektrifizierung/opt_speicher_zeitreihen.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 55626ee..0000000[m
+Binary files a/data/Auswertung_elektrifizierung/opt_speicher_zeitreihen.xlsx and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Lastprofile_15min.xlsx" "b/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Lastprofile_15min.xlsx"[m
+[1mindex d9a2bc1..e185745 100644[m
+Binary files "a/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Lastprofile_15min.xlsx" and "b/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Lastprofile_15min.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Zeitreihe_15min_Jahr.xlsx" "b/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Zeitreihe_15min_Jahr.xlsx"[m
+[1mindex 8bfdc42..a215a98 100644[m
+Binary files "a/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Zeitreihe_15min_Jahr.xlsx" and "b/data/a_Eingangsdaten/Mobilit\303\244t/EMob_Zeitreihe_15min_Jahr.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/Mobilit\303\244t/E_Mob_Woche_plot.png" "b/data/a_Eingangsdaten/Mobilit\303\244t/E_Mob_Woche_plot.png"[m
+[1mindex 56b1348..9d660e1 100644[m
+Binary files "a/data/a_Eingangsdaten/Mobilit\303\244t/E_Mob_Woche_plot.png" and "b/data/a_Eingangsdaten/Mobilit\303\244t/E_Mob_Woche_plot.png" differ
+[1mdiff --git "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Elektrifizierung_annualisiert.xlsx" "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Elektrifizierung_annualisiert.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 8cb0c9e..0000000[m
+Binary files "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Elektrifizierung_annualisiert.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_Wandler_experimentell.xlsx" "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_Wandler_experimentell.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 02cbb0d..0000000[m
+Binary files "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_Wandler_experimentell.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_experimentell.xlsx" "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_experimentell.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex ebd35f1..0000000[m
+Binary files "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - Strom und W\303\244rme_experimentell.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx" "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx"[m
+[1mindex bd5953b..f61bcee 100644[m
+Binary files "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx" and "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom_W\303\244rme.xlsx" "b/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom_W\303\244rme.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex c92e968..0000000[m
+Binary files "a/data/a_Eingangsdaten/Optimierungsgr\303\266\303\237en - mit Speicher_Strom_W\303\244rme.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rme_Strombedarf_15min_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rme_Strombedarf_15min_23.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex cbbd92b..0000000[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rme_Strombedarf_15min_23.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_15min_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_15min_23.xlsx"[m
+[1mindex 86d9519..1ed26d1 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_15min_23.xlsx" and "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_15min_23.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23.xlsx"[m
+[1mindex 9a66aa4..c498507 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23.xlsx" and "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23_a_plot.png" "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23_a_plot.png"[m
+[1mindex 5b48367..2b7f267 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23_a_plot.png" and "b/data/a_Eingangsdaten/W\303\244rme/Raumw\303\244rmebedarf_t\303\244glich_23_a_plot.png" differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Warmwasser_Strombedarf_15min_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Warmwasser_Strombedarf_15min_23.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex bffb399..0000000[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Warmwasser_Strombedarf_15min_23.xlsx" and /dev/null differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_15min_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_15min_23.xlsx"[m
+[1mindex 347577b..52f64d0 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_15min_23.xlsx" and "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_15min_23.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23.xlsx" "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23.xlsx"[m
+[1mindex 5e8193d..e5d1e6d 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23.xlsx" and "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23.xlsx" differ
+[1mdiff --git "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23_a_plot.png" "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23_a_plot.png"[m
+[1mindex 685302d..053c902 100644[m
+Binary files "a/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23_a_plot.png" and "b/data/a_Eingangsdaten/W\303\244rme/Warmwasserbedarf_t\303\244glich_23_a_plot.png" differ
+[1mdiff --git a/data/b_Optimierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx b/data/b_Optimierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 709c4bc..0000000[m
+Binary files a/data/b_Optimierung/Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx and /dev/null differ
+[1mdiff --git a/data/b_Optimierung/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx b/data/b_Optimierung/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx[m
+[1mindex 2f3fe87..1df2383 100644[m
+Binary files a/data/b_Optimierung/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx and b/data/b_Optimierung/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx differ
+[1mdiff --git "a/data/b_Optimierung/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx" "b/data/b_Optimierung/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 3db5016..0000000[m
+Binary files "a/data/b_Optimierung/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx" and /dev/null differ
+[1mdiff --git "a/data/b_Optimierung/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx" "b/data/b_Optimierung/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx"[m
+[1mindex 651e02a..34830a8 100644[m
+Binary files "a/data/b_Optimierung/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx" and "b/data/b_Optimierung/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx" differ
+[1mdiff --git a/data/b_Optimierung/opt_inst_Leistung.xlsx b/data/b_Optimierung/opt_inst_Leistung.xlsx[m
+[1mindex 741aaa9..59bf635 100644[m
+Binary files a/data/b_Optimierung/opt_inst_Leistung.xlsx and b/data/b_Optimierung/opt_inst_Leistung.xlsx differ
+[1mdiff --git a/data/b_Optimierung/opt_speicher_statistiken.xlsx b/data/b_Optimierung/opt_speicher_statistiken.xlsx[m
+[1mindex 8873693..f7e5c70 100644[m
+Binary files a/data/b_Optimierung/opt_speicher_statistiken.xlsx and b/data/b_Optimierung/opt_speicher_statistiken.xlsx differ
+[1mdiff --git a/data/b_Optimierung/opt_speicher_zeitreihen.xlsx b/data/b_Optimierung/opt_speicher_zeitreihen.xlsx[m
+[1mindex e3b899a..e230fb0 100644[m
+Binary files a/data/b_Optimierung/opt_speicher_zeitreihen.xlsx and b/data/b_Optimierung/opt_speicher_zeitreihen.xlsx differ
+[1mdiff --git "a/data/b_Optimierung/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx" "b/data/b_Optimierung/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 6c4dc20..0000000[m
+Binary files "a/data/b_Optimierung/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/bedarf_deckung.xlsx b/data/c_Auswertung/bedarf_deckung.xlsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c9945e7[m
+Binary files /dev/null and b/data/c_Auswertung/bedarf_deckung.xlsx differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_basis_23_2023-11-27.png b/data/c_Auswertung/bedarf_und_deckung_basis_23_2023-11-27.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9b02734[m
+Binary files /dev/null and b/data/c_Auswertung/bedarf_und_deckung_basis_23_2023-11-27.png differ
+[1mdiff --git "a/data/c_Auswertung/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mnew file mode 100644[m
+[1mindex 0000000..71a687d[m
+Binary files /dev/null and "b/data/c_Auswertung/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_basis_23_['2023-11-30'].png b/data/c_Auswertung/bedarf_und_deckung_basis_23_['2023-11-30'].png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..46e32d2[m
+Binary files /dev/null and b/data/c_Auswertung/bedarf_und_deckung_basis_23_['2023-11-30'].png differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png b/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png[m
+[1mdeleted file mode 100644[m
+[1mindex e191e66..0000000[m
+Binary files a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_2023-11-27.png and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex 9ea9183..0000000[m
+Binary files "a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png b/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png[m
+[1mdeleted file mode 100644[m
+[1mindex 930b0b9..0000000[m
+Binary files a/data/c_Auswertung/bedarf_und_deckung_elektrifizierung_23_['2023-11-30'].png and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_speicher_2023-11-27.png b/data/c_Auswertung/bedarf_und_deckung_speicher_2023-11-27.png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..71d5518[m
+Binary files /dev/null and b/data/c_Auswertung/bedarf_und_deckung_speicher_2023-11-27.png differ
+[1mdiff --git "a/data/c_Auswertung/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mnew file mode 100644[m
+[1mindex 0000000..869b57d[m
+Binary files /dev/null and "b/data/c_Auswertung/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" differ
+[1mdiff --git "a/data/c_Auswertung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex 02dc7ad..0000000[m
+Binary files "a/data/c_Auswertung/bedarf_und_deckung_speicher_Strombedarf und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/bedarf_und_deckung_speicher_['2023-11-30'].png b/data/c_Auswertung/bedarf_und_deckung_speicher_['2023-11-30'].png[m
+[1mnew file mode 100644[m
+[1mindex 0000000..659fd9b[m
+Binary files /dev/null and b/data/c_Auswertung/bedarf_und_deckung_speicher_['2023-11-30'].png differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/grafik_test.png b/data/c_Auswertung/grafik_test.png[m
+[1msimilarity index 100%[m
+[1mrename from data/c_Auswertung/strom mit speicher/grafik_test.png[m
+[1mrename to data/c_Auswertung/grafik_test.png[m
+[1mdiff --git "a/data/c_Auswertung/opt_inst_Leistung_verf\303\274gbar.xlsx" "b/data/c_Auswertung/opt_inst_Leistung_verf\303\274gbar.xlsx"[m
+[1mnew file mode 100644[m
+[1mindex 0000000..90a1dcf[m
+Binary files /dev/null and "b/data/c_Auswertung/opt_inst_Leistung_verf\303\274gbar.xlsx" differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_15min_2023.xlsx b/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_15min_2023.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 8fb468d..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_15min_2023.xlsx and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx b/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 2f3fe87..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx" "b/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 4eaa020..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Solarthermie_t\303\244glich_2023.xlsx" and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx" "b/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 651e02a..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/Verf\303\274gbarkeiten_Stromerzeuger_15min_2023.xlsx" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/bedarf_deckung.xlsx b/data/c_Auswertung/strom mit speicher/bedarf_deckung.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 00344ed..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/bedarf_deckung.xlsx and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_2023-11-27.png b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_2023-11-27.png[m
+[1mdeleted file mode 100644[m
+[1mindex b100bb6..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_2023-11-27.png and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex fcfcace..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_['2023-11-30'].png b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_['2023-11-30'].png[m
+[1mdeleted file mode 100644[m
+[1mindex 1f42d4f..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_basis_23_['2023-11-30'].png and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_2023-11-27.png b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_2023-11-27.png[m
+[1mdeleted file mode 100644[m
+[1mindex 1a580f8..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_2023-11-27.png and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdeleted file mode 100644[m
+[1mindex 28d0738..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_['2023-11-30'].png b/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_['2023-11-30'].png[m
+[1mdeleted file mode 100644[m
+[1mindex 6d3b243..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/bedarf_und_deckung_speicher_['2023-11-30'].png and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/opt_inst_Leistung.xlsx b/data/c_Auswertung/strom mit speicher/opt_inst_Leistung.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex cac495f..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/opt_inst_Leistung.xlsx and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/opt_inst_Leistung_verf\303\274gbar.xlsx" "b/data/c_Auswertung/strom mit speicher/opt_inst_Leistung_verf\303\274gbar.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex e910c19..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/opt_inst_Leistung_verf\303\274gbar.xlsx" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/opt_speicher_statistiken.xlsx b/data/c_Auswertung/strom mit speicher/opt_speicher_statistiken.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex a125bf0..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/opt_speicher_statistiken.xlsx and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom mit speicher/opt_speicher_zeitreihen.xlsx b/data/c_Auswertung/strom mit speicher/opt_speicher_zeitreihen.xlsx[m
+[1mdeleted file mode 100644[m
+[1mindex 5733117..0000000[m
+Binary files a/data/c_Auswertung/strom mit speicher/opt_speicher_zeitreihen.xlsx and /dev/null differ
+[1mdiff --git "a/data/c_Auswertung/strom mit speicher/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx" "b/data/c_Auswertung/strom mit speicher/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx"[m
+[1mdeleted file mode 100644[m
+[1mindex 6c4dc20..0000000[m
+Binary files "a/data/c_Auswertung/strom mit speicher/t\303\244gliche_Bedarfe_Gesamt_2023.xlsx" and /dev/null differ
+[1mdiff --git a/data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_2023-11-27.png b/data/c_Auswertung/test/bedarf_und_deckung_basis_23_2023-11-27.png[m
+[1msimilarity index 100%[m
+[1mrename from data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_2023-11-27.png[m
+[1mrename to data/c_Auswertung/test/bedarf_und_deckung_basis_23_2023-11-27.png[m
+[1mdiff --git "a/data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png" "b/data/c_Auswertung/test/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1msimilarity index 100%[m
+[1mrename from "data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mrename to "data/c_Auswertung/test/bedarf_und_deckung_basis_23_Netzlast und modellierte Erzeugung f\303\274r das Jahr 2023.png"[m
+[1mdiff --git a/data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_['2023-11-30'].png b/data/c_Auswertung/test/bedarf_und_deckung_basis_23_['2023-11-30'].png[m
+[1msimilarity index 100%[m
+[1mrename from data/c_Auswertung/strom ohne speicher/bedarf_und_deckung_basis_23_['2023-11-30'].png[m
+[1mrename to data/c_Auswertung/test/bedarf_und_deckung_basis_23_['2023-11-30'].png[m
+[1mdiff --git a/et --hard daaa51b b/et --hard daaa51b[m
+[1mdeleted file mode 100644[m
+[1mindex dd2b2d2..0000000[m
+[1m--- a/et --hard daaa51b[m	
+[1m+++ /dev/null[m
+[36m@@ -1,20 +0,0 @@[m
+[31m-[33mdaaa51b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mvollständige_Elektrifizierung[m[33m, [m[1;31morigin/vollständige_Elektrifizierung[m[33m)[m Auswertung zunächst in excel[m
+[31m-[33m5309ce9[m c_rate als constraint den speichern hinzugefügt[m
+[31m-[33me4ca30e[m ramping angepasst und h2-kaverne erweitert. grafische auswertung akutalisiert[m
+[31m-[33mcd0df37[m vollständige_Elektrifizierung_grundgerüst[m
+[31m-[33m57bad4e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m strom_bedarf_erzeuger_speicher[m
+[31m-[33m4d17f4e[m bedarfsdekung ohne speicher 1.0[m
+[31m-[33m110dec4[m bedarfsdeckung ohne speicher 1.0[m
+[31m-[33ma73280c[m Merge branch 'main' of https://github.com/Johannes-res/knEBiD[m
+[31m-[33me4de1b2[m neue ordnerstruktur[m
+[31m-[33mf349dc6[m Update README.md[m
+[31m-[33m857d1f1[m wärmeerzeuger und beedarf mit hinzugefügt[m
+[31m-[33m4e92c88[m[33m ([m[1;31morigin/new-structure[m[33m)[m strom mit speicher funzt, jedoch noch 'sinnlose' schwankung in be und entladung.[m
+[31m-[33m839a8d3[m attribute 'Art' und 'Träger' hinzugefügt. vorbereitung für implementierung wandler und speicher. kosten*(inst_leistung-untere grenze)[m
+[31m-[33md4ea562[m mit opt 0.1.py stufenweiser Aufbau des Optimierungsmodells. zunächst nur Stromerzeuger zur Strombedarfsdeckung mit Mischung aus rech. Werten und Annahmen.[m
+[31m-[33m92204ee[m Bedarf bereit und erste Versuche mit Optimierung[m
+[31m-[33m2bb41f2[m klimaneutral heute 0.2[m
+[31m-[33mbe2c329[m klimaneutral heute 0.1[m
+[31m-[33m7526345[m erstellung der erzeugerseite[m
+[31m-[33m6f50e38[m verbraucher initial hinzugefügt und erzeuger begonnen[m
+[31m-[33m48ed6c6[m darstellungsfunktion angepasst prognose bereit für daten[m
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-312.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-312.pyc[m
+[1mindex 3acb401..2c284bf 100644[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-312.pyc and b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-313.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-313.pyc[m
+[1mdeleted file mode 100644[m
+[1mindex 9a87b7e..0000000[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_emobbedarf.cpython-313.pyc and /dev/null differ
+[1mdiff --git "a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-312.pyc" "b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-312.pyc"[m
+[1mdeleted file mode 100644[m
+[1mindex 0f7d6bc..0000000[m
+Binary files "a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-312.pyc" and /dev/null differ
+[1mdiff --git "a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-313.pyc" "b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-313.pyc"[m
+[1mdeleted file mode 100644[m
+[1mindex 3dbc996..0000000[m
+Binary files "a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_raumw\303\244rmebedarf.cpython-313.pyc" and /dev/null differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-312.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-312.pyc[m
+[1mindex aa6d9ff..876a90b 100644[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-312.pyc and b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-313.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-313.pyc[m
+[1mdeleted file mode 100644[m
+[1mindex 0e94bd9..0000000[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_strombedarf_org.cpython-313.pyc and /dev/null differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-312.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-312.pyc[m
+[1mdeleted file mode 100644[m
+[1mindex a263031..0000000[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-312.pyc and /dev/null differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-313.pyc b/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-313.pyc[m
+[1mdeleted file mode 100644[m
+[1mindex e932888..0000000[m
+Binary files a/scripts_opt_neu/a_Eingangsdaten/__pycache__/x_warmwasserbedarf.cpython-313.pyc and /dev/null differ
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/x_Bedarfe_gesamt.py b/scripts_opt_neu/a_Eingangsdaten/x_Bedarfe_gesamt.py[m
+[1mindex b2db94e..b653c63 100644[m
+[1m--- a/scripts_opt_neu/a_Eingangsdaten/x_Bedarfe_gesamt.py[m
+[1m+++ b/scripts_opt_neu/a_Eingangsdaten/x_Bedarfe_gesamt.py[m
+[36m@@ -1,28 +1,12 @@[m
+[31m-import pandas as pd[m
+ from x_strombedarf_org import strom_last_23[m
+[31m-print("✓ strom_last_23 importiert")[m
+[31m-[m
+ from x_emobbedarf import e_mob_bedarf[m
+[31m-from x_raumwärmebedarf import rwb[m
+[31m-from x_warmwasserbedarf import wwb[m
+[31m-#Gesamtstrombedarf berechnen[m
+[31m-strom_bedarf_gesamt = strom_last_23.copy()[m
+[31m-strom_bedarf_gesamt['E_Mob_Bedarf [MW]'] = e_mob_bedarf[m
+[31m-strom_bedarf_gesamt['Strom_Gesamt_Bedarf [MW]'] = strom_bedarf_gesamt['Strom_Last [MW]'] + strom_bedarf_gesamt['E_Mob_Bedarf [MW]']+ strom_bedarf_gesamt['Industrie_Strom_Last [MW]'][m
+[31m-[m
+[31m-#Gesamtwärmebedarf berechnen[m
+[31m-#Raumwärme und Warmasserbedarf kann zusammengefasst werden. Prozesswärme muss wenn dann spearat mit untersch. Temp niveaus betrachtet werden[m
+[31m-[m
+[31m-täglicher_Bedarf_gesamt = rwb.copy()[m
+[31m-täglicher_Bedarf_gesamt['Warmwasserbedarf [MWh]'] = wwb['Warmwasserbedarf [MWh]'][m
+[31m-[m
+ [m
+[31m-täglicher_Bedarf_gesamt = pd.concat([rwb, wwb], axis=1)[m
+[31m-täglicher_Bedarf_gesamt['Warmwasserbedarf [GWh]'].drop [m
+[31m-täglicher_Bedarf_gesamt['Wärme_Gesamt_Bedarf [MWh]'] = täglicher_Bedarf_gesamt['Raumwärmebedarf [MWh]'] + täglicher_Bedarf_gesamt['Warmwasserbedarf [MWh]'] #zzgl niedertemp prozesswärme[m
+[32m+[m[32m#Gesamtbedarf berechnen[m
+[32m+[m[32mbedarf_gesamt = strom_last_23.copy()[m
+[32m+[m[32mbedarf_gesamt['E_Mob_Bedarf [MW]'] = e_mob_bedarf[m
+[32m+[m[32mbedarf_gesamt['Strom_Gesamt_Bedarf [MW]'] = bedarf_gesamt['Strom_Last [MW]'] + bedarf_gesamt['E_Mob_Bedarf [MW]']+ bedarf_gesamt['Industrie_Strom_Last [MW]'][m
+ [m
+ [m
+[31m-täglicher_Bedarf_gesamt.to_excel(r'data\b_Optimierung\tägliche_Bedarfe_Gesamt_2023.xlsx', index=True)[m
+[31m-strom_bedarf_gesamt.to_excel(r'data\b_Optimierung\Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx', index=True)[m
+[32m+[m[32mbedarf_gesamt.to_excel(r'data\b_Optimierung\Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx', index=True)[m
+ [m
+ print('Ende x_Bedarfe_gesamt.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/x_emobbedarf.py b/scripts_opt_neu/a_Eingangsdaten/x_emobbedarf.py[m
+[1mindex f370226..b23e561 100644[m
+[1m--- a/scripts_opt_neu/a_Eingangsdaten/x_emobbedarf.py[m
+[1m+++ b/scripts_opt_neu/a_Eingangsdaten/x_emobbedarf.py[m
+[36m@@ -282,7 +282,7 @@[m [mdef erstelle_jahreszeitreihe(df_lastprofile):[m
+ df_jahr = erstelle_jahreszeitreihe(df_Lastprofil_EMob_jahr)[m
+ [m
+ [m
+[31m-df_jahr['EEV_aufgeteilt'] = df_jahr['Zeitreihe'] * 261.05*1e6/365  # Annahme: 261,05 TWh/Jahr E-Mobilität in Deutschland --> in GWh umrechnen/365 Tage[m
+[32m+[m[32mdf_jahr['EEV_aufgeteilt'] = df_jahr['Zeitreihe'] * 261.05*1e3/365  # Annahme: 261,05 TWh/Jahr E-Mobilität in Deutschland --> in GWh umrechnen/365 Tage[m
+ df_jahr['Last_emob'] = df_jahr['EEV_aufgeteilt']*4  # Umrechnung von 15min Energiewerten auf Leistung in GW (4*15min = 1h)[m
+ [m
+ [m
+[36m@@ -315,7 +315,7 @@[m [max.plot([m
+     marker='o',[m
+     markersize=4,[m
+     alpha=0.95,[m
+[31m-    label='E-Mobilitätsbedarf [MW]'[m
+[32m+[m[32m    label='E-Mobilitätsbedarf [GW]'[m
+ )[m
+ [m
+ # Hintergrund weiß[m
+[36m@@ -329,7 +329,7 @@[m [max.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinie[m
+ # Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen[m
+ ax.set_title('modellierter E-Mobilitätsbedarf 2023', fontsize=14, fontweight='bold', color=text_color)[m
+ ax.set_xlabel('Datum', fontsize=12, color=text_color)[m
+[31m-ax.set_ylabel('E-Mobilitätsbedarf [MW]', fontsize=12, color=text_color)[m
+[32m+[m[32max.set_ylabel('E-Mobilitätsbedarf [GW]', fontsize=12, color=text_color)[m
+ [m
+ # Y-Achse bei 0 beginnen lassen[m
+ ax.set_ylim(bottom=0)[m
+[1mdiff --git "a/scripts_opt_neu/a_Eingangsdaten/x_raumw\303\244rmebedarf.py" "b/scripts_opt_neu/a_Eingangsdaten/x_raumw\303\244rmebedarf.py"[m
+[1mindex 3e9b8e4..7d88ccb 100644[m
+[1m--- "a/scripts_opt_neu/a_Eingangsdaten/x_raumw\303\244rmebedarf.py"[m
+[1m+++ "b/scripts_opt_neu/a_Eingangsdaten/x_raumw\303\244rmebedarf.py"[m
+[36m@@ -1,53 +1,48 @@[m
+ from meteostat import Stations, Daily[m
+ from datetime import datetime[m
+ import pandas as pd[m
+[31m-import os[m
+[31m-from pathlib import Path[m
+ [m
+[31m-# # Zeitraum definieren[m
+[31m-# start = datetime(2023, 1, 1)[m
+[31m-# end = datetime(2023, 12, 31)[m
+[32m+[m[32m# Zeitraum definieren[m
+[32m+[m[32mstart = datetime(2023, 1, 1)[m
+[32m+[m[32mend = datetime(2023, 12, 31)[m
+ [m
+[31m-# # Raumwärmebedarf für das Jahr 2023 [m
+[31m-# RWB_a = 431e3  # Raumwärmebedarf Gebäude 2023 in GWh[m
+[32m+[m[32m# Raumwärmebedarf für das Jahr 2023[m[41m [m
+[32m+[m[32mRWB_a = 431e3  # Raumwärmebedarf Gebäude 2023 in GWh[m
+ [m
+[31m-# # Wetterstationen in Deutschland auswählen (z.B. 50 zufällige Stationen)[m
+[31m-# stations = Stations().region('DE').inventory('daily', (start, end)).fetch(limit=100, sample=True)[m
+[32m+[m[32m# Wetterstationen in Deutschland auswählen (z.B. 50 zufällige Stationen)[m
+[32m+[m[32mstations = Stations().region('DE').inventory('daily', (start, end)).fetch(limit=100, sample=True)[m
+ [m
+[31m-# # Tageswerte laden und räumlich mitteln[m
+[31m-# weather = Daily(stations, start, end)[m
+[31m-# df = weather.aggregate('1D', spatial=True).fetch()[m
+[32m+[m[32m# Tageswerte laden und räumlich mitteln[m
+[32m+[m[32mweather = Daily(stations, start, end)[m
+[32m+[m[32mdf = weather.aggregate('1D', spatial=True).fetch()[m
+ [m
+[31m-# # Die Spalte 'tavg' enthält die gemittelte Tagesdurchschnittstemperatur[m
+[31m-# print(df[['tavg']])[m
+[32m+[m[32m# Die Spalte 'tavg' enthält die gemittelte Tagesdurchschnittstemperatur[m
+[32m+[m[32mprint(df[['tavg']])[m
+ [m
+[31m-# #ändert das dateformat in datetime auf werte ohne Zeitumstellung[m
+[31m-# df.index = df.index.tz_localize('UTC')[m
+[31m-# df.index = df.index.strftime('%Y-%m-%d')[m
+[32m+[m[32m#ändert das dateformat in datetime auf werte ohne Zeitumstellung[m
+[32m+[m[32mdf.index = df.index.tz_localize('UTC')[m
+[32m+[m[32mdf.index = df.index.strftime('%Y-%m-%d')[m
+ [m
+ [m
+ [m
+[31m-# # Alle weiteren Werte ausser tavg entfernen[m
+[31m-# df = df[['tavg']][m
+[31m-# # sicherstellen, dass 'tavg' numerisch ist (optional)[m
+[31m-# df['tavg'] = pd.to_numeric(df['tavg'], errors='coerce')[m
+[32m+[m[32m# Alle weiteren Werte ausser tavg entfernen[m
+[32m+[m[32mdf = df[['tavg']][m
+[32m+[m[32m# sicherstellen, dass 'tavg' numerisch ist (optional)[m
+[32m+[m[32mdf['tavg'] = pd.to_numeric(df['tavg'], errors='coerce')[m
+ [m
+[31m-# # wenn tavg <= 15, dann 20 - tavg, sonst 0[m
+[31m-# df['Gradtagzahl'] = (20 - df['tavg']).where(df['tavg'] <= 15, 0)[m
+[32m+[m[32m# wenn tavg <= 15, dann 20 - tavg, sonst 0[m
+[32m+[m[32mdf['Gradtagzahl'] = (20 - df['tavg']).where(df['tavg'] <= 15, 0)[m
+ [m
+[31m-# # Werte, welche zwischen dem 1.5. und 30.9. liegen, auf 0 setzen[m
+[31m-# df.loc[(df.index >= '2023-05-01') & (df.index <= '2023-09-30'), 'Gradtagzahl'] = 0[m
+[32m+[m[32m# Werte, welche zwischen dem 1.5. und 30.9. liegen, auf 0 setzen[m
+[32m+[m[32mdf.loc[(df.index >= '2023-05-01') & (df.index <= '2023-09-30'), 'Gradtagzahl'] = 0[m
+[32m+[m
+[32m+[m[32m#Gradtagzahlen durch die Summe der Gradtagzahlen teilen.[m
+[32m+[m[32mdf['Raumwärmebedarf [GWh]'] = df['Gradtagzahl'] / df['Gradtagzahl'].sum() * RWB_a[m
+ [m
+[31m-# #Gradtagzahlen durch die Summe der Gradtagzahlen teilen.[m
+[31m-# df['Raumwärmebedarf [GWh]'] = df['Gradtagzahl'] / df['Gradtagzahl'].sum() * RWB_a[m
+ [m
+[31m-df['Raumwärmebedarf [MWh]'] = df['Raumwärmebedarf [GWh]'] * 1000.0  # in MWh[m
+[31m-rwb = df['Raumwärmebedarf [MWh]'].copy()[m
+ # Ergebnis in eine Excel-Datei speichern[m
+ df.to_excel(r'data\a_Eingangsdaten\Wärme\Raumwärmebedarf_täglich_23.xlsx')[m
+ [m
+[31m-[m
+[31m-#%% Grafik[m
+ # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)[m
+ import matplotlib.pyplot as plt[m
+ import matplotlib.dates as mdates[m
+[36m@@ -150,8 +145,7 @@[m [mplt.close(fig)[m
+ def expand_daily_to_15min(df_daily, value_col='Raumwärmebedarf [GWh]'):[m
+     """[m
+     Erweitert ein tägliches DataFrame zu einer 15-Minuten-Zeitreihe.[m
+[31m-    - Bei 'Raumwärmebedarf [GWh]' wird der Tageswert gleichmäßig auf 96 Intervalle verteilt.[m
+[31m-    - Bei 'Strombedarf_Raumwärme [GW]' bleibt die Leistung konstant (kein Teilen durch 96).[m
+[32m+[m[32m    Der Tageswert in `value_col` wird gleichmäßig auf 96 Intervalle verteilt.[m
+     Rückgabe: DataFrame mit 15-min Index und gleicher Spaltenbezeichnung.[m
+     """[m
+     df_daily = df_daily.copy()[m
+[36m@@ -166,143 +160,15 @@[m [mdef expand_daily_to_15min(df_daily, value_col='Raumwärmebedarf [GWh]'):[m
+     day_vals = df_daily[value_col].copy()[m
+     day_vals.index = day_vals.index.normalize()[m
+ [m
+[31m-    # Für jeden 15-min-Zeitpunkt den zugehörigen Tageswert holen[m
+[32m+[m[32m    # Für jeden 15-min-Zeitpunkt den zugehörigen Tageswert holen und durch 96 teilen[m
+     day_index_for_15 = idx_15.normalize()[m
+[31m-    [m
+[31m-    # Bei Leistung (GW) nicht teilen, bei Energie (GWh) durch 96 teilen[m
+[31m-    if value_col == 'Strombedarf_Raumwärme [GW]':[m
+[31m-        values_15 = day_vals.reindex(day_index_for_15).values  # Leistung bleibt konstant[m
+[31m-    else:[m
+[31m-        values_15 = day_vals.reindex(day_index_for_15).values / 96.0  # 96 * 15min = 1 Tag[m
+[32m+[m[32m    values_15 = day_vals.reindex(day_index_for_15).values / 96.0  # 96 * 15min = 1 Tag[m
+ [m
+     series_15 = pd.Series(data=values_15, index=idx_15, name=value_col)[m
+     df_15 = series_15.to_frame()[m
+ [m
+     return df_15[m
+ [m
+[31m-[m
+[31m-[m
+[31m-df_strom = raumwärme_mit_strom_decken(df)[m
+[31m-[m
+[31m-df_strom_15min = expand_daily_to_15min(df_strom, value_col='Strombedarf_Raumwärme [GW]')[m
+[31m-[m
+[31m-df_strom_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Raumwärme_Strombedarf_15min_23.xlsx')[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-# # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)[m
+[31m-# import matplotlib.pyplot as plt[m
+[31m-# import matplotlib.dates as mdates[m
+[31m-[m
+[31m-# #%% Daten für das Plot vorbereiten[m
+[31m-# df_plot = df.copy()[m
+[31m-# df_plot.index = pd.to_datetime(df_plot.index)[m
+[31m-[m
+[31m-# fig, ax = plt.subplots(figsize=(12, 6))[m
+[31m-[m
+[31m-# plot_color = '#001450'  # gewünschter Farbcode für Linie und Beschriftungen[m
+[31m-# text_color = plot_color[m
+[31m-[m
+[31m-# # Linie mit kleinen Markern (keine Füllung)[m
+[31m-# ax.plot([m
+[31m-#     df_plot.index,[m
+[31m-#     df_plot['Raumwärmebedarf [GWh]'],[m
+[31m-#     color=plot_color,[m
+[31m-#     linewidth=2,[m
+[31m-#     marker='o',[m
+[31m-#     markersize=4,[m
+[31m-#     alpha=0.95,[m
+[31m-#     label='Raumwärmebedarf'[m
+[31m-# )[m
+[31m-[m
+[31m-# # Hintergrund weiß[m
+[31m-# ax.set_facecolor('white')[m
+[31m-# fig.patch.set_facecolor('white')[m
+[31m-[m
+[31m-# # Nur horizontale Gitternetzlinien[m
+[31m-# ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)[m
+[31m-# ax.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinien gezeichnet werden[m
+[31m-[m
+[31m-# # Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen[m
+[31m-# ax.set_title('modellierter Raumwärmebedarf 2023', fontsize=14, fontweight='bold', color=text_color)[m
+[31m-# ax.set_xlabel('Datum', fontsize=12, color=text_color)[m
+[31m-# ax.set_ylabel('Raumwärmebedarf [GWh]', fontsize=12, color=text_color)[m
+[31m-[m
+[31m-# # Datumsformatierung: Monatsnamen auf der x-Achse[m
+[31m-# ax.xaxis.set_major_locator(mdates.MonthLocator())[m
+[31m-# ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))[m
+[31m-# plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)[m
+[31m-# plt.setp(ax.get_yticklabels(), color=text_color)[m
+[31m-[m
+[31m-# # Achsenränder ebenfalls einfärben[m
+[31m-# for spine in ax.spines.values():[m
+[31m-#     spine.set_color(text_color)[m
+[31m-[m
+[31m-# # Legende einfärben[m
+[31m-# leg = ax.legend(frameon=False)[m
+[31m-# for text in leg.get_texts():[m
+[31m-#     text.set_color(text_color)[m
+[31m-[m
+[31m-# # Achsenticks einfärben[m
+[31m-# ax.tick_params(axis='x', colors=text_color)[m
+[31m-# ax.tick_params(axis='y', colors=text_color)[m
+[31m-[m
+[31m-[m
+[31m-# # --- Pfeile an die Achsen setzen ---[m
+[31m-# # Grenzen holen und leicht erweitern, damit die Pfeilspitzen sichtbar sind[m
+[31m-# x_min, x_max = ax.get_xlim()[m
+[31m-# y_min, y_max = ax.get_ylim()[m
+[31m-# x_range = x_max - x_min if x_max != x_min else 1.0[m
+[31m-# y_range = y_max - y_min if y_max != y_min else 1.0[m
+[31m-[m
+[31m-# x_pad = 0.03 * x_range[m
+[31m-# y_pad = 0.05 * y_range[m
+[31m-[m
+[31m-# # Neue Grenzen setzen (erweitert nach oben/rechts)[m
+[31m-# ax.set_xlim(x_min, x_max + x_pad)[m
+[31m-# ax.set_ylim(y_min, y_max + y_pad)[m
+[31m-[m
+[31m-# # X-Achsenpfeil (von links nach rechts)[m
+[31m-# ax.annotate([m
+[31m-#     '',[m
+[31m-#     xy=(x_max + x_pad, y_min),[m
+[31m-#     xytext=(x_min, y_min),[m
+[31m-#     arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),[m
+[31m-#     clip_on=False[m
+[31m-# )[m
+[31m-[m
+[31m-# # Y-Achsenpfeil (von unten nach oben)[m
+[31m-# ax.annotate([m
+[31m-#     '',[m
+[31m-#     xy=(x_min, y_max + y_pad),[m
+[31m-#     xytext=(x_min, y_min),[m
+[31m-#     arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),[m
+[31m-#     clip_on=False[m
+[31m-# )[m
+[31m-# # --- Ende Pfeile ---[m
+[31m-[m
+[31m-# plt.tight_layout()[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-# # Grafik speichern[m
+[31m-# plt.savefig(r'data\a_Eingangsdaten\Wärme\Raumwärmebedarf_täglich_23_a_plot.png', dpi=150)[m
+[31m-# plt.close(fig)[m
+[31m-[m
+[31m-[m
+[31m-[m
+ # Erzeuge 15-Minuten-Zeitreihen und speichern[m
+ df_15min = expand_daily_to_15min(df, value_col='Raumwärmebedarf [GWh]')[m
+ [m
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/x_strombedarf_org.py b/scripts_opt_neu/a_Eingangsdaten/x_strombedarf_org.py[m
+[1mindex 6cf6d77..1e43dae 100644[m
+[1m--- a/scripts_opt_neu/a_Eingangsdaten/x_strombedarf_org.py[m
+[1m+++ b/scripts_opt_neu/a_Eingangsdaten/x_strombedarf_org.py[m
+[36m@@ -1,11 +1,4 @@[m
+ import pandas as pd[m
+[31m-import os[m
+[31m-from pathlib import Path[m
+[31m-[m
+[31m-# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)[m
+[31m-project_root = Path(__file__).parent.parent.parent[m
+[31m-os.chdir(project_root)[m
+[31m-print(f"Working Directory: {os.getcwd()}")[m
+ [m
+ strom_last_23 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2023.xlsx')[m
+ [m
+[36m@@ -43,6 +36,6 @@[m [mstrom_last_23.rename(columns={'Last': 'Strom_Last [MW]'}, inplace=True)[m
+ [m
+ #Zu strom_last_23 noch eine Spalte mit dem gleichverteilenten Jahresstrombedarf der Industrie hinzufügen[m
+ jahresstrombedarf_industrie = 400000  # in GWh[m
+[31m-strom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle[m
+[32m+[m[32mstrom_last_23['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 / (365 * 24 * 4)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle[m
+ [m
+ print('Ende x_strombedarf_org.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/a_Eingangsdaten/x_warmwasserbedarf.py b/scripts_opt_neu/a_Eingangsdaten/x_warmwasserbedarf.py[m
+[1mindex d5baa6b..2dbc0f5 100644[m
+[1m--- a/scripts_opt_neu/a_Eingangsdaten/x_warmwasserbedarf.py[m
+[1m+++ b/scripts_opt_neu/a_Eingangsdaten/x_warmwasserbedarf.py[m
+[36m@@ -2,16 +2,13 @@[m [mfrom meteostat import Stations, Daily[m
+ from datetime import datetime[m
+ import pandas as pd[m
+ import numpy as np[m
+[31m-from x_raumwärmebedarf import df as df_tavg[m
+[31m-[m
+[31m-df_tavg = df_tavg[['tavg']].copy()[m
+ [m
+ # Zeitraum definieren[m
+ start = datetime(2023, 1, 1)[m
+ end = datetime(2023, 12, 31)[m
+ [m
+ # Warmwasserbedarf für das Jahr 2023 in GWh (Beispielwert, bitte anpassen)[m
+[31m-WWB_a = 97e3  # WWB_Gebäude 2023 in GWh[m
+[32m+[m[32mWWB_a = 80e3  # WWB_Gebäude 2023 in GWh[m
+ [m
+ # Erstellt einen DataFrame mit konstantem Warmwasserbedarf pro Tag, variiert durch eine saisonale Sinusfunktion (±10%),[m
+ # mit Minimum im Sommer (Juni/Juli/August) und Maximum im Winter (Dezember/Januar/Februar).[m
+[36m@@ -39,18 +36,11 @@[m [mdaily_values_gwh = daily_base_gwh * seasonal_factor[m
+ [m
+ # DataFrame erstellen mit erwarteter Spaltenbezeichnung[m
+ df = pd.DataFrame({'Warmwasserbedarf [GWh]': daily_values_gwh}, index=dates)[m
+[31m-df['Warmwasserbedarf [MWh]'] = df['Warmwasserbedarf [GWh]'] * 1000.0  # in MWh[m
+ [m
+[31m-wwb=df.copy()[m
+ [m
+[31m-wwb.index = wwb.index.tz_localize('UTC')[m
+[31m-wwb.index = wwb.index.strftime('%Y-%m-%d')[m
+ # Ergebnis in eine Excel-Datei speichern[m
+[31m-df_wwb.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23.xlsx')[m
+[31m-[m
+[31m-[m
+[32m+[m[32mdf.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23.xlsx')[m
+ [m
+[31m-#%% Grafik[m
+ # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)[m
+ import matplotlib.pyplot as plt[m
+ import matplotlib.dates as mdates[m
+[36m@@ -153,11 +143,10 @@[m [mplt.tight_layout()[m
+ plt.savefig(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23_a_plot.png', dpi=150)[m
+ plt.close(fig)[m
+ [m
+[31m-def expand_daily_to_15min(df_daily, value_col='Raumwärmebedarf [GWh]'):[m
+[32m+[m[32mdef expand_daily_to_15min(df_daily, value_col='Warmwasserbedarf [GWh]'):[m
+     """[m
+     Erweitert ein tägliches DataFrame zu einer 15-Minuten-Zeitreihe.[m
+[31m-    - Bei 'Raumwärmebedarf [GWh]' wird der Tageswert gleichmäßig auf 96 Intervalle verteilt.[m
+[31m-    - Bei 'Strombedarf_Raumwärme [GW]' bleibt die Leistung konstant (kein Teilen durch 96).[m
+[32m+[m[32m    Der Tageswert in `value_col` wird gleichmäßig auf 96 Intervalle verteilt.[m
+     Rückgabe: DataFrame mit 15-min Index und gleicher Spaltenbezeichnung.[m
+     """[m
+     df_daily = df_daily.copy()[m
+[36m@@ -172,146 +161,21 @@[m [mdef expand_daily_to_15min(df_daily, value_col='Raumwärmebedarf [GWh]'):[m
+     day_vals = df_daily[value_col].copy()[m
+     day_vals.index = day_vals.index.normalize()[m
+ [m
+[31m-    # Für jeden 15-min-Zeitpunkt den zugehörigen Tageswert holen[m
+[32m+[m[32m    # Für jeden 15-min-Zeitpunkt den zugehörigen Tageswert holen und durch 96 teilen[m
+     day_index_for_15 = idx_15.normalize()[m
+[31m-    [m
+[31m-    # Bei Leistung (GW) nicht teilen, bei Energie (GWh) durch 96 teilen[m
+[31m-    if value_col == 'Strombedarf_Warmwasser [GW]':[m
+[31m-        values_15 = day_vals.reindex(day_index_for_15).values  # Leistung bleibt konstant[m
+[31m-    else:[m
+[31m-        values_15 = day_vals.reindex(day_index_for_15).values / 96.0  # 96 * 15min = 1 Tag[m
+[32m+[m[32m    values_15 = day_vals.reindex(day_index_for_15).values / 96.0  # 96 * 15min = 1 Tag[m
+ [m
+     series_15 = pd.Series(data=values_15, index=idx_15, name=value_col)[m
+     df_15 = series_15.to_frame()[m
+ [m
+     return df_15[m
+ [m
+[31m-[m
+[31m-df_strom=bedarf_mit_strom_decken(df_wwb,df_tavg)[m
+[31m-[m
+[31m-df_15min = expand_daily_to_15min(df_strom, value_col='Strombedarf_Warmwasser [GW]')[m
+[31m-[m
+[31m-df_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasser_Strombedarf_15min_23.xlsx')[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-# # Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)[m
+[31m-# import matplotlib.pyplot as plt[m
+[31m-# import matplotlib.dates as mdates[m
+[31m-[m
+[31m-# # Daten für das Plot vorbereiten[m
+[31m-# df_plot = df_wwb.copy()[m
+[31m-# df_plot.index = pd.to_datetime(df_plot.index)[m
+[31m-[m
+[31m-# fig, ax = plt.subplots(figsize=(12, 6))[m
+[31m-[m
+[31m-# plot_color = '#001450'  # gewünschter Farbcode für Linie und Beschriftungen[m
+[31m-# text_color = plot_color[m
+[31m-[m
+[31m-# # Linie mit kleinen Markern (keine Füllung)[m
+[31m-# ax.plot([m
+[31m-#     df_plot.index,[m
+[31m-#     df_plot['Warmwasserbedarf [GWh]'],[m
+[31m-#     color=plot_color,[m
+[31m-#     linewidth=2,[m
+[31m-#     marker='o',[m
+[31m-#     markersize=4,[m
+[31m-#     alpha=0.95,[m
+[31m-#     label='Warmwasserbedarf'[m
+[31m-# )[m
+[31m-[m
+[31m-# # Hintergrund weiß[m
+[31m-# ax.set_facecolor('white')[m
+[31m-# fig.patch.set_facecolor('white')[m
+[31m-[m
+[31m-# # Nur horizontale Gitternetzlinien[m
+[31m-# ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)[m
+[31m-# ax.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinien gezeichnet werden[m
+[31m-[m
+[31m-# # Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen[m
+[31m-# ax.set_title('modellierter Warmwasserbedarf 2023', fontsize=14, fontweight='bold', color=text_color)[m
+[31m-# ax.set_xlabel('Datum', fontsize=12, color=text_color)[m
+[31m-# ax.set_ylabel('Warmwasserbedarf [GWh]', fontsize=12, color=text_color)[m
+[31m-[m
+[31m-# # Y-Achse bei 0 beginnen lassen[m
+[31m-# ax.set_ylim(bottom=0)[m
+[31m-[m
+[31m-# # Datumsformatierung: Monatsnamen auf der x-Achse[m
+[31m-# ax.xaxis.set_major_locator(mdates.MonthLocator())[m
+[31m-# ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))[m
+[31m-# plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)[m
+[31m-# plt.setp(ax.get_yticklabels(), color=text_color)[m
+[31m-[m
+[31m-# # Achsenränder ebenfalls einfärben[m
+[31m-# for spine in ax.spines.values():[m
+[31m-#     spine.set_color(text_color)[m
+[31m-[m
+[31m-# # Legende einfärben[m
+[31m-# leg = ax.legend(frameon=False)[m
+[31m-# for text in leg.get_texts():[m
+[31m-#     text.set_color(text_color)[m
+[31m-[m
+[31m-# # Achsenticks einfärben[m
+[31m-# ax.tick_params(axis='x', colors=text_color)[m
+[31m-# ax.tick_params(axis='y', colors=text_color)[m
+[31m-[m
+[31m-# # --- Pfeile an die Achsen setzen ---[m
+[31m-# # Grenzen holen und leicht erweitern, damit die Pfeilspitzen sichtbar sind[m
+[31m-# x_min, x_max = ax.get_xlim()[m
+[31m-# y_min, y_max = ax.get_ylim()[m
+[31m-# x_range = x_max - x_min if x_max != x_min else 1.0[m
+[31m-# y_range = y_max - y_min if y_max != y_min else 1.0[m
+[31m-[m
+[31m-# x_pad = 0.03 * x_range[m
+[31m-# y_pad = 0.05 * y_range[m
+[31m-[m
+[31m-# # Neue Grenzen setzen (erweitert nach oben/rechts)[m
+[31m-# ax.set_xlim(x_min, x_max + x_pad)[m
+[31m-# ax.set_ylim(y_min, y_max + y_pad)[m
+[31m-[m
+[31m-# # X-Achsenpfeil (von links nach rechts)[m
+[31m-# ax.annotate([m
+[31m-#     '',[m
+[31m-#     xy=(x_max + x_pad, y_min),[m
+[31m-#     xytext=(x_min, y_min),[m
+[31m-#     arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),[m
+[31m-#     clip_on=False[m
+[31m-# )[m
+[31m-[m
+[31m-# # Y-Achsenpfeil (von unten nach oben)[m
+[31m-# ax.annotate([m
+[31m-#     '',[m
+[31m-#     xy=(x_min, y_max + y_pad),[m
+[31m-#     xytext=(x_min, y_min),[m
+[31m-#     arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),[m
+[31m-#     clip_on=False[m
+[31m-# )[m
+[31m-# # --- Ende Pfeile ---[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-# plt.tight_layout()[m
+[31m-[m
+[31m-# # Grafik speichern[m
+[31m-# plt.savefig(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23_a_plot.png', dpi=150)[m
+[31m-# plt.close(fig)[m
+[31m-[m
+[31m-[m
+[31m-[m
+ # Erzeuge 15-Minuten-Zeitreihen und speichern[m
+[31m-df_15min_wwb = expand_daily_to_15min(df_wwb, value_col='Warmwasserbedarf [GWh]')[m
+[31m-df_15min_wwb['Last_Warmwasser [GW]'] = df_15min_wwb['Warmwasserbedarf [GWh]'] *4  # Umrechnung in GW[m
+[31m-df_15min_wwb.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_15min_23.xlsx')[m
+[32m+[m[32mdf_15min = expand_daily_to_15min(df, value_col='Warmwasserbedarf [GWh]')[m
+[32m+[m[32mdf_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_15min_23.xlsx')[m
+ [m
+ #ggf. kann hier noch eine Tag-Nacht-Wichtung eingebaut werden[m
+ [m
+[31m-#%%[m
+[32m+[m
+ [m
+ print('Warmwasserbedarf skript beendet')[m
+\ No newline at end of file[m
+[1mdiff --git "a/scripts_opt_neu/a_Eingangsdaten/y_verf\303\274gbarkeiten_strom.py" "b/scripts_opt_neu/a_Eingangsdaten/y_verf\303\274gbarkeiten_strom.py"[m
+[1mindex 9900bc4..0e8cf48 100644[m
+[1m--- "a/scripts_opt_neu/a_Eingangsdaten/y_verf\303\274gbarkeiten_strom.py"[m
+[1m+++ "b/scripts_opt_neu/a_Eingangsdaten/y_verf\303\274gbarkeiten_strom.py"[m
+[36m@@ -40,15 +40,5 @@[m [mstrom_verfügbarkeiten_23 = prepare_energy_charts(strom_erzeuger_23, 2023)[m
+ [m
+ strom_verfügbarkeiten_23.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index=True)[m
+ [m
+[31m-#durchschnittliche tägliche Verfügbarkeit für Solarthermie ermitteln[m
+[31m-solarthermie_verfügbarkeiten_23 = strom_verfügbarkeiten_23[['Fotovoltaik']].copy()[m
+[31m-solarthermie_verfügbarkeiten_23['Datum'] = solarthermie_verfügbarkeiten_23.index.date[m
+[31m-solarthermie_tageswerte = solarthermie_verfügbarkeiten_23.groupby('Datum')['Fotovoltaik'].mean()[m
+[31m-solarthermie_tageswerte.rename('Solarthermie', inplace=True)[m
+[31m-[m
+[31m-[m
+[31m-[m
+[31m-solarthermie_tageswerte.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Solarthermie_täglich_2023.xlsx', index=True)[m
+[31m-[m
+ [m
+ print('Ende y_verfügbarkeiten_strom.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/__init__.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/__init__.cpython-312.pyc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..eb147fd[m
+Binary files /dev/null and b/scripts_opt_neu/b_Optimierung/__pycache__/__init__.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/a_inputs.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/a_inputs.cpython-312.pyc[m
+[1mindex c3ff1aa..d714351 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/a_inputs.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/a_inputs.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/b_model_structure.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/b_model_structure.cpython-312.pyc[m
+[1mindex b8d27f9..6f38bdf 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/b_model_structure.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/b_model_structure.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/c_constraints.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/c_constraints.cpython-312.pyc[m
+[1mindex a371e31..753283f 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/c_constraints.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/c_constraints.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/c_storage_constraints.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/c_storage_constraints.cpython-312.pyc[m
+[1mindex 52217d1..e224dfc 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/c_storage_constraints.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/c_storage_constraints.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/d_solver.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/d_solver.cpython-312.pyc[m
+[1mindex 2fd8817..92ef2d8 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/d_solver.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/d_solver.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/f_speichern.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/f_speichern.cpython-312.pyc[m
+[1mindex 514b937..2771a32 100644[m
+Binary files a/scripts_opt_neu/b_Optimierung/__pycache__/f_speichern.cpython-312.pyc and b/scripts_opt_neu/b_Optimierung/__pycache__/f_speichern.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/__pycache__/main.cpython-312.pyc b/scripts_opt_neu/b_Optimierung/__pycache__/main.cpython-312.pyc[m
+[1mnew file mode 100644[m
+[1mindex 0000000..77e7051[m
+Binary files /dev/null and b/scripts_opt_neu/b_Optimierung/__pycache__/main.cpython-312.pyc differ
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/a_inputs.py b/scripts_opt_neu/b_Optimierung/a_inputs.py[m
+[1mindex bdf53a1..8803f24 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/a_inputs.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/a_inputs.py[m
+[36m@@ -2,21 +2,17 @@[m [mimport pandas as pd[m
+ #Bedarfe laden[m
+ import sys[m
+ from pathlib import Path[m
+[31m-    # ensure the parent of 'scripts_opt_neu' (project root) is on sys.path so imports like[m
+[31m-    # 'scripts_opt_neu.a_Eingangsdaten...' can be resolved[m
+[31m-    # sys.path.insert(0, str(Path(__file__).resolve().parents[2]))[m
+[31m-    # from scripts_opt_neu.a_Eingangsdaten.x_Bedarfe_gesamt import strom_bedarf_gesamt[m
+[31m-strom_bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx', index_col=0)[m
+[31m-täglicher_Bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\tägliche_Bedarfe_Gesamt_2023.xlsx', index_col=0)[m
+[31m-[m
+[32m+[m[32m# ensure the parent of 'scripts_opt_neu' (project root) is on sys.path so imports like[m
+[32m+[m[32m# 'scripts_opt_neu.a_Eingangsdaten...' can be resolved[m
+[32m+[m[32m# sys.path.insert(0, str(Path(__file__).resolve().parents[2]))[m
+[32m+[m[32m# from scripts_opt_neu.a_Eingangsdaten.x_Bedarfe_gesamt import bedarf_gesamt[m
+[32m+[m[32mbedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_mit_Indu_15min_2023.xlsx', index_col=0)[m
+ #Verfügbarkeitsfaktoren für Stromerzeuger laden[m
+[31m-        #from scripts_opt_neu.a_Eingangsdaten.y_verfügbarkeiten_strom import strom_verfügbarkeiten_23[m
+[32m+[m[32m#from scripts_opt_neu.a_Eingangsdaten.y_verfügbarkeiten_strom import strom_verfügbarkeiten_23[m
+ strom_verfügbarkeiten_23 = pd.read_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index_col=0)[m
+[31m-solarthermie_verfügbarkeiten_23 = pd.read_excel(r'data\b_Optimierung\Verfügbarkeiten_Solarthermie_täglich_2023.xlsx', index_col=0)[m
+[31m-solarthermie_verfügbarkeiten_23.index = pd.to_datetime(solarthermie_verfügbarkeiten_23.index).date  # Nur Datum, keine Uhrzeit[m
+[32m+[m
+ # allg. Parameter/Variablen laden[m
+[31m-    #df_parameter = pd.read_excel(r'data\a_Eingangsdaten\Optimierungsgrößen - ohne Speicher.xlsx', index_col=0) # ohne speicher[m
+[31m-df_parameter = pd.read_excel(r'data\a_Eingangsdaten\Optimierungsgrößen - Strom und Wärme_Wandler_experimentell.xlsx', index_col=0)[m
+[32m+[m[32mdf_parameter = pd.read_excel(r'data\a_Eingangsdaten\Optimierungsgrößen - mit Speicher_Strom.xlsx', index_col=0)[m
+ [m
+ # Hilfslisten (werden hier erzeugt, ggf. Exporte falls nötig)[m
+ technologien = df_parameter.index.tolist()[m
+[36m@@ -25,25 +21,19 @@[m [menergietraeger = list(dict.fromkeys(traeger_dict.values()))[m
+ art_dict = df_parameter['Art'].to_dict()[m
+ technologieart = list(dict.fromkeys(art_dict.values()))[m
+ kosten = (df_parameter['Kosten [Mio.€/GW]']*1000).to_dict()  # Umrechnung in €/MW[m
+[31m-wirkungsgrade = (df_parameter['Wirkungsgrad']).to_dict()[m
+[31m-    #untere_kapazitaetsgrenzen = (df_parameter['untere Kapagrenze [MWh]']).to_dict()[m
+[31m-    #obere_kapazitaetsgrenzen = (df_parameter['obere Kapagrenze [MWh]']).to_dict()[m
+[31m-    #selbstentladungsrate = (df_parameter['Selbstentladungsrate [%/Tag]']).to_dict()[m
+[31m-c_rate = (df_parameter['C-Rate']).to_dict()[m
+[31m-lebensdauer = (df_parameter['Lebensdauer']).to_dict()[m
+[31m-[m
+[31m-#für Wandler Input aufnehmen[m
+[31m-input_wandler = (df_parameter['Input']).to_dict()[m
+[32m+[m[32m#wirkungsgrade = (df_parameter['Wirkungsgrad']).to_dict()[m
+[32m+[m[32muntere_kapazitaetsgrenzen = (df_parameter['untere Kapagrenze [MWh]']).to_dict()[m
+[32m+[m[32mobere_kapazitaetsgrenzen = (df_parameter['obere Kapagrenze [MWh]']).to_dict()[m
+[32m+[m[32m#selbstentladungsrate = (df_parameter['Selbstentladungsrate [%/Tag]']).to_dict()[m
+[32m+[m[32m#c_rate = (df_parameter['C-Rate']).to_dict()[m
+ [m
+ # Filter für gemeinsame Technologien in Erzeuger-Verfügbarkeits-Daten[m
+ gemeinsame_s_techs = [t for t in strom_verfügbarkeiten_23.columns if t in df_parameter.index and traeger_dict[t] == 'Strom'][m
+ strom_verfügbarkeiten_23 = strom_verfügbarkeiten_23[gemeinsame_s_techs][m
+ [m
+[31m-    #gemeinsame_wae_techs = [t for t in df_erzeuger_waerme.columns if t in df_parameter.index and traeger_dict[t] == 'Wärme'][m
+[31m-    #df_erzeuger_waerme = df_erzeuger_waerme[gemeinsame_wae_techs][m
+[32m+[m[32m#gemeinsame_wae_techs = [t for t in df_erzeuger_waerme.columns if t in df_parameter.index and traeger_dict[t] == 'Wärme'][m
+[32m+[m[32m#df_erzeuger_waerme = df_erzeuger_waerme[gemeinsame_wae_techs][m
+ [m
+[31m-df_bedarf = strom_bedarf_gesamt.copy()[m
+[31m-df_bedarf_daily = täglicher_Bedarf_gesamt.copy()[m
+[31m-df_bedarf_daily.index = pd.to_datetime(df_bedarf_daily.index).date  # Nur Datum, keine Uhrzeit[m
+[32m+[m[32mdf_bedarf = bedarf_gesamt.copy()[m
+ [m
+ print('Ende inputs.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/b_model_structure.py b/scripts_opt_neu/b_Optimierung/b_model_structure.py[m
+[1mindex 1090fa2..9c55144 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/b_model_structure.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/b_model_structure.py[m
+[36m@@ -1,19 +1,13 @@[m
+ import pyomo.environ as pyo[m
+[31m-import pandas as pd[m
+[31m-from a_inputs import technologien, energietraeger, technologieart, traeger_dict, art_dict, kosten, lebensdauer[m
+[31m-[m
+[31m-def create_energy_system_model(df_bedarf, df_bedarf_daily):[m
+[32m+[m[32mfrom a_inputs import technologien, energietraeger, technologieart, traeger_dict, art_dict, kosten[m
+[32m+[m[32m#Erstellen des pyomo Modells[m
+[32m+[m[32mdef create_energy_system_model(df_bedarf):[m
+     model = pyo.ConcreteModel()[m
+     model.T = pyo.Set(initialize=df_bedarf.index, ordered=True)[m
+[31m-    time_daily = pd.to_datetime(df_bedarf_daily.index).date[m
+[31m-    model.T_daily = pyo.Set(initialize=time_daily)[m
+[31m-[m
+[31m-    time_list = list(model.T)[m
+[31m-    time_hourly = time_list[::4][m
+[31m-    model.T_hourly = pyo.Set(initialize=time_hourly)[m
+[31m-    print(f"✓ T_hourly erstellt: {len(time_hourly)} stündliche Zeitschritte")[m
+     return model[m
+ [m
+[32m+[m[32m#Definieren der Variablen mittels pyomo-Sets und -Params[m
+[32m+[m[32m# aus inputs.py werden die Hilfslisten und -dicts genutzt um die indizierten Variablen zu definieren und deren Grenzen zu setzen[m
+ def define_variables(model, df_parameter):[m
+     model.techs = pyo.Set(initialize=technologien, ordered=True)[m
+     model.traeger = pyo.Set(initialize=energietraeger, ordered=True)[m
+[36m@@ -22,19 +16,7 @@[m [mdef define_variables(model, df_parameter):[m
+     model.traeger_map = pyo.Param(model.techs, initialize=traeger_dict, within=pyo.Any)[m
+     model.art_map = pyo.Param(model.techs, initialize=art_dict, within=pyo.Any)[m
+     [m
+[31m-    # ✅ Wirkungsgrade als Dictionary (für bounds-Berechnung)[m
+[31m-    wirkungsgrade = (df_parameter['Wirkungsgrad']).to_dict()[m
+[31m-    [m
+[31m-    # Installierte Leistung[m
+     model.inst_leistung_index = [(t, c) for t in model.techs for c in model.traeger if traeger_dict[t] == c][m
+[31m-    [m
+[31m-    if len(model.inst_leistung_index) != len(set(model.inst_leistung_index)):[m
+[31m-        duplicates = [item for item in model.inst_leistung_index if model.inst_leistung_index.count(item) > 1][m
+[31m-        print(f"⚠ WARNUNG: Duplikate in inst_leistung_index gefunden: {set(duplicates)}")[m
+[31m-        model.inst_leistung_index = list(set(model.inst_leistung_index))[m
+[31m-    [m
+[31m-    print(f"✓ inst_leistung_index: {len(model.inst_leistung_index)} Einträge")[m
+[31m-    [m
+     model.inst_leistung = pyo.Var([m
+         model.inst_leistung_index,[m
+         domain=pyo.NonNegativeReals,[m
+[36m@@ -43,102 +25,25 @@[m [mdef define_variables(model, df_parameter):[m
+             df_parameter.loc[t, 'obere Grenze [MW]'][m
+         )[m
+     )[m
+[31m-    [m
+[31m-    # ✅ KORREKTUR: Wandler-Output mit FESTEN Bounds (aus df_parameter)[m
+[31m-    wandler_techs = [t for t in model.techs if art_dict[t] == 'Wandler'][m
+[31m-    [m
+[31m-    if wandler_techs:[m
+[31m-        # ✅ Berechne maximale Output-Leistung als KONSTANTE[m
+[31m-        # Max. Output = Obere Grenze [MW] × Wirkungsgrad[m
+[31m-        wandler_max_output = {}[m
+[31m-        for t in wandler_techs:[m
+[31m-            eta = wirkungsgrade.get(t, 1.0)[m
+[31m-            max_input = df_parameter.loc[t, 'obere Grenze [MW]'][m
+[31m-            max_output = max_input * eta[m
+[31m-            wandler_max_output[t] = max_output[m
+[31m-        [m
+[31m-        # Output-Leistung [MW] (das, was rauskommt)[m
+[31m-        model.wandler_output = pyo.Var([m
+[31m-            [(t, time) for t in wandler_techs for time in model.T],[m
+[31m-            domain=pyo.NonNegativeReals,[m
+[31m-            bounds=lambda m, t, time: (0, wandler_max_output[t])  # ← KONSTANT![m
+[31m-        )[m
+[31m-        [m
+[31m-        print(f"✓ Wandler-Output-Variable erstellt: {len(wandler_techs)} Technologien × {len(list(model.T))} Zeitschritte")[m
+[31m-        print(f"  Wandler-Technologien und Max-Output:")[m
+[31m-        for t in wandler_techs:[m
+[31m-            eta = wirkungsgrade.get(t, 1.0)[m
+[31m-            max_input = df_parameter.loc[t, 'obere Grenze [MW]'][m
+[31m-            max_output = wandler_max_output[t][m
+[31m-            print(f"    - {t}: η = {eta:.2f}, Max Input = {max_input:.0f} MW, Max Output = {max_output:.0f} MW")[m
+[31m-    [m
+[31m-    # ✅ WICHTIG: Füge Constraint hinzu, dass wandler_output durch TATSÄCHLICHE inst_leistung begrenzt ist[m
+[31m-    if wandler_techs:[m
+[31m-        def wandler_output_kapazitaet_regel(m, t, time):[m
+[31m-            """Verknüpft wandler_output mit der tatsächlich installierten Leistung"""[m
+[31m-            eta = wirkungsgrade.get(t, 1.0)[m
+[31m-            # Output ≤ installierte Input-Leistung × Wirkungsgrad[m
+[31m-            return m.wandler_output[t, time] <= m.inst_leistung[t, traeger_dict[t]] * eta[m
+[31m-        [m
+[31m-        model.wandler_output_kapazitaet = pyo.Constraint([m
+[31m-            [(t, time) for t in wandler_techs for time in model.T],[m
+[31m-            rule=wandler_output_kapazitaet_regel[m
+[31m-        )[m
+[31m-        print(f"  ✓ Wandler-Output-Kapazitäts-Constraint hinzugefügt ({len(wandler_techs)} × {len(list(model.T))} = {len(wandler_techs) * len(list(model.T))} Constraints)")[m
+[31m-    [m
+[32m+[m[32m    # model.kapazitaet_index = [(t, traeger_dict[t]) for t in model.techs if art_dict[t] == 'Speicher'][m
+[32m+[m[32m    # model.kapazitaet = pyo.Var([m
+[32m+[m[32m    #     model.kapazitaet_index,[m
+[32m+[m[32m    #     domain=pyo.NonNegativeReals,[m
+[32m+[m[32m    #     bounds=lambda m, t, c: ([m
+[32m+[m[32m    #         df_parameter.loc[t, 'untere Kapagrenze [MWh]'],[m
+[32m+[m[32m    #         df_parameter.loc[t, 'obere Kapagrenze [MWh]'][m
+[32m+[m[32m    #     )[m
+[32m+[m[32m    # )[m
+     return model[m
+ [m
+[32m+[m[32m# definieren der Zielfunktion, wobei die Differenz aus der zu installierenden Leistung minus der bereits installierten Leistung (untere Grenze) gebildet wird und mit den Kosten multipliziert wird[m
+ def define_objective(model, df_parameter):[m
+[31m-    """[m
+[31m-    Zielfunktion: Minimiere annualisierte Investitionskosten (CAPEX)[m
+[31m-    [m
+[31m-    Formel: Annualisierte Kosten = CAPEX × CRF[m
+[31m-    [m
+[31m-    CRF (Capital Recovery Factor) = r × (1+r)^n / ((1+r)^n - 1)[m
+[31m-    wobei:[m
+[31m-    - r = Zinssatz (WACC, z.B. 0.05 = 5%)[m
+[31m-    - n = Lebensdauer [Jahre][m
+[31m-    [m
+[31m-    Für r=0 (keine Diskontierung): CRF = 1/n[m
+[31m-    """[m
+[31m-    [m
+[31m-    # Zinssatz (Weighted Average Cost of Capital)[m
+[31m-    WACC = 0.05  # 5% Standard für Energieprojekte[m
+[31m-    [m
+[31m-    def calculate_crf(lifetime, wacc=WACC):[m
+[31m-        """Berechnet Capital Recovery Factor"""[m
+[31m-        if wacc == 0:[m
+[31m-            return 1.0 / lifetime[m
+[31m-        else:[m
+[31m-            return (wacc * (1 + wacc)**lifetime) / ((1 + wacc)**lifetime - 1)[m
+[31m-    [m
+     def cost_rule(m):[m
+[31m-        total_cost = 0[m
+[31m-        [m
+[31m-        for (t, c) in m.inst_leistung_index:[m
+[31m-            # Investitionskosten für neu installierte Leistung[m
+[31m-            capex = kosten[t] * (m.inst_leistung[t, c] - df_parameter.loc[t, 'untere Grenze [MW]'])[m
+[31m-            [m
+[31m-            # Capital Recovery Factor basierend auf Lebensdauer[m
+[31m-            lifetime = lebensdauer[t][m
+[31m-            crf = calculate_crf(lifetime, WACC)[m
+[31m-            [m
+[31m-            # Annualisierte Kosten[m
+[31m-            annualized_cost = capex * crf[m
+[31m-            [m
+[31m-            total_cost += annualized_cost[m
+[31m-        [m
+[31m-        return total_cost[m
+[31m-    [m
+[32m+[m[32m        return sum([m
+[32m+[m[32m            kosten[t] * (m.inst_leistung[t, c] - df_parameter.loc[t, 'untere Grenze [MW]'])[m
+[32m+[m[32m            for (t, c) in m.inst_leistung_index[m
+[32m+[m[32m        )[m
+     model.objective = pyo.Objective(rule=cost_rule, sense=pyo.minimize)[m
+[31m-    [m
+[31m-    print("\n✓ Zielfunktion: Annualisierte CAPEX mit CRF")[m
+[31m-    print(f"  WACC: {WACC*100:.1f}%")[m
+[31m-    print(f"  Beispiel-CRF (25 Jahre): {calculate_crf(25, WACC):.4f}")[m
+[31m-    print(f"  Beispiel-CRF (15 Jahre): {calculate_crf(15, WACC):.4f}")[m
+[31m-    print(f"  Beispiel-CRF (60 Jahre): {calculate_crf(60, WACC):.4f}")[m
+[31m-[m
+[31m-        [m
+     return model[m
+ [m
+ print('Ende b_model_structure.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/c_constraints.py b/scripts_opt_neu/b_Optimierung/c_constraints.py[m
+[1mindex 19a0b3f..51ca25c 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/c_constraints.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/c_constraints.py[m
+[36m@@ -1,269 +1,98 @@[m
+ import pyomo.environ as pyo[m
+[31m-from a_inputs import (strom_verfügbarkeiten_23, df_parameter, traeger_dict, [m
+[31m-                      solarthermie_verfügbarkeiten_23, wirkungsgrade, art_dict)[m
+[32m+[m[32mfrom a_inputs import strom_verfügbarkeiten_23, df_parameter, traeger_dict[m
+ [m
+[31m-# Vorbereitung Verfügbarkeits-Dictionaries[m
+[32m+[m[32m# Vorbereitung Verfügbarkeits-Dictionaries (kann auch in inputs.py, hier zur besseren Kapselung)[m
+ verf_s_dict = {}[m
+ df_param_index = set(df_parameter.index)[m
+ strom_verf_dict = strom_verfügbarkeiten_23.to_dict('index')[m
+[32m+[m[32m# determine valid electricity technologies from the availability dataframe that also exist in the parameter index[m
+ gueltige_s_techs = [t for t in strom_verfügbarkeiten_23.columns if t in df_parameter.index][m
+ for t in gueltige_s_techs:[m
+     for ti in strom_verfügbarkeiten_23.index:[m
+[32m+[m[32m        verf_s_dict[(t, ti)] = strom_verf_dict[ti][t][m
+         verf_s_dict[(t, ti)] = strom_verfügbarkeiten_23.loc[ti, t][m
+ [m
+[31m-verf_wae_dict = {}[m
+[31m-gueltige_wae_techs = [t for t in solarthermie_verfügbarkeiten_23.columns if t in df_parameter.index][m
+[31m-for t in gueltige_wae_techs:[m
+[31m-    for ti in solarthermie_verfügbarkeiten_23.index:[m
+[31m-        verf_wae_dict[(t, ti)] = solarthermie_verfügbarkeiten_23.loc[ti, t][m
+[32m+[m[32m# verf_wae_dict = {}[m
+[32m+[m[32m# gueltige_wae_techs = [t for t in df_erzeuger_waerme.columns if t in df_parameter.index][m
+[32m+[m[32m# for t in gueltige_wae_techs:[m
+[32m+[m[32m#     for ti in df_erzeuger_waerme.index:[m
+[32m+[m[32m#         verf_wae_dict[(t, ti)] = df_erzeuger_waerme.loc[ti, t][m
+ [m
+[31m-DEBUG_DISABLE_HEAT = False[m
+[31m-DEBUG_DISABLE_STORAGE = False[m
+[32m+[m[32m# def define_constraints(model, df_bedarf):[m
+[32m+[m[32m#     model.Strombedarf = pyo.Param(model.T, initialize=df_bedarf['Strom_Gesamt_Bedarf [MW]'].to_dict())[m
+[32m+[m[32m#     # model.Waermebedarf = pyo.Param(model.T, initialize=df_bedarf['Wärme'].to_dict())[m
+ [m
+[31m-def define_constraints(model, df_bedarf, df_bedarf_daily):[m
+[32m+[m[32m#     model.Verf_s = pyo.Param(model.techs, model.T, initialize=verf_s_dict, default=0)[m
+[32m+[m[32m#     # model.Verf_wae = pyo.Param(model.techs, model.T, initialize=verf_wae_dict, default=0)[m
+[32m+[m
+[32m+[m[32m#     def strom_bedarfsdeckung_regel(m, time):[m
+[32m+[m[32m#         stromerzeuger_summe = sum([m
+[32m+[m[32m#             m.inst_leistung[t, 'Strom'] * m.Verf_s[t, time][m
+[32m+[m[32m#             for t in m.techs if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Strom'[m
+[32m+[m[32m#         )[m
+[32m+[m[32m#         stromspeicher_summe = sum([m
+[32m+[m[32m#             m.stromspeicher_leistung[t, time][m
+[32m+[m[32m#             for t in m.techs if m.art_map[t] == 'Speicher' and m.traeger_map[t] == 'Strom'[m
+[32m+[m[32m#         )[m
+[32m+[m[41m        [m
+[32m+[m[32m#         return stromerzeuger_summe + stromspeicher_summe >= m.Strombedarf[time][m
+[32m+[m
+[32m+[m[32m#     model.strom_bedarfsdeckung_bedingung = pyo.Constraint(model.T, rule=strom_bedarfsdeckung_regel)[m
+[32m+[m
+[32m+[m[32m    # def waerme_erzeuger_regel(m, time):[m
+[32m+[m[32m    #     waermeerzeuger_summe = sum([m
+[32m+[m[32m    #         m.inst_leistung[t, 'Wärme'] * m.Verf_wae[t, time][m
+[32m+[m[32m    #         for t in m.techs if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Wärme'[m
+[32m+[m[32m    #     )[m
+[32m+[m[32m    #     return waermeerzeuger_summe >= m.Waermebedarf[time][m
+[32m+[m
+[32m+[m[32m    # model.waerme_erzeuger_bedingung = pyo.Constraint(model.T, rule=waerme_erzeuger_regel)[m
+[32m+[m
+[32m+[m[41m [m
+[32m+[m
+[32m+[m[32m    # return model[m
+[32m+[m
+[32m+[m[32mdef define_constraints(model, df_bedarf):[m
+     model.Strombedarf = pyo.Param(model.T, initialize=df_bedarf['Strom_Gesamt_Bedarf [MW]'].to_dict())[m
+     model.Verf_s = pyo.Param(model.techs, model.T, initialize=verf_s_dict, default=0)[m
+ [m
+[31m-    if not DEBUG_DISABLE_HEAT:[m
+[31m-        model.Wärmebedarf = pyo.Param(model.T_daily, initialize=df_bedarf_daily['Wärme_Gesamt_Bedarf [MWh]'].to_dict())[m
+[31m-        model.Verf_wae = pyo.Param(model.techs, model.T_daily, initialize=verf_wae_dict, default=0)[m
+[31m-    [m
+[31m-    # ========== STROM-BEDARFSDECKUNG ==========[m
+     def strom_bedarfsdeckung_regel(m, time):[m
+[31m-        strom_erzeuger = [[m
+[31m-            (t, c) for t, c in m.inst_leistung_index[m
+[31m-            if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Strom'[m
+[31m-        ][m
+[31m-        [m
+[31m-        if not strom_erzeuger:[m
+[31m-            return pyo.Constraint.Feasible[m
+[31m-        [m
+[32m+[m[32m        # Erzeugung[m
+         erzeugung = sum([m
+             m.inst_leistung[t, c] * m.Verf_s[t, time][m
+[31m-            for t, c in strom_erzeuger[m
+[32m+[m[32m            for t, c in m.inst_leistung_index[m
+[32m+[m[32m            if m.art_map[t] == 'Erzeuger'[m
+         )[m
+         [m
+[31m-        time_list = list(m.T)[m
+[31m-        time_idx = time_list.index(time)[m
+[31m-        hourly_idx = time_idx // 4[m
+[31m-        hourly_time = list(m.T_hourly)[hourly_idx][m
+[31m-        [m
+[31m-        # Speicher-Beiträge[m
+[32m+[m[32m        # Batteriespeicher (15min-Auflösung, immer verfügbar)[m
+         batterie_beitrag = 0[m
+[31m-        if not DEBUG_DISABLE_STORAGE and hasattr(m, 'batterie_leistung'):[m
+[32m+[m[32m        if hasattr(m, 'batterie_leistung'):[m
+             batterie_techs = [t for t in m.techs [m
+                             if m.art_map[t] == 'Speicher' [m
+                             and 'Batterie' in t][m
+[31m-            if batterie_techs:[m
+[31m-                batterie_beitrag = sum(m.batterie_leistung[s, time] for s in batterie_techs)[m
+[32m+[m[32m            batterie_beitrag = sum(m.batterie_leistung[s, time] for s in batterie_techs)[m
+         [m
+[32m+[m[32m        # Pumpspeicher (stündlich → auf 15min interpolieren)[m
+         pump_beitrag = 0[m
+[31m-        if not DEBUG_DISABLE_STORAGE and hasattr(m, 'pump_leistung'):[m
+[32m+[m[32m        if hasattr(m, 'pump_leistung'):[m
+             pump_techs = [t for t in m.techs [m
+                          if m.art_map[t] == 'Speicher' [m
+                          and 'Pump' in t][m
+[32m+[m[41m            [m
+             if pump_techs:[m
+[32m+[m[32m                # Finde nächste volle Stunde (abrunden)[m
+[32m+[m[32m                time_list = list(m.T)[m
+[32m+[m[32m                time_idx = time_list.index(time)[m
+[32m+[m[32m                hourly_idx = time_idx // 4  # Ganzzahldivision: 0,1,2,3 → 0; 4,5,6,7 → 1[m
+[32m+[m[32m                hourly_time = list(m.T_hourly)[hourly_idx][m
+[32m+[m[41m                [m
+[32m+[m[32m                # Pumpspeicher-Leistung der aktuellen Stunde nutzen[m
+                 pump_beitrag = sum(m.pump_leistung[s, hourly_time] for s in pump_techs)[m
+         [m
+[31m-        h2_beitrag = 0[m
+[31m-        if not DEBUG_DISABLE_STORAGE and hasattr(m, 'h2_leistung'):[m
+[31m-            h2_techs = [t for t in m.techs [m
+[31m-                        if m.art_map[t] == 'Speicher' [m
+[31m-                        and 'Wasserstoff' in t][m
+[31m-            if h2_techs:[m
+[31m-                h2_beitrag = sum(m.h2_leistung[s, hourly_time] for s in h2_techs)[m
+[31m-[m
+[31m-        # ✅ KORRIGIERT: Wandler-Beiträge[m
+[31m-        wandler_output_strom = 0[m
+[31m-        wandler_input_strom = 0[m
+[31m-        [m
+[31m-        if hasattr(m, 'wandler_output'):[m
+[31m-            # Output: Wandler, die Strom ERZEUGEN (Brennstoffzelle, Verbrennungsmotor)[m
+[31m-            strom_output_wandler = [[m
+[31m-                t for t in m.techs[m
+[31m-                if m.art_map[t] == 'Wandler' [m
+[31m-                and m.traeger_map[t] == 'Strom'[m
+[31m-            ][m
+[31m-            [m
+[31m-            if strom_output_wandler:[m
+[31m-                wandler_output_strom = sum([m
+[31m-                    m.wandler_output[t, time][m
+[31m-                    for t in strom_output_wandler[m
+[31m-                )[m
+[31m-            [m
+[31m-            # Input: Wandler, die Strom VERBRAUCHEN (Wärmepumpe, Elektrolyseur, Stromheizung)[m
+[31m-            strom_input_wandler = [[m
+[31m-                t for t in m.techs[m
+[31m-                if m.art_map[t] == 'Wandler'[m
+[31m-                and t in df_parameter.index[m
+[31m-                and df_parameter.loc[t, 'Input'] == 'Strom'[m
+[31m-            ][m
+[31m-            [m
+[31m-            if strom_input_wandler:[m
+[31m-                # ✅ Input = Output / Wirkungsgrad[m
+[31m-                wandler_input_strom = sum([m
+[31m-                    m.wandler_output[t, time] / wirkungsgrade[t] if wirkungsgrade[t] > 0 else 0[m
+[31m-                    for t in strom_input_wandler[m
+[31m-                )[m
+[31m-        [m
+[31m-        return (erzeugung + batterie_beitrag + pump_beitrag + h2_beitrag + wandler_output_strom [m
+[31m-                >= m.Strombedarf[time] + wandler_input_strom)[m
+[32m+[m[32m        return erzeugung + batterie_beitrag + pump_beitrag >= m.Strombedarf[time][m
+ [m
+     model.strom_bedarfsdeckung_bedingung = pyo.Constraint(model.T, rule=strom_bedarfsdeckung_regel)[m
+[31m-[m
+[31m-    # ========== WÄRME-BEDARFSDECKUNG ==========[m
+[31m-    if not DEBUG_DISABLE_HEAT:[m
+[31m-        def wärme_bedarfsdeckung_regel(m, time):[m
+[31m-            waerme_erzeuger = [[m
+[31m-                (t, c) for t, c in m.inst_leistung_index[m
+[31m-                if m.art_map[t] == 'Erzeuger' and m.traeger_map[t] == 'Wärme'[m
+[31m-            ][m
+[31m-            [m
+[31m-            if not waerme_erzeuger and not hasattr(m, 'wandler_output'):[m
+[31m-                return pyo.Constraint.Feasible[m
+[31m-            [m
+[31m-            erzeugung_täglich = 0[m
+[31m-            if waerme_erzeuger:[m
+[31m-                erzeugung_täglich = sum([m
+[31m-                    m.inst_leistung[t, c] * 24 * (m.Verf_wae[t, time] if (t, time) in m.Verf_wae else 1)[m
+[31m-                    for t, c in waerme_erzeuger[m
+[31m-                )[m
+[31m-[m
+[31m-            wandler_output_waerme = 0[m
+[31m-            [m
+[31m-            if hasattr(m, 'wandler_output'):[m
+[31m-                time_list_daily = list(m.T_daily)[m
+[31m-                day_idx = time_list_daily.index(time)[m
+[31m-                [m
+[31m-                time_list_15min = list(m.T)[m
+[31m-                start_idx = day_idx * 96[m
+[31m-                end_idx = (day_idx + 1) * 96[m
+[31m-                times_of_day = time_list_15min[start_idx:end_idx][m
+[31m-                [m
+[31m-                # ✅ Wärme-Wandler (Wärmepumpen, Wasserstoffheizung, Stromheizung)[m
+[31m-                waerme_output_wandler = [[m
+[31m-                    t for t in m.techs[m
+[31m-                    if m.art_map[t] == 'Wandler'[m
+[31m-                    and m.traeger_map[t] == 'Wärme'[m
+[31m-                ][m
+[31m-                [m
+[31m-                if waerme_output_wandler:[m
+[31m-                    wandler_output_waerme = sum([m
+[31m-                        sum([m
+[31m-                            m.wandler_output[t, time_15min] * 0.25  # MW → MWh (15min)[m
+[31m-                            for time_15min in times_of_day[m
+[31m-                        )[m
+[31m-                        for t in waerme_output_wandler[m
+[31m-                    )[m
+[31m-[m
+[31m-            return erzeugung_täglich + wandler_output_waerme >= m.Wärmebedarf[time][m
+[31m-        [m
+[31m-        model.wärme_bedarfsdeckung_bedingung = pyo.Constraint(model.T_daily, rule=wärme_bedarfsdeckung_regel)[m
+[31m-        [m
+[31m-        waerme_techs = [t for t, c in model.inst_leistung_index [m
+[31m-                        if model.art_map[t] == 'Erzeuger' and model.traeger_map[t] == 'Wärme'][m
+[31m-        wandler_waerme = [t for t in model.techs if model.art_map[t] == 'Wandler' [m
+[31m-                         and model.traeger_map[t] == 'Wärme'][m
+[31m-        print(f"✓ Wärme-Constraint aktiviert:")[m
+[31m-        print(f"  - {len(waerme_techs)} Erzeuger: {waerme_techs}")[m
+[31m-        if wandler_waerme:[m
+[31m-            print(f"  - {len(wandler_waerme)} Wandler: {wandler_waerme}")[m
+[31m-    [m
+[31m-    if DEBUG_DISABLE_STORAGE:[m
+[31m-        print("⚠ DEBUG: Speicher-Beitrag DEAKTIVIERT!")[m
+[31m-    else:[m
+[31m-        print("✓ Speicher-Beitrag AKTIVIERT")[m
+[31m-[m
+[31m-    # ========== WASSERSTOFF-BILANZ (VOLLSTÄNDIG NEU!) ==========[m
+[31m-    # ✅ Diese Bilanz fehlt komplett! Daher wird H2 produziert, aber nie genutzt.[m
+[31m-    [m
+[31m-    # Identifiziere H2-Wandler[m
+[31m-    h2_produktion_wandler = [[m
+[31m-        t for t in model.techs[m
+[31m-        if model.art_map[t] == 'Wandler'[m
+[31m-        and t in df_parameter.index[m
+[31m-        and df_parameter.loc[t, 'Energieträger'] == 'Wasserstoff'  # Output ist H2[m
+[31m-    ][m
+[31m-    [m
+[31m-    h2_verbrauch_wandler = [[m
+[31m-        t for t in model.techs[m
+[31m-        if model.art_map[t] == 'Wandler'[m
+[31m-        and t in df_parameter.index[m
+[31m-        and df_parameter.loc[t, 'Input'] == 'Wasserstoff'  # Input ist H2[m
+[31m-    ][m
+[31m-    [m
+[31m-    if h2_produktion_wandler or h2_verbrauch_wandler:[m
+[31m-        print(f"✓ Wasserstoff-Wandler gefunden:")[m
+[31m-        print(f"  - Produktion: {h2_produktion_wandler}")[m
+[31m-        print(f"  - Verbrauch: {h2_verbrauch_wandler}")[m
+[31m-        [m
+[31m-        # ✅ NEUE CONSTRAINT: H2-Bilanz zu jedem Zeitpunkt[m
+[31m-        def h2_bilanz_zeitlich_regel(m, time):[m
+[31m-            # Zeitindex 15min → stündlich[m
+[31m-            time_list = list(m.T)[m
+[31m-            time_idx = time_list.index(time)[m
+[31m-            hourly_idx = time_idx // 4[m
+[31m-            hourly_time = list(m.T_hourly)[hourly_idx][m
+[31m-            [m
+[31m-            # H2-Produktion (z.B. Elektrolyseur)[m
+[31m-            h2_produktion = 0[m
+[31m-            if h2_produktion_wandler and hasattr(m, 'wandler_output'):[m
+[31m-                h2_produktion = sum([m
+[31m-                    m.wandler_output[t, time][m
+[31m-                    for t in h2_produktion_wandler[m
+[31m-                )[m
+[31m-            [m
+[31m-            # H2-Verbrauch (z.B. Brennstoffzelle, Wasserstoffheizung)[m
+[31m-            h2_verbrauch = 0[m
+[31m-            if h2_verbrauch_wandler and hasattr(m, 'wandler_output'):[m
+[31m-                h2_verbrauch = sum([m
+[31m-                    m.wandler_output[t, time] / wirkungsgrade[t] if wirkungsgrade[t] > 0 else 0[m
+[31m-                    for t in h2_verbrauch_wandler[m
+[31m-                )[m
+[31m-            [m
+[31m-            # H2-Speicher-Änderung (wenn vorhanden)[m
+[31m-            h2_speicher_änderung = 0[m
+[31m-            if hasattr(m, 'h2_leistung'):[m
+[31m-                h2_techs = [s for s in m.techs if m.art_map[s] == 'Speicher' and 'Wasserstoff' in s][m
+[31m-                if h2_techs:[m
+[31m-                    # h2_leistung > 0: Speicher wird GELEERT (liefert H2)[m
+[31m-                    # h2_leistung < 0: Speicher wird GEFÜLLT (nimmt H2 auf)[m
+[31m-                    h2_speicher_änderung = sum(m.h2_leistung[s, hourly_time] for s in h2_techs)[m
+[31m-            [m
+[31m-            # ✅ Bilanz: Produktion + Speicher-Entnahme >= Verbrauch + Speicher-Befüllung[m
+[31m-            # Umformuliert: Produktion >= Verbrauch - Speicher-Änderung[m
+[31m-            # (Speicher-Änderung wird automatisch in c_storage_constraints.py geregelt)[m
+[31m-            [m
+[31m-            # Vereinfachte Form: Produktion muss mindestens Verbrauch decken[m
+[31m-            # (Speicher-Logik erfolgt in h2_balance_rule)[m
+[31m-            return h2_produktion >= h2_verbrauch[m
+[31m-        [m
+[31m-        model.h2_bilanz_zeitlich = pyo.Constraint(model.T, rule=h2_bilanz_zeitlich_regel)[m
+[31m-        print("  ✓ H2-Bilanz-Constraint (zeitlich) aktiviert")[m
+[31m-[m
+[31m-    # ========== SOLARFLÄCHEN-KONKURRENZ ==========[m
+[31m-    def solar_flächen_konkurrenz_regel(m):[m
+[31m-        solarthermie_techs = [[m
+[31m-            (t, c) for t, c in m.inst_leistung_index[m
+[31m-            if 'Solarthermie' in t and m.traeger_map[t] == 'Wärme'[m
+[31m-        ][m
+[31m-        photovoltaik_techs = [[m
+[31m-            (t, c) for t, c in m.inst_leistung_index[m
+[31m-            if 'Fotovoltaik' in t and m.traeger_map[t] == 'Strom'[m
+[31m-        ][m
+[31m-        [m
+[31m-        if not solarthermie_techs and not photovoltaik_techs:[m
+[31m-            return pyo.Constraint.Feasible[m
+[31m-        [m
+[31m-        solarthermie_leistung = sum(m.inst_leistung[t, c] for t, c in solarthermie_techs) if solarthermie_techs else 0[m
+[31m-        photovoltaik_leistung = sum(m.inst_leistung[t, c] for t, c in photovoltaik_techs) if photovoltaik_techs else 0[m
+[31m-        [m
+[31m-        max_flächenleistung = 1000000[m
+[31m-        return solarthermie_leistung * 0.5 + photovoltaik_leistung <= max_flächenleistung[m
+[31m-    [m
+[31m-    model.solar_flächen_konkurrenz_bedingung = pyo.Constraint(rule=solar_flächen_konkurrenz_regel)[m
+[31m-    print(f"✓ Solarflächen-Konkurrenz-Constraint aktiviert (Max: {1000000} MW)")[m
+[31m-    [m
+     return model[m
+ [m
+[32m+[m
+ print('Ende c_constraints.py')[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/c_storage_constraints.py b/scripts_opt_neu/b_Optimierung/c_storage_constraints.py[m
+[1mindex e116340..4020248 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/c_storage_constraints.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/c_storage_constraints.py[m
+[36m@@ -10,8 +10,7 @@[m [mdef stromspeicher_regeln(model):[m
+     - Batteriespeicher: 15min-Auflösung, schnelle Reaktion[m
+     - Pumpspeicher: stündliche Auflösung, trägere nachgelagerte Reaktion[m
+     """[m
+[31m-    time_list = list(model.T)[m
+[31m-    time_hourly = list(model.T_hourly)[m
+[32m+[m[41m    [m
+     # Speicher identifizieren[m
+     alle_speicher = [t for t in model.techs [m
+                      if model.art_map[t] == 'Speicher' [m
+[36m@@ -28,7 +27,11 @@[m [mdef stromspeicher_regeln(model):[m
+     print(f"Batteriespeicher (15min): {batterie_techs}")[m
+     print(f"Pumpspeicher (1h): {pump_techs}")[m
+     [m
+[31m-       [m
+[32m+[m[32m    # Zeitschritte[m
+[32m+[m[32m    time_list = list(model.T)[m
+[32m+[m[32m    time_hourly = time_list[::4]  # Jede 4. 15min = 1h[m
+[32m+[m[32m    model.T_hourly = pyo.Set(initialize=time_hourly)[m
+[32m+[m[41m    [m
+     # ========== BATTERIESPEICHER (15min-Auflösung) ==========[m
+     if batterie_techs:[m
+         # Kapazität (einmal pro Speicher)[m
+[36m@@ -69,7 +72,7 @@[m [mdef stromspeicher_regeln(model):[m
+         [m
+         # Kapazitätsgrenze[m
+         def batterie_level_constraint_rule(m, s, t):[m
+[31m-            return m.batterie_stand[s, t] <=m.batterie_kapazitaet[s][m
+[32m+[m[32m            return m.batterie_stand[s, t] <= m.batterie_kapazitaet[s][m
+         [m
+         model.batterie_level_constraint = pyo.Constraint([m
+             batterie_techs,[m
+[36m@@ -77,15 +80,6 @@[m [mdef stromspeicher_regeln(model):[m
+             rule=batterie_level_constraint_rule[m
+         )[m
+         [m
+[31m-        def batterie_capa_crate_constraint_rule(m, s, t):[m
+[31m-            return m.batterie_kapazitaet[s] <= m.inst_leistung[s, 'Strom']/a_inputs.c_rate[s][m
+[31m-        [m
+[31m-        model.batterie_capa_crate_constraint = pyo.Constraint([m
+[31m-            batterie_techs,[m
+[31m-            model.T,[m
+[31m-            rule=batterie_capa_crate_constraint_rule[m
+[31m-        )[m
+[31m-        [m
+         # Anfangsbedingung[m
+         def batterie_init_rule(m, s):[m
+             first_time = time_list[0][m
+[36m@@ -115,18 +109,18 @@[m [mdef stromspeicher_regeln(model):[m
+         [m
+         print(f"  Batterie: {len(batterie_techs)} × {len(time_list)} = {len(batterie_techs) * len(time_list)} Variablen")[m
+     [m
+[31m-      # Zyklische Bedingung für konsistente Jahressimulation[m
+[31m-        def batterie_cyclic_rule(m, s):[m
+[31m-            first_time = time_list[0][m
+[31m-            last_time = time_list[-1][m
+[31m-            return m.batterie_stand[s, last_time] == m.batterie_stand[s, first_time][m
+[32m+[m[32m    #   # Zyklische Bedingung für konsistente Jahressimulation[m
+[32m+[m[32m    #     def batterie_cyclic_rule(m, s):[m
+[32m+[m[32m    #         first_time = time_list[0][m
+[32m+[m[32m    #         last_time = time_list[-1][m
+[32m+[m[32m    #         return m.batterie_stand[s, last_time] == m.batterie_stand[s, first_time][m
+         [m
+[31m-        model.batterie_cyclic = pyo.Constraint([m
+[31m-            batterie_techs,[m
+[31m-            rule=batterie_cyclic_rule[m
+[31m-        )[m
+[32m+[m[32m    #     model.batterie_cyclic = pyo.Constraint([m
+[32m+[m[32m    #         batterie_techs,[m
+[32m+[m[32m    #         rule=batterie_cyclic_rule[m
+[32m+[m[32m    #     )[m
+         [m
+[31m-        print(f"  Batterie: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")[m
+[32m+[m[32m    #     print(f"  Batterie: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")[m
+        # ========== PUMPSPEICHER (stündlich, OHNE Binärvariablen) ==========[m
+     if pump_techs:[m
+         model.pump_kapazitaet = pyo.Var([m
+[36m@@ -168,14 +162,6 @@[m [mdef stromspeicher_regeln(model):[m
+             pump_techs, model.T_hourly, rule=pump_level_constraint_rule[m
+         )[m
+         [m
+[31m-        def pump_capa_crate_constraint_rule(m, s, t):[m
+[31m-            return m.pump_kapazitaet[s] <= m.inst_leistung[s, 'Strom']/a_inputs.c_rate[s][m
+[31m-        model.pump_capa_crate_constraint = pyo.Constraint([m
+[31m-            pump_techs,[m
+[31m-            model.T_hourly,[m
+[31m-            rule=pump_capa_crate_constraint_rule[m
+[31m-        )[m
+[31m-        [m
+         def pump_init_rule(m, s):[m
+             first_time = time_hourly[0][m
+             return m.pump_stand[s, first_time] == 0.5*m.pump_kapazitaet[s][m
+[36m@@ -205,7 +191,7 @@[m [mdef stromspeicher_regeln(model):[m
+                 return pyo.Constraint.Skip[m
+             [m
+             prev_time = time_hourly[time_idx - 1][m
+[31m-            max_ramp = m.inst_leistung[s, 'Strom'] * 0.8  # Max 80% Änderung pro Stunde[m
+[32m+[m[32m            max_ramp = m.inst_leistung[s, 'Strom'] * 0.2  # Max 20% Änderung pro Stunde[m
+             [m
+             return m.pump_leistung[s, t] - m.pump_leistung[s, prev_time] <= max_ramp[m
+         [m
+[36m@@ -216,7 +202,7 @@[m [mdef stromspeicher_regeln(model):[m
+                 return pyo.Constraint.Skip[m
+             [m
+             prev_time = time_hourly[time_idx - 1][m
+[31m-            max_ramp = m.inst_leistung[s, 'Strom'] * 0.8[m
+[32m+[m[32m            max_ramp = m.inst_leistung[s, 'Strom'] * 0.2[m
+             [m
+             return m.pump_leistung[s, t] - m.pump_leistung[s, prev_time] >= -max_ramp[m
+         [m
+[36m@@ -228,160 +214,170 @@[m [mdef stromspeicher_regeln(model):[m
+         )[m
+         [m
+         print(f"  Pumpspeicher: {len(pump_techs)} × {len(time_hourly)} Variablen (mit Ramping-Limit)")[m
+[32m+[m[41m    [m
+[32m+[m[32m    print(f"\nSpeichermodell erstellt (OHNE Binärvariablen)")[m
+[32m+[m[32m    print(f"  Gesamt Variablen: ~{len(batterie_techs) * len(time_list) * 2 + len(pump_techs) * len(time_hourly) * 3}")[m
+[32m+[m[41m    [m
+[32m+[m[32m    return model[m
+ [m
+[31m-        # Zyklische Bedingung für konsistente Jahressimulation[m
+[31m-        def pump_cyclic_rule(m, s):[m
+[31m-            first_time = time_hourly[0][m
+[31m-            last_time = time_hourly[-1][m
+[31m-            return m.pump_stand[s, last_time] == m.pump_stand[s, first_time][m
+[32m+[m[32mprint('Ende c_storage_constraints.py')[m
+ [m
+[31m-        model.pump_cyclic = pyo.Constraint([m
+[31m-            pump_techs,[m
+[31m-            rule=pump_cyclic_rule[m
+[31m-        )[m
+ [m
+[31m-        print(f"  Pumpspeicher: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")[m
+ [m
+[31m-        return model[m
+[31m-       # ========== WASSERSTOFFSPEICHER (stündlich, noch trägere als Pumpspeicher) ==========[m
+[31m-def wasserstoffspeicher_regeln(model):[m
+[31m-        # Speicher identifizieren[m
+[31m-    alle_speicher = [t for t in model.techs [m
+[31m-                     if model.art_map[t] == 'Speicher' [m
+[31m-                     and model.traeger_map[t] == 'Wasserstoff'][m
+[31m-    [m
+[31m-    if not alle_speicher:[m
+[31m-        print("Keine Wasserstoffspeicher gefunden")[m
+[31m-        return model[m
+[31m-   [m
+[31m-    time_hourly = list(model.T_hourly)[m
+[31m-    [m
+[31m-    [m
+[31m-    h2_speicher_techs = [s for s in alle_speicher if 'Wasserstoff' in s or 'H2' in s][m
+[31m-    [m
+[31m-    print(f"Wasserstoffspeicher (1h): {h2_speicher_techs}")[m
+[31m-    [m
+[31m-    [m
+[31m-              [m
+[31m-    if h2_speicher_techs:[m
+[31m-                print(f"Wasserstoffspeicher (1h, sehr träge): {h2_speicher_techs}")[m
+[31m-                [m
+[31m-                model.h2_kapazitaet = pyo.Var([m
+[31m-                    h2_speicher_techs,[m
+[31m-                    domain=pyo.NonNegativeReals,[m
+[31m-                    bounds=lambda m, s: ([m
+[31m-                        a_inputs.df_parameter.loc[s, 'untere Kapagrenze [MWh]'],[m
+[31m-                        a_inputs.df_parameter.loc[s, 'obere Kapagrenze [MWh]'][m
+[31m-                    )[m
+[31m-                )[m
+[31m-                [m
+[31m-                model.h2_stand = pyo.Var([m
+[31m-                    h2_speicher_techs, [m
+[31m-                    model.T_hourly,[m
+[31m-                    domain=pyo.NonNegativeReals[m
+[31m-                )[m
+[31m-                [m
+[31m-                model.h2_leistung = pyo.Var([m
+[31m-                    h2_speicher_techs,[m
+[31m-                    model.T_hourly,[m
+[31m-                    domain=pyo.Reals[m
+[31m-                )[m
+[31m-[m
+[31m-                def h2_power_upper_rule(m, s, t):[m
+[31m-                    return m.h2_leistung[s, t] <= m.inst_leistung[s, 'Wasserstoff'][m
+[31m-                model.h2_power_upper = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_power_upper_rule[m
+[31m-                )[m
+[31m-[m
+[31m-                def h2_power_lower_rule(m, s, t):[m
+[31m-                    return m.h2_leistung[s, t] >= -m.inst_leistung[s, 'Wasserstoff'][m
+[31m-                model.h2_power_lower = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_power_lower_rule[m
+[31m-                )[m
+[31m-                [m
+[31m-                def h2_level_constraint_rule(m, s, t):[m
+[31m-                    return m.h2_stand[s, t] <= m.h2_kapazitaet[s][m
+[31m-                model.h2_level_constraint = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_level_constraint_rule[m
+[31m-                )[m
+[31m-                [m
+[31m-                def h2_capa_crate_constraint_rule(m, s, t):[m
+[31m-                    return m.h2_kapazitaet[s] <= m.inst_leistung[s, 'Wasserstoff']/a_inputs.c_rate[s][m
+[31m-                model.h2_capa_crate_constraint = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_capa_crate_constraint_rule[m
+[31m-                )[m
+[31m-                [m
+[31m-                def h2_init_rule(m, s):[m
+[31m-                    first_time = time_hourly[0][m
+[31m-                    return m.h2_stand[s, first_time] == 0.5*m.h2_kapazitaet[s][m
+[31m-                model.h2_init = pyo.Constraint(h2_speicher_techs, rule=h2_init_rule)[m
+[31m-                [m
+[31m-                def h2_balance_rule(m, s, t):[m
+[31m-                    time_idx = time_hourly.index(t)[m
+[31m-                    if time_idx == 0:[m
+[31m-                        return pyo.Constraint.Skip[m
+[31m-                    [m
+[31m-                    prev_time = time_hourly[time_idx - 1][m
+[31m-                    eta = a_inputs.df_parameter.loc[s, 'Wirkungsgrad'][m
+[31m-                    [m
+[31m-                    return m.h2_stand[s, t] == ([m
+[31m-                        m.h2_stand[s, prev_time] - [m
+[31m-                        m.h2_leistung[s, t] * eta * 1.0[m
+[31m-                    )[m
+[31m-                model.h2_balance = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_balance_rule[m
+[31m-                )[m
+[31m-                [m
+[31m-                # SEHR TRÄGE: Noch stärkere Leistungsbegrenzung als bei Pumpspeichern[m
+[31m-                def h2_ramping_upper_rule(m, s, t):[m
+[31m-                    """Maximale Erhöhung der Leistung pro Stunde """[m
+[31m-                    time_idx = time_hourly.index(t)[m
+[31m-                    if time_idx == 0:[m
+[31m-                        return pyo.Constraint.Skip[m
+[31m-                    [m
+[31m-                    prev_time = time_hourly[time_idx - 1][m
+[31m-                    max_ramp = m.inst_leistung[s, 'Wasserstoff'] * 0.5  # Max 50% Änderung pro Stunde[m
+[31m-                    [m
+[31m-                    return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] <= max_ramp[m
+[31m-                [m
+[31m-                def h2_ramping_lower_rule(m, s, t):[m
+[31m-                    """Maximale Reduktion der Leistung pro Stunde """[m
+[31m-                    time_idx = time_hourly.index(t)[m
+[31m-                    if time_idx == 0:[m
+[31m-                        return pyo.Constraint.Skip[m
+[31m-                    [m
+[31m-                    prev_time = time_hourly[time_idx - 1][m
+[31m-                    max_ramp = m.inst_leistung[s, 'Wasserstoff'] * 0.5[m
+[31m-                    [m
+[31m-                    return m.h2_leistung[s, t] - m.h2_leistung[s, prev_time] >= -max_ramp[m
+[31m-                [m
+[31m-                model.h2_ramping_upper = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_ramping_upper_rule[m
+[31m-                )[m
+[31m-                model.h2_ramping_lower = pyo.Constraint([m
+[31m-                    h2_speicher_techs, model.T_hourly, rule=h2_ramping_lower_rule[m
+[31m-                )[m
+[31m-                [m
+[31m-                print(f"  Wasserstoffspeicher: {len(h2_speicher_techs)} × {len(time_hourly)} Variablen (mit starkem Ramping-Limit)")[m
+[31m-[m
+[31m-                # Zyklische Bedingung für konsistente Jahressimulation[m
+[31m-                def h2_cyclic_rule(m, s):[m
+[31m-                    first_time = time_hourly[0][m
+[31m-                    last_time = time_hourly[-1][m
+[31m-                    return m.h2_stand[s, last_time] == m.h2_stand[s, first_time][m
+[31m-[m
+[31m-                model.h2_cyclic = pyo.Constraint([m
+[31m-                    h2_speicher_techs,[m
+[31m-                    rule=h2_cyclic_rule[m
+[31m-                )[m
+[31m-[m
+[31m-                print(f"  Wasserstoffspeicher: Zyklische Bedingung aktiviert (Anfangs-SOC = End-SOC)")[m
+[31m-    [m
+[31m-    print(f"\nWasserstoffspeichermodell erstellt (OHNE Binärvariablen)")[m
+[31m-    print(f"  Gesamt Variablen: ~{len(h2_speicher_techs) * len(time_hourly) * 3} (Kapazität, Stand, Leistung)")[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# def stromspeicher_regeln(model):[m
+[32m+[m[32m#     # Stromspeichertechnologien identifizieren[m
+[32m+[m[32m#     stromspeicher_techs = [[m
+[32m+[m[32m#         t for t in model.techs[m[41m [m
+[32m+[m[32m#         if model.art_map[t] == 'Speicher' and model.traeger_map[t] == 'Strom'[m
+[32m+[m[32m#     ][m
+[32m+[m
+[32m+[m[32m#     # Speicherfüllstand als Variable[m
+[32m+[m[32m#     model.stromspeicher_stand = pyo.Var([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         domain=pyo.NonNegativeReals,[m
+[32m+[m[32m#         bounds=(0, None)  # Obergrenze wird per Constraint gesetzt[m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m[32m#     # Constraint: Speicherstand darf Kapazität nicht überschreiten[m
+[32m+[m[32m#     def storage_level_constraint_rule(m, t, time):[m
+[32m+[m[32m#         return m.stromspeicher_stand[t, time] <= m.kapazitaet[t, 'Strom'][m
+[32m+[m[32m#     model.storage_level_constraint = pyo.Constraint([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         rule=storage_level_constraint_rule[m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m[32m#     # Lade-/Entladeleistung als Variable[m
+[32m+[m[32m#     model.stromspeicher_leistung = pyo.Var([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         domain=pyo.Reals,[m
+[32m+[m[32m#         bounds=(None, None)  # Keine festen Bounds, stattdessen Constraints[m
+[32m+[m[32m#     )[m
+[32m+[m[32m#     def storage_power_constraint_lower(m, t, time):[m
+[32m+[m[32m#         return m.stromspeicher_leistung[t, time] >= -m.inst_leistung[t, 'Strom'][m
+[32m+[m[32m#     model.storage_power_constraint_lower = pyo.Constraint([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         rule=storage_power_constraint_lower[m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m[32m#     def storage_power_constraint_upper(m, t, time):[m
+[32m+[m[32m#         return m.stromspeicher_leistung[t, time] <= m.inst_leistung[t, 'Strom'][m
+[32m+[m[32m#     model.storage_power_constraint_upper = pyo.Constraint([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         rule=storage_power_constraint_upper[m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m[32m#     # Anfangsbedingung: Speicher zu Beginn halb voll (oder leer)[m
+[32m+[m[32m#     model.stromspeicher_init = pyo.Constraint([m
+[32m+[m[32m#         stromspeicher_techs,[m
+[32m+[m[32m#         rule=lambda m, t: m.stromspeicher_stand[t, m.T.first()] == 0.5 * m.kapazitaet[t, 'Strom'][m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m[32m#     # Speicherbilanz für jeden Zeitpunkt (außer dem ersten)[m
+[32m+[m[32m#     def storage_balance_rule(m, t, time):[m
+[32m+[m[32m#         if time == m.T.first():[m
+[32m+[m[32m#             return pyo.Constraint.Skip[m
+[32m+[m[32m#         # Find previous time index[m
+[32m+[m[32m#         time_list = list(m.T.data() if hasattr(m.T, "data") else m.T)[m
+[32m+[m[32m#         idx = time_list.index(time)[m
+[32m+[m[32m#         prev_time = time_list[idx - 1][m
+[32m+[m[32m#         return m.stromspeicher_stand[t, time] == ([m
+[32m+[m[32m#             m.stromspeicher_stand[t, prev_time][m[41m [m
+[32m+[m[32m#             + m.stromspeicher_leistung[t, prev_time]/4 #geteilt durch 4, da 15 Minuten Intervalle[m
+[32m+[m[32m#         )[m
+[32m+[m[32m#     model.storage_balance = pyo.Constraint([m
+[32m+[m[32m#         stromspeicher_techs, model.T,[m
+[32m+[m[32m#         rule=storage_balance_rule[m
+[32m+[m[32m#     )[m
+[32m+[m
+[32m+[m
+[32m+[m[32m#     return model[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# def weitere_speicher_regeln(model):[m
+[32m+[m[32m#     # Batteriespeicher sollen vor Pumpspeichern eingesetzt werden.[m
+[32m+[m[32m#     # Es wird angenommen, dass die Technologiebezeichnungen "Batteriespeicher" und "Pumpspeicher" enthalten.[m
+[32m+[m[32m#     # Außerdem wird verhindert, dass Speicher gleichzeitig laden und entladen (keine Leistungskreisläufe).[m
+[32m+[m
+[32m+[m[32m#     # Batteriespeicher und Pumpspeicher identifizieren[m
+[32m+[m[32m#     batterie_techs = [t for t in model.techs if "Batterie" in t and model.art_map[t] == 'Speicher'][m
+[32m+[m[32m#     pumpspeicher_techs = [t for t in model.techs if "Pumpspeicher" in t and model.art_map[t] == 'Speicher'][m
+[32m+[m
+[32m+[m[32m#     # Regel: Pumpspeicher dürfen nur entladen, wenn Batteriespeicher nicht mehr entladen können[m
+[32m+[m[32m#     # (d.h. Batteriespeicherleistung ist ausgeschöpft)[m
+[32m+[m[32m#     def pumpspeicher_nachrangig_rule(m, time):[m
+[32m+[m[32m#         # Summe der Entladeleistung (negative Werte) der Batteriespeicher[m
+[32m+[m[32m#         batterie_entladung = sum([m
+[32m+[m[32m#             -m.stromspeicher_leistung[t, time] for t in batterie_techs if (t, 'Strom') in m.kapazitaet_index[m
+[32m+[m[32m#         )[m
+[32m+[m[32m#         # Summe der Entladeleistung der Pumpspeicher[m
+[32m+[m[32m#         pumpspeicher_entladung = sum([m
+[32m+[m[32m#             -m.stromspeicher_leistung[t, time] for t in pumpspeicher_techs if (t, 'Strom') in m.kapazitaet_index[m
+[32m+[m[32m#         )[m
+[32m+[m[32m#         # Pumpspeicher dürfen nur entladen, wenn Batteriespeicher voll ausgelastet sind[m
+[32m+[m[32m#         # (Hier: Pumpspeicherentladung <= max. mögliche Batterieentladung - tatsächliche Batterieentladung)[m
+[32m+[m[32m#         max_batterie_entladung = sum([m
+[32m+[m[32m#             m.inst_leistung[t, 'Strom'] for t in batterie_techs if (t, 'Strom') in m.inst_leistung_index[m
+[32m+[m[32m#         )[m
+[32m+[m[32m#         return pumpspeicher_entladung <= 1e-3 + max_batterie_entladung - batterie_entladung[m
+[32m+[m[32m#     if batterie_techs and pumpspeicher_techs:[m
+[32m+[m[32m#         model.pumpspeicher_nachrangig = pyo.Constraint(model.T, rule=pumpspeicher_nachrangig_rule)[m
+[32m+[m
+     [m
+[31m-    return model[m
+[32m+[m[32m#     # Binäre Variablen zur Steuerung des Vorzeichens der Speicherleistung pro Zeitpunkt[m
+[32m+[m[32m#     model.is_non_negative = pyo.Var(model.T, domain=pyo.Binary)  # 1, wenn alle Speicherleistungen >= 0 (Laden)[m
+[32m+[m[32m#     model.is_non_positive = pyo.Var(model.T, domain=pyo.Binary)  # 1, wenn alle Speicherleistungen <= 0 (Entladen)[m
+[32m+[m[32m#     M = 1e10  # große Konstante für Big-M-Methode[m
+[32m+[m
+[32m+[m[32m#     # Constraint: Wenn is_non_negative[t] = 1, dann sind alle Speicherleistungen >= 0 (Laden)[m
+[32m+[m[32m#     def all_non_negative_rule(m, t, tech):[m
+[32m+[m[32m#         if m.art_map[tech] == 'Speicher' and m.traeger_map[tech] == 'Strom':[m
+[32m+[m[32m#             return m.stromspeicher_leistung[tech, t] >= -M * (1 - m.is_non_negative[t])[m
+[32m+[m[32m#         else:[m
+[32m+[m[32m#             return pyo.Constraint.Skip[m
+[32m+[m
+[32m+[m[32m#     # Constraint: Wenn is_non_positive[t] = 1, dann sind alle Speicherleistungen <= 0 (Entladen)[m
+[32m+[m[32m#     def all_non_positive_rule(m, t, tech):[m
+[32m+[m[32m#         if m.art_map[tech] == 'Speicher' and m.traeger_map[tech] == 'Strom':[m
+[32m+[m[32m#             return m.stromspeicher_leistung[tech, t] <= M * (1 - m.is_non_positive[t])[m
+[32m+[m[32m#         else:[m
+[32m+[m[32m#             return pyo.Constraint.Skip[m
+[32m+[m
+[32m+[m[32m#     # Constraint: Pro Zeitpunkt darf nur eine Richtung aktiv sein (Laden oder Entladen)[m
+[32m+[m[32m#     def only_one_sign_rule(m, t):[m
+[32m+[m[32m#         return m.is_non_negative[t] + m.is_non_positive[t] == 1[m
+[32m+[m
+[32m+[m[32m#     # Constraints im Modell registrieren[m
+[32m+[m[32m#     model.all_non_negative_constr = pyo.Constraint(model.T, model.techs, rule=all_non_negative_rule)[m
+[32m+[m[32m#     model.all_non_positive_constr = pyo.Constraint(model.T, model.techs, rule=all_non_positive_rule)[m
+[32m+[m[32m#     model.only_one_sign_constr = pyo.Constraint(model.T, rule=only_one_sign_rule)[m
+[32m+[m
+[32m+[m[32m#     # Zusätzliche Variable: Batterie-Priorität (1, wenn Batterie am Limit)[m
+[32m+[m[32m#     model.battery_priority = pyo.Var(model.T, domain=pyo.Binary)[m
+[32m+[m
+[32m+[m[32m#     # Constraint: Mindestaktivierungsdauer für Pumpspeicher (z.B. 1 Stunde = 4 Intervalle)[m
+[32m+[m[32m#     def pump_minimum_runtime(m, t):[m
+[32m+[m[32m#         if t < m.T.last():[m
+[32m+[m[32m#             # Index des aktuellen Zeitpunkts bestimmen[m
+[32m+[m[32m#             time_list = list(m.T.data() if hasattr(m.T, "data") else m.T)[m
+[32m+[m[32m#             idx = time_list.index(t)[m
+[32m+[m[32m#             # Nächsten Zeitpunkt mit Mindestdauer bestimmen[m
+[32m+[m[32m#             if hasattr(time_list[idx], 'freq') and time_list[idx].freq is not None:[m
+[32m+[m[32m#                 next_time = time_list[idx] + 3 * time_list[idx].freq[m
+[32m+[m[32m#             else:[m
+[32m+[m[32m#                 # Fallback: 4. nächstes Element, falls freq nicht verfügbar[m
+[32m+[m[32m#                 if idx + 3 < len(time_list):[m
+[32m+[m[32m#                     next_time = time_list[idx + 3][m
+[32m+[m[32m#                 else:[m
+[32m+[m[32m#                     return pyo.Constraint.Skip[m
+[32m+[m[32m#             # Batterie-Priorität muss für Mindestdauer erhalten bleiben[m
+[32m+[m[32m#             return m.battery_priority[t] <= m.battery_priority[next_time][m
+[32m+[m[32m#         return pyo.Constraint.Skip[m
+[32m+[m[32m#     model.pump_min_runtime = pyo.Constraint(model.T, rule=pump_minimum_runtime)[m
+[32m+[m
+[32m+[m[32m#     return model[m
+ [m
+[31m-print('Ende c_storage_constraints.py')[m
+ [m
+[32m+[m[32m#print('Ende c_storage_constraints.py')[m
+ [m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/d_solver.py b/scripts_opt_neu/b_Optimierung/d_solver.py[m
+[1mindex 0c232ed..eec7c11 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/d_solver.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/d_solver.py[m
+[36m@@ -3,7 +3,7 @@[m [mfrom pyomo.opt import SolverFactory[m
+ from a_inputs import kosten, df_parameter[m
+ [m
+ def solve_model(model):[m
+[31m-    solver = SolverFactory('cbc')[m
+[32m+[m[32m    solver = SolverFactory('cbc')  # oder 'glpk'[m
+     results = solver.solve(model, tee=True)[m
+     if results.solver.termination_condition == pyo.TerminationCondition.optimal:[m
+         print("Optimale Lösung gefunden:")[m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/f_speichern.py b/scripts_opt_neu/b_Optimierung/f_speichern.py[m
+[1mindex f1e7c8c..36df687 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/f_speichern.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/f_speichern.py[m
+[36m@@ -15,16 +15,9 @@[m [mdef speichere_ergebnisse(model):[m
+     [m
+     # ========== INSTALLIERTE LEISTUNGEN (wie bisher) ==========[m
+     with pd.ExcelWriter(r'data\b_Optimierung\opt_inst_Leistung.xlsx') as writer:[m
+[31m-        sheets_written = 0[m
+[31m-        [m
+         for var_name, data in results.items():[m
+             # Nur inst_leistung und kapazitaet (keine Zeitreihen)[m
+[31m-            if var_name in ['inst_leistung', 'kapazitaet', 'batterie_kapazitaet', 'pump_kapazitaet', 'h2_kapazitaet']:[m
+[31m-                # ✅ WICHTIG: Prüfe, ob data leer ist[m
+[31m-                if not data:[m
+[31m-                    print(f"⚠ Variable '{var_name}' ist leer (übersprungen)")[m
+[31m-                    continue[m
+[31m-                [m
+[32m+[m[32m            if var_name in ['inst_leistung', 'kapazitaet', 'batterie_kapazitaet', 'pump_kapazitaet']:[m
+                 df = pd.DataFrame.from_dict(data, orient='index', columns=['Wert'])[m
+                 [m
+                 # Index-Struktur je nach Variable[m
+[36m@@ -40,13 +33,6 @@[m [mdef speichere_ergebnisse(model):[m
+                         df = df.set_index('Technologie')[m
+                 [m
+                 df.to_excel(writer, sheet_name=var_name[:31])[m
+[31m-                sheets_written += 1[m
+[31m-        [m
+[31m-        # ✅ Falls KEINE Sheets geschrieben wurden, erstelle Dummy-Sheet[m
+[31m-        if sheets_written == 0:[m
+[31m-            df_dummy = pd.DataFrame({'Info': ['Keine installierten Leistungen gefunden']})[m
+[31m-            df_dummy.to_excel(writer, sheet_name='Info', index=False)[m
+[31m-            print("⚠ WARNUNG: Keine installierten Leistungen gefunden!")[m
+     [m
+     # ========== SPEICHER-ZEITREIHEN ==========[m
+     speicher_daten = {}[m
+[36m@@ -63,9 +49,6 @@[m [mdef speichere_ergebnisse(model):[m
+                        for t in model.T [m
+                        if model.batterie_stand[tech, t].value is not None}[m
+             [m
+[31m-            if not soc_data:[m
+[31m-                continue[m
+[31m-            [m
+             # Leistung (positiv = Entladen, negativ = Laden)[m
+             power_data = {t: pyo.value(model.batterie_leistung[tech, t]) [m
+                          for t in model.T [m
+[36m@@ -99,9 +82,6 @@[m [mdef speichere_ergebnisse(model):[m
+                        for t in model.T_hourly [m
+                        if model.pump_stand[tech, t].value is not None}[m
+             [m
+[31m-            if not soc_data:[m
+[31m-                continue[m
+[31m-            [m
+             # Leistung[m
+             power_data = {t: pyo.value(model.pump_leistung[tech, t]) [m
+                          for t in model.T_hourly [m
+[36m@@ -134,42 +114,6 @@[m [mdef speichere_ergebnisse(model):[m
+             [m
+             speicher_daten[f'{tech}_Pump'] = df_pump[m
+     [m
+[31m-    # Wasserstoffspeicher (stündliche Auflösung)[m
+[31m-    if hasattr(model, 'h2_stand'):[m
+[31m-        h2_techs = [s for s in model.techs [m
+[31m-                   if model.art_map[s] == 'Speicher' [m
+[31m-                   and 'Wasserstoff' in s][m
+[31m-        [m
+[31m-        for tech in h2_techs:[m
+[31m-            # SOC[m
+[31m-            soc_data = {t: pyo.value(model.h2_stand[tech, t]) [m
+[31m-                       for t in model.T_hourly [m
+[31m-                       if model.h2_stand[tech, t].value is not None}[m
+[31m-            [m
+[31m-            if not soc_data:[m
+[31m-                continue[m
+[31m-            [m
+[31m-            # Leistung[m
+[31m-            power_data = {t: pyo.value(model.h2_leistung[tech, t]) [m
+[31m-                         for t in model.T_hourly [m
+[31m-                         if model.h2_leistung[tech, t].value is not None}[m
+[31m-            [m
+[31m-            # Kapazität[m
+[31m-            capacity = pyo.value(model.h2_kapazitaet[tech])[m
+[31m-            [m
+[31m-            # DataFrame erstellen[m
+[31m-            df_h2 = pd.DataFrame({[m
+[31m-                'Zeitstempel': list(soc_data.keys()),[m
+[31m-                'SOC [MWh]': list(soc_data.values()),[m
+[31m-                'Leistung [MW]': list(power_data.values()),[m
+[31m-                'Kapazität [MWh]': [capacity] * len(soc_data),[m
+[31m-                'SOC [%]': [soc_data[t] / capacity * 100 if capacity > 0 else 0 [m
+[31m-                           for t in soc_data.keys()][m
+[31m-            })[m
+[31m-            df_h2.set_index('Zeitstempel', inplace=True)[m
+[31m-            [m
+[31m-            speicher_daten[f'{tech}_H2'] = df_h2[m
+[31m-    [m
+     # Speicher-Zeitreihen in Excel schreiben[m
+     if speicher_daten:[m
+         with pd.ExcelWriter(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx') as writer:[m
+[36m@@ -182,12 +126,6 @@[m [mdef speichere_ergebnisse(model):[m
+         statistiken = [][m
+         [m
+         for speicher_name, df_speicher in speicher_daten.items():[m
+[31m-            # Zeitschritt-Dauer ermitteln (15min für Batterie, 1h für Pump/H2)[m
+[31m-            if '_Batterie' in speicher_name:[m
+[31m-                timestep_hours = 0.25  # 15min[m
+[31m-            else:[m
+[31m-                timestep_hours = 1.0  # 1h[m
+[31m-            [m
+             stats = {[m
+                 'Speicher': speicher_name,[m
+                 'Zeitschritte': len(df_speicher),[m
+[36m@@ -197,8 +135,8 @@[m [mdef speichere_ergebnisse(model):[m
+                 'Durchschn. SOC [MWh]': df_speicher['SOC [MWh]'].mean(),[m
+                 'Max Entladung [MW]': df_speicher['Leistung [MW]'].max(),[m
+                 'Max Ladung [MW]': df_speicher['Leistung [MW]'].min(),[m
+[31m-                'Gesamte Entladung [MWh]': df_speicher[df_speicher['Leistung [MW]'] > 0]['Leistung [MW]'].sum() * timestep_hours,[m
+[31m-                'Gesamte Ladung [MWh]': abs(df_speicher[df_speicher['Leistung [MW]'] < 0]['Leistung [MW]'].sum()) * timestep_hours,[m
+[32m+[m[32m                'Gesamte Entladung [MWh]': df_speicher[df_speicher['Leistung [MW]'] > 0]['Leistung [MW]'].sum() * 0.25,  # 15min[m
+[32m+[m[32m                'Gesamte Ladung [MWh]': abs(df_speicher[df_speicher['Leistung [MW]'] < 0]['Leistung [MW]'].sum()) * 0.25,[m
+             }[m
+             statistiken.append(stats)[m
+         [m
+[36m@@ -210,82 +148,8 @@[m [mdef speichere_ergebnisse(model):[m
+     [m
+     print("\n=== SPEICHERN ABGESCHLOSSEN ===")[m
+     print(f"1. Installierte Leistungen: data\\b_Optimierung\\opt_inst_Leistung.xlsx")[m
+[31m-    if speicher_daten:[m
+[31m-        print(f"2. Speicher-Zeitreihen: data\\b_Optimierung\\opt_speicher_zeitreihen.xlsx")[m
+[31m-        print(f"3. Speicher-Statistiken: data\\b_Optimierung\\opt_speicher_statistiken.xlsx")[m
+[31m-    [m
+[31m-    # ========== KOSTEN-BERECHNUNG ==========[m
+[31m-    WACC = 0.05  # 5% Standard für Energieprojekte[m
+[31m-    [m
+[31m-    from a_inputs import kosten, df_parameter, lebensdauer[m
+[31m-    per_tech = {}[m
+[31m-[m
+[31m-    def calculate_crf(lifetime, wacc=WACC):[m
+[31m-        """Berechnet Capital Recovery Factor"""[m
+[31m-        try:[m
+[31m-            lifetime = float(lifetime)[m
+[31m-        except Exception:[m
+[31m-            return 1.0[m
+[31m-        if lifetime <= 0:[m
+[31m-            return 1.0[m
+[31m-        if wacc == 0:[m
+[31m-            return 1.0 / lifetime[m
+[31m-        return (wacc * (1 + wacc) ** lifetime) / ((1 + wacc) ** lifetime - 1)[m
+[31m-[m
+[31m-    # Numerische Berechnung der annualisierten CAPEX pro Technologie[m
+[31m-    for (t, c) in getattr(model, 'inst_leistung_index', []):[m
+[31m-        try:[m
+[31m-            installed_val = pyo.value(model.inst_leistung[t, c])[m
+[31m-        except Exception:[m
+[31m-            continue[m
+[31m-[m
+[31m-        if installed_val is None:[m
+[31m-            continue[m
+[31m-[m
+[31m-        # untere Grenze aus df_parameter (falls vorhanden)[m
+[31m-        if t in df_parameter.index:[m
+[31m-            try:[m
+[31m-                lower_bound = float(df_parameter.loc[t, 'untere Grenze [MW]'])[m
+[31m-            except Exception:[m
+[31m-                lower_bound = 0.0[m
+[31m-        else:[m
+[31m-            lower_bound = 0.0[m
+[31m-[m
+[31m-        added_capacity = max(0.0, installed_val - lower_bound)[m
+[31m-[m
+[31m-        unit_cost = float(kosten.get(t, 0.0))[m
+[31m-        capex_total = unit_cost * added_capacity[m
+[31m-[m
+[31m-        life = lebensdauer.get(t, 1)[m
+[31m-        crf = calculate_crf(life, WACC)[m
+[31m-        annualized_capex = capex_total * crf[m
+[31m-[m
+[31m-        per_tech.setdefault(t, 0.0)[m
+[31m-        per_tech[t] += float(annualized_capex)[m
+[31m-[m
+[31m-    print("\n=== ANNUALISIERTE KOSTEN ===")[m
+[31m-    for t, val in sorted(per_tech.items(), key=lambda x: x[1], reverse=True):[m
+[31m-        print(f"  {t:30s}: {val:>15,.2f} EUR/Jahr")[m
+[31m-[m
+[31m-    total_annualized = sum(per_tech.values())[m
+[31m-    print(f"\n{'Gesamt annualisierte CAPEX':30s}: {total_annualized:>15,.2f} EUR/Jahr")[m
+[31m-    [m
+[31m-    # Speichere Kosten in opt_inst_Leistung.xlsx[m
+[31m-    if per_tech:[m
+[31m-        with pd.ExcelWriter(r'data\b_Optimierung\opt_inst_Leistung.xlsx', mode='a', if_sheet_exists='replace') as writer:[m
+[31m-            df_costs = pd.DataFrame({[m
+[31m-                'Technologie': list(per_tech.keys()),[m
+[31m-                'Annualisierte CAPEX [EUR/Jahr]': list(per_tech.values())[m
+[31m-            })[m
+[31m-            df_costs = df_costs.sort_values('Annualisierte CAPEX [EUR/Jahr]', ascending=False)[m
+[31m-            df_costs.set_index('Technologie', inplace=True)[m
+[31m-            df_costs.to_excel(writer, sheet_name='Kosten')[m
+[31m-            [m
+[31m-            # Gesamtkosten als separate Zeile[m
+[31m-            df_total = pd.DataFrame({[m
+[31m-                'Annualisierte CAPEX [EUR/Jahr]': [total_annualized][m
+[31m-            }, index=['GESAMT'])[m
+[31m-            df_total.to_excel(writer, sheet_name='Kosten', startrow=len(df_costs)+2)[m
+[32m+[m[32m    print(f"2. Speicher-Zeitreihen: data\\b_Optimierung\\opt_speicher_zeitreihen.xlsx")[m
+[32m+[m[32m    print(f"3. Speicher-Statistiken: data\\b_Optimierung\\opt_speicher_statistiken.xlsx")[m
+     [m
+     return results[m
+ [m
+[1mdiff --git a/scripts_opt_neu/b_Optimierung/main.py b/scripts_opt_neu/b_Optimierung/main.py[m
+[1mindex 3f10adf..362a367 100644[m
+[1m--- a/scripts_opt_neu/b_Optimierung/main.py[m
+[1m+++ b/scripts_opt_neu/b_Optimierung/main.py[m
+[36m@@ -1,12 +1,3 @@[m
+[31m-import os[m
+[31m-from pathlib import Path[m
+[31m-[m
+[31m-# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)[m
+[31m-project_root = Path(__file__).parent.parent.parent[m
+[31m-os.chdir(project_root)[m
+[31m-print(f"Working Directory: {os.getcwd()}")[m
+[31m-[m
+[31m-[m
+ import a_inputs as a_inputs[m
+ import b_model_structure as b_model_structure[m
+ import c_storage_constraints as c_storage_constraints[m
+[36m@@ -66,16 +57,7 @@[m [mdef debug_print_model_info(model):[m
+     # Check capacity vs demand[m
+     try:[m
+         max_demand = a_inputs.df_bedarf['Strom_Gesamt_Bedarf [MW]'].max()[m
+[31m-        total_capacity = a_inputs.df_parameter[a_inputs.df_parameter['Energieträger'] == 'Strom']['obere Grenze [MW]'].sum()[m
+[31m-        print(f"  Max Demand: {max_demand:.2f} MW")[m
+[31m-        print(f"  Total Capacity: {total_capacity:.2f} MW")[m
+[31m-        print(f"  Capacity Ratio: {total_capacity/max_demand:.2f}")[m
+[31m-    except Exception as e:[m
+[31m-        print(f"  Capacity check failed: {e}")[m
+[31m-    # Check capacity vs demand[m
+[31m-    try:[m
+[31m-        max_demand = a_inputs.df_bedarf_daily['Wärme_Gesamt_Bedarf [MWh]'].max()[m
+[31m-        total_capacity = a_inputs.df_parameter[a_inputs.df_parameter['Energieträger'] == 'Wärme']['obere Grenze [MW]'].sum()[m
+[32m+[m[32m        total_capacity = a_inputs.df_parameter['obere Grenze [MW]'].sum()[m
+         print(f"  Max Demand: {max_demand:.2f} MW")[m
+         print(f"  Total Capacity: {total_capacity:.2f} MW")[m
+         print(f"  Capacity Ratio: {total_capacity/max_demand:.2f}")[m
+[36m@@ -83,42 +65,39 @@[m [mdef debug_print_model_info(model):[m
+         print(f"  Capacity check failed: {e}")[m
+ [m
+ def main():[m
+[31m-    try:[m
+[31m-        model = b_model_structure.create_energy_system_model(a_inputs.df_bedarf, a_inputs.df_bedarf_daily)[m
+[31m-        print("✓ Modell erstellt")[m
+[31m-        [m
+[31m-        model = b_model_structure.define_variables(model, a_inputs.df_parameter)[m
+[31m-        print("✓ Variablen definiert")[m
+[31m-        [m
+[31m-        model = b_model_structure.define_objective(model, a_inputs.df_parameter)[m
+[31m-        print("✓ Zielfunktion definiert")[m
+[31m-        [m
+[31m-        model = c_storage_constraints.stromspeicher_regeln(model)[m
+[31m-        print("✓ Stromspeicher-Constraints definiert")[m
+[31m-        [m
+[31m-        model = c_storage_constraints.wasserstoffspeicher_regeln(model)[m
+[31m-        print("✓ H2-Speicher-Constraints definiert")[m
+[31m-        [m
+[31m-        model = c_constraints.define_constraints(model, a_inputs.df_bedarf, a_inputs.df_bedarf_daily)[m
+[31m-        print("✓ Alle Constraints definiert")[m
+[31m-        [m
+[31m-        debug_print_model_info(model)[m
+[31m-        [m
+[31m-        solved_model = d_solver.solve_model(model)[m
+[31m-        return solved_model[m
+[32m+[m[32m    model = b_model_structure.create_energy_system_model(a_inputs.df_bedarf)[m
+[32m+[m[32m    model = b_model_structure.define_variables(model, a_inputs.df_parameter)[m
+[32m+[m[32m    model = b_model_structure.define_objective(model, a_inputs.df_parameter)[m
+[32m+[m[32m    model = c_storage_constraints.stromspeicher_regeln(model)[m
+[32m+[m[32m    #model = c_storage_constraints.weitere_speicher_regeln(model)[m
+[32m+[m[32m    model = c_constraints.define_constraints(model, a_inputs.df_bedarf)[m
+     [m
+[31m-    except Exception as e:[m
+[31m-        import traceback[m
+[31m-        print("\n❌ FEHLER beim Erstellen des Modells:")[m
+[31m-        print("=" * 60)[m
+[31m-        traceback.print_exc()[m
+[31m-        print("=" * 60)[m
+[31m-        raise[m
+[32m+[m[32m    debug_print_model_info(model)[m
+[32m+[m[41m    [m
+[32m+[m[32m    solved_model = d_solver.solve_model(model)[m
+[32m+[m[32m    return solved_model[m
+ [m
+ ergebnis_model = main()[m
+ [m
+[31m-[m
+ results= speichere_ergebnisse(ergebnis_model)[m
+ [m
+[32m+[m[32m# if identify_infeasible_constraints is not None:[m
+[32m+[m[32m#     bad = list(identify_infeasible_constraints(ergebnis_model, tol=1e-6))[m
+[32m+[m[32m#     for c in bad[:50]:[m
+[32m+[m[32m#         print(c.local_name, c.body(), c.lower(), c.upper())[m
+[32m+[m[32m# else:[m
+[32m+[m[32m#     print("Warning: identify_infeasible_constraints not available")[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m# from pyomo.environ import Var, Constraint[m
+[32m+[m[32m# unused = [][m
+[32m+[m[32m# for v in b_model_structure.model.component_data_objects(Var, active=True):[m
+[32m+[m[32m#     # Kompakter Test: Variable kommt in mindestens einer Constraint zu stehen?[m
+[32m+[m[32m#     used = any(v is term for c in b_model_structure.model.component_data_objects(Constraint) for term in (c.body, c.lower, c.upper) )[m
+[32m+[m[32m#     if not used:[m
+[32m+[m[32m#         unused.append(v)[m
+[32m+[m[32m# print("Unbenutzte Variablen (Beispiele):", unused[:20])[m
+[32m+[m
+ [m
+ print("Ende der main.py Datei")[m
+\ No newline at end of file[m
+[1mdiff --git a/scripts_opt_neu/c_Auswertung/__pycache__/vorbereitung.cpython-313.pyc b/scripts_opt_neu/c_Auswertung/__pycache__/vorbereitung.cpython-313.pyc[m
+[1mdeleted file mode 100644[m
+[1mindex 0ebaf6c..0000000[m
+Binary files a/scripts_opt_neu/c_Auswertung/__pycache__/vorbereitung.cpython-313.pyc and /dev/null differ
+[1mdiff --git a/scripts_opt_neu/c_Auswertung/graphisch_darstellen.py b/scripts_opt_neu/c_Auswertung/graphisch_darstellen.py[m
+[1mindex 237ac2e..44a0e1c 100644[m
+[1m--- a/scripts_opt_neu/c_Auswertung/graphisch_darstellen.py[m
+[1m+++ b/scripts_opt_neu/c_Auswertung/graphisch_darstellen.py[m
+[36m@@ -8,14 +8,14 @@[m [mimport matplotlib.dates as mdates[m
+ from vorbereitung import bedarf_deckung as df[m
+ [m
+ #Hier noch Namen eintragen um Grafiken zu benennen[m
+[31m-df_name = 'bedarf_und_deckung_elektrifizierung_23'  # Name des DataFrames für die Dateinamen der Grafiken[m
+[32m+[m[32mdf_name = 'bedarf_und_deckung_basis_23'  # Name des DataFrames für die Dateinamen der Grafiken[m
+ [m
+ [m
+ cd_palette = [[m
+      # (0/255, 20/255, 80/255),[m
+     (0/255, 0/255, 140/255),[m
+[31m-    #(47/255, 87/255, 178/255),[m
+[31m-    #(115/255, 105/255, 190/255),[m
+[32m+[m[32m    (47/255, 87/255, 178/255),[m
+[32m+[m[32m    (115/255, 105/255, 190/255),[m
+     (188/255, 21/255, 137/255),[m
+     (210/255, 15/255, 65/255),[m
+     (200/255, 80/255, 0/255),[m
+[36m@@ -57,7 +57,7 @@[m [mdef plot_daily_aggregation(df, columns, highlight_date=None, title=None, ylabel=[m
+     lines = [][m
+     for idx, column in enumerate(columns):[m
+         # Tägliche Aggregation[m
+[31m-        df_daily = df[column].resample('D').agg(['mean', 'min', 'max']) / 1000  # Umrechnung von MW in GW[m
+[32m+[m[32m        df_daily = df[column].resample('D').agg(['mean', 'min', 'max'])[m
+ [m
+         # Diagramm erstellen[m
+         # Ensure data is numeric and drop NaN values[m
+[36m@@ -135,7 +135,7 @@[m [mdef plot_selected_days(df, columns, days, highlight_time=None, title=None, ylabe[m
+         # Plotte die Daten für diesen Tag und jede Spalte[m
+         for column in columns:[m
+             # Stelle sicher, dass Werte numerisch sind und NaNs entfernt werden[m
+[31m-            series = pd.to_numeric(day_data[column], errors='coerce').dropna() / 1000  # Umrechnung von MW in GW[m
+[32m+[m[32m            series = pd.to_numeric(day_data[column], errors='coerce').dropna()[m
+             if series.empty:[m
+                 print(f"Warnung: Keine gültigen Daten für Spalte '{column}' am {day}.")[m
+                 continue[m
+[36m@@ -201,8 +201,8 @@[m [mdef plot_weekly_aggregation(df, columns, week_start, title=None, ylabel=None, le[m
+ [m
+     lines = [][m
+     for idx, column in enumerate(columns):[m
+[31m-        # Stündliche Aggregation mit Umrechnung von MW in GW[m
+[31m-        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max']) / 1000[m
+[32m+[m[32m        # Stündliche Aggregation[m
+[32m+[m[32m        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max'])[m
+ [m
+         # Ensure data is numeric and drop NaN values[m
+         df_hourly_clean = df_hourly.dropna().apply(pd.to_numeric, errors='coerce')[m
+[36m@@ -243,9 +243,9 @@[m [mselected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Summe_Stromerzeugung [MW]'[m
+ [m
+ custom_labels = selected_columns[m
+ [m
+[31m-title =                 'Strombedarf und modellierte Erzeugung für das Jahr 2023'[m
+[31m-ylabel =                'Leistung in GW'[m
+[31m-highlight_date=         None[m
+[32m+[m[32mtitle =                 'Netzlast und modellierte Erzeugung für das Jahr 2023'[m
+[32m+[m[32mylabel =                'Leistung in MW'[m
+[32m+[m[32mhighlight_date=         '2023-11-30'[m
+ [m
+ [m
+ fig, ax = plot_daily_aggregation(df, selected_columns, [m
+[36m@@ -267,13 +267,13 @@[m [mplt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben[m
+ [m
+ # Beispielaufruf für die Darstellung eines spezifischen Tages[m
+ selected_days =                         ['2023-11-30'][m
+[31m-selected_columns =                       ['Strom_Gesamt_Bedarf [MW]', 'Summe_Stromerzeugung [MW]', 'Batterie_Leistung [MW]' ][m
+[31m-custom_labels =                         selected_columns[m
+[31m-title=                                  f'Strombedarf und modellierte Erzeugung für den {selected_days}'[m
+[31m-ylabel=                                 'Leistung in GW'[m
+[32m+[m[32m# selected_columns =                       ['EMobilität', 'Wärmepumpen'][m
+[32m+[m[32m# custom_labels =                         ['Netzlast', 'modellierter Verbrauch'][m
+[32m+[m[32mtitle=                                  f'Netzlast und modellierte Erzeugung für den {selected_days}'[m
+[32m+[m[32mylabel=                                 'Leistung in MW'[m
+ [m
+ fig, ax = plot_selected_days(df, selected_columns, selected_days, [m
+[31m-                   None,  # Hervorheben des Werts um 08:45 Uhr[m
+[32m+[m[32m                   #highlight_time='08:45',  # Hervorheben des Werts um 08:45 Uhr[m
+                    title, [m
+                    ylabel,[m
+                    legend_labels=custom_labels)[m
+[36m@@ -283,10 +283,10 @@[m [mplt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben[m
+ [m
+ # Beispielaufruf für die Darstellung einer Woche[m
+ week_start =                            '2023-11-27'  # Startdatum der Woche[m
+[31m-#selected_columns =                       ['EMobilität', 'Wärmepumpen'][m
+[31m-#custom_labels =                         ['Netzlast', 'Modellierung'][m
+[31m-title =                                 f'Strombedarf und modellierte Erzeugung für die Woche ab {week_start}'[m
+[31m-ylabel =                                'Leistung in GW'[m
+[32m+[m[32m# selected_columns =                       ['EMobilität', 'Wärmepumpen'][m
+[32m+[m[32m# custom_labels =                         ['Netzlast', 'Modellierung'][m
+[32m+[m[32mtitle =                                 f'Netzlast und modellierter Verbrauch für die Woche ab {week_start}'[m
+[32m+[m[32mylabel =                                'Leistung in MW'[m
+ [m
+ fig, ax = plot_weekly_aggregation(df, selected_columns, week_start,[m
+                                   title, [m
+[1mdiff --git a/scripts_opt_neu/c_Auswertung/graphisch_darstellen_speicher.py b/scripts_opt_neu/c_Auswertung/graphisch_darstellen_speicher.py[m
+[1mindex 2b4e2f8..ce7ce2c 100644[m
+[1m--- a/scripts_opt_neu/c_Auswertung/graphisch_darstellen_speicher.py[m
+[1m+++ b/scripts_opt_neu/c_Auswertung/graphisch_darstellen_speicher.py[m
+[36m@@ -14,8 +14,8 @@[m [mdf_name = 'bedarf_und_deckung_speicher'  # Name des DataFrames für die Dateinam[m
+ cd_palette = [[m
+      # (0/255, 20/255, 80/255),[m
+     (0/255, 0/255, 140/255),[m
+[31m-    #(47/255, 87/255, 178/255),[m
+[31m-    #(115/255, 105/255, 190/255),[m
+[32m+[m[32m    (47/255, 87/255, 178/255),[m
+[32m+[m[32m    (115/255, 105/255, 190/255),[m
+     (188/255, 21/255, 137/255),[m
+     (210/255, 15/255, 65/255),[m
+     (200/255, 80/255, 0/255),[m
+[36m@@ -57,7 +57,7 @@[m [mdef plot_daily_aggregation(df, columns, highlight_date=None, title=None, ylabel=[m
+     lines = [][m
+     for idx, column in enumerate(columns):[m
+         # Tägliche Aggregation[m
+[31m-        df_daily = df[column].resample('D').agg(['mean', 'min', 'max'])/1000  # Umrechnung von MW in GW[m
+[32m+[m[32m        df_daily = df[column].resample('D').agg(['mean', 'min', 'max'])[m
+ [m
+         # Diagramm erstellen[m
+         # Ensure data is numeric and drop NaN values[m
+[36m@@ -135,7 +135,7 @@[m [mdef plot_selected_days(df, columns, days, highlight_time=None, title=None, ylabe[m
+         # Plotte die Daten für diesen Tag und jede Spalte[m
+         for column in columns:[m
+             # Stelle sicher, dass Werte numerisch sind und NaNs entfernt werden[m
+[31m-            series = pd.to_numeric(day_data[column], errors='coerce').dropna()/1000  # Umrechnung von MW in GW[m
+[32m+[m[32m            series = pd.to_numeric(day_data[column], errors='coerce').dropna()[m
+             if series.empty:[m
+                 print(f"Warnung: Keine gültigen Daten für Spalte '{column}' am {day}.")[m
+                 continue[m
+[36m@@ -202,7 +202,7 @@[m [mdef plot_weekly_aggregation(df, columns, week_start, title=None, ylabel=None, le[m
+     lines = [][m
+     for idx, column in enumerate(columns):[m
+         # Stündliche Aggregation[m
+[31m-        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max'])/1000  # Umrechnung von MW in GW[m
+[32m+[m[32m        df_hourly = week_data[column].resample('H').agg(['mean', 'min', 'max'])[m
+ [m
+         # Ensure data is numeric and drop NaN values[m
+         df_hourly_clean = df_hourly.dropna().apply(pd.to_numeric, errors='coerce')[m
+[36m@@ -239,12 +239,12 @@[m [mdef plot_weekly_aggregation(df, columns, week_start, title=None, ylabel=None, le[m
+ #%% Grafik generieren[m
+ [m
+ # Grafik generieren für den Jahresgang[m
+[31m-selected_columns =      ['Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]', 'H2_Speicher_Leistung [MW]'][m
+[32m+[m[32mselected_columns =      ['Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]'][m
+ [m
+ custom_labels = selected_columns[m
+ [m
+[31m-title =                 'Strombedarf und modellierte Erzeugung für das Jahr 2023'[m
+[31m-ylabel =                'Leistung in GW'[m
+[32m+[m[32mtitle =                 'Netzlast und modellierte Erzeugung für das Jahr 2023'[m
+[32m+[m[32mylabel =                'Leistung in MW'[m
+ highlight_date=         '2023-11-30'[m
+ [m
+ [m
+[36m@@ -269,11 +269,11 @@[m [mplt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben[m
+ selected_days =                         ['2023-11-30'][m
+ # selected_columns =                       ['EMobilität', 'Wärmepumpen'][m
+ # custom_labels =                         ['Netzlast', 'modellierter Verbrauch'][m
+[31m-title=                                  f'Strombedarf und modellierte Erzeugung für den {selected_days}'[m
+[31m-ylabel=                                 'Leistung in GW'[m
+[32m+[m[32mtitle=                                  f'Netzlast und modellierte Erzeugung für den {selected_days}'[m
+[32m+[m[32mylabel=                                 'Leistung in MW'[m
+ [m
+ fig, ax = plot_selected_days(df, selected_columns, selected_days, [m
+[31m-                   None,  # Hervorheben des Werts um 08:45 Uhr[m
+[32m+[m[32m                   #highlight_time='08:45',  # Hervorheben des Werts um 08:45 Uhr[m
+                    title, [m
+                    ylabel,[m
+                    legend_labels=custom_labels)[m
+[36m@@ -285,8 +285,8 @@[m [mplt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben[m
+ week_start =                            '2023-11-27'  # Startdatum der Woche[m
+ # selected_columns =                       ['EMobilität', 'Wärmepumpen'][m
+ # custom_labels =                         ['Netzlast', 'Modellierung'][m
+[31m-title =                                 f'Strombedarf und modellierte Erzeugung für die Woche ab {week_start}'[m
+[31m-ylabel =                                'Leistung in GW'[m
+[32m+[m[32mtitle =                                 f'Netzlast und modellierter Verbrauch für die Woche ab {week_start}'[m
+[32m+[m[32mylabel =                                'Leistung in MW'[m
+ [m
+ fig, ax = plot_weekly_aggregation(df, selected_columns, week_start,[m
+                                   title, [m
+[1mdiff --git a/scripts_opt_neu/c_Auswertung/vorbereitung.py b/scripts_opt_neu/c_Auswertung/vorbereitung.py[m
+[1mindex ba8667f..fe3a868 100644[m
+[1m--- a/scripts_opt_neu/c_Auswertung/vorbereitung.py[m
+[1m+++ b/scripts_opt_neu/c_Auswertung/vorbereitung.py[m
+[36m@@ -1,20 +1,12 @@[m
+ import pandas as pd[m
+ [m
+[31m-import os[m
+[31m-from pathlib import Path[m
+[31m-[m
+[31m-# Wechsle zum Projekt-Root (2 Ebenen nach oben vom Skript)[m
+[31m-project_root = Path(__file__).parent.parent.parent[m
+[31m-os.chdir(project_root)[m
+[31m-print(f"Working Directory: {os.getcwd()}")[m
+ #Hier darzustellenden DataFrame importieren[m
+ opt_inst_Leistung = pd.read_excel(r'data\b_Optimierung\opt_inst_Leistung.xlsx', index_col=0, sheet_name='inst_leistung')[m
+ [m
+ Batterie_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Batteriespeicher_Batterie')[m
+ Pumpspeicher_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Pumpspeicher_Pump')[m
+[31m-H2_speicher_zeitreihen = pd.read_excel(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Wasserstoffkaverne_H2')[m
+ [m
+[31m-bedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx', index_col=0)[m
+[32m+[m[32mbedarf_gesamt = pd.read_excel(r'data\b_Optimierung\Bedarfe_Gesamt_15min_2023.xlsx', index_col=0)[m
+ [m
+ verfügbarkeiten_strom = pd.read_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index_col=0)[m
+ [m
+[36m@@ -43,16 +35,15 @@[m [mbedarf_deckung['Summe_Stromerzeugung [MW]'] = bedarf_deckung.sum(axis=1)[m
+ [m
+ bedarf_deckung['Batterie_Leistung [MW]'] = Batterie_zeitreihen['Leistung [MW]'][m
+ bedarf_deckung['Pumpspeicher_Leistung [MW]'] = Pumpspeicher_zeitreihen['Leistung [MW]'].reindex(bedarf_deckung.index, method='ffill')[m
+[31m-bedarf_deckung['H2_Speicher_Leistung [MW]'] = H2_speicher_zeitreihen['Leistung [MW]'].reindex(bedarf_deckung.index, method='ffill')[m
+ [m
+[31m-bedarf_deckung['Summe_Stromerzeugung [MW]'] += bedarf_deckung['Batterie_Leistung [MW]'] + bedarf_deckung['Pumpspeicher_Leistung [MW]'] + bedarf_deckung['H2_Speicher_Leistung [MW]'][m
+[32m+[m[32mbedarf_deckung['Summe_Stromerzeugung [MW]'] += bedarf_deckung['Batterie_Leistung [MW]'] + bedarf_deckung['Pumpspeicher_Leistung [MW]'][m
+ [m
+ bedarf_deckung['Strom_Gesamt_Bedarf [MW]'] = bedarf_gesamt['Strom_Gesamt_Bedarf [MW]'][m
+ [m
+ bedarf_deckung['Deckungsgrad [%]'] = (bedarf_deckung['Summe_Stromerzeugung [MW]'] / bedarf_deckung['Strom_Gesamt_Bedarf [MW]']) * 100[m
+ [m
+ print("Zeitpunkte mit Deckungsgrad < 100%:")[m
+[31m-print(bedarf_deckung[bedarf_deckung['Deckungsgrad [%]'] < 99.999].index.tolist())[m
+[32m+[m[32mprint(bedarf_deckung[bedarf_deckung['Deckungsgrad [%]'] < 100].index.tolist())[m
+ [m
+ bedarf_deckung.to_excel(r'data\c_Auswertung\bedarf_deckung.xlsx', index=True)[m
+ [m
+[1mdiff --git a/test_meteostat.py b/test_meteostat.py[m
+[1mdeleted file mode 100644[m
+[1mindex 0f3f800..0000000[m
+[1m--- a/test_meteostat.py[m
+[1m+++ /dev/null[m
+[36m@@ -1,30 +0,0 @@[m
+[31m-from meteostat import Stations, Daily[m
+[31m-from datetime import datetime[m
+[31m-import pandas as pd[m
+[31m-[m
+[31m-print("Teste Meteostat-Verbindung...")[m
+[31m-[m
+[31m-try:[m
+[31m-    # Zeitraum definieren[m
+[31m-    start = datetime(2023, 1, 1)[m
+[31m-    end = datetime(2023, 1, 7)  # Nur eine Woche zum Testen[m
+[31m-    [m
+[31m-    print(f"Suche Wetterstationen in Deutschland...")[m
+[31m-    stations = Stations().region('DE').inventory('daily', (start, end)).fetch(limit=5)[m
+[31m-    print(f"Gefunden: {len(stations)} Stationen")[m
+[31m-    print(stations)[m
+[31m-    [m
+[31m-    print("\nLade Wetterdaten...")[m
+[31m-    weather = Daily(stations, start, end)[m
+[31m-    df = weather.aggregate('1D', spatial=True).fetch()[m
+[31m-    [m
+[31m-    print("\nErfolgreich! Erste Zeilen:")[m
+[31m-    print(df.head())[m
+[31m-    print(f"\nAnzahl Datensätze: {len(df)}")[m
+[31m-    [m
+[31m-except Exception as e:[m
+[31m-    print(f"\nFehler: {type(e).__name__}: {e}")[m
+[31m-    import traceback[m
+[31m-    traceback.print_exc()[m
+[31m-[m
+[31m-print("\nTest abgeschlossen.")[m
