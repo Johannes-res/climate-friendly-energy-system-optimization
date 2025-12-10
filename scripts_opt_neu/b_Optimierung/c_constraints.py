@@ -51,16 +51,16 @@ def define_constraints(model, df_bedarf, df_bedarf_daily):
         # Speicher-Beiträge
         batterie_beitrag = 0
         if not DEBUG_DISABLE_STORAGE and hasattr(m, 'batterie_leistung'):
-            batterie_techs = [t for t in m.techs 
-                            if m.art_map[t] == 'Speicher' 
+            batterie_techs = [t for t in m.techs
+                            if m.art_map[t] == 'Speicher'
                             and 'Batterie' in t]
             if batterie_techs:
                 batterie_beitrag = sum(m.batterie_leistung[s, time] for s in batterie_techs)
         
         pump_beitrag = 0
         if not DEBUG_DISABLE_STORAGE and hasattr(m, 'pump_leistung'):
-            pump_techs = [t for t in m.techs 
-                         if m.art_map[t] == 'Speicher' 
+            pump_techs = [t for t in m.techs
+                         if m.art_map[t] == 'Speicher'
                          and 'Pump' in t]
             if pump_techs:
                 pump_beitrag = sum(m.pump_leistung[s, hourly_time] for s in pump_techs)

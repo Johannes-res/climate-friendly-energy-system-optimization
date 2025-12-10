@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 #Bedarfe laden
 import sys
 from pathlib import Path
