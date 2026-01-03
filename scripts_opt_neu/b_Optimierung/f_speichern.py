@@ -1,6 +1,6 @@
-Modellvariante = 'Grundmodell_'
+#Modellvariante = 'Grundmodell_'
 # Modellvariante = 'energetische_Gebäudesanierung_'
-# Modellvariante = 'Verkehrswende_'
+Modellvariante = 'Verkehrswende_'
 import pandas as pd
 import pyomo.environ as pyo
 

@@ -9,7 +9,9 @@ plt.rcParams['font.family'] = 'Open Sans'
 plt.rcParams['font.sans-serif'] = ['Open Sans', 'Arial', 'DejaVu Sans']
 
 
-Modellvariante = 'Grundmodell_'
+#Modellvariante = 'Grundmodell_'
+#Modellvariante = 'energetische_Gebäudesanierung_'
+Modellvariante = 'Verkehrswende_'
 #Hier darzustellenden DataFrame importieren
 df_batterie = pd.read_excel(f'data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Batteriespeicher_Batterie')
 df_pump = pd.read_excel(f'data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Pumpspeicher_Pump')
@@ -25,9 +27,9 @@ df_speicher = pd.DataFrame({
 df= df_speicher.copy()
 
 #Hier noch Namen eintragen um Grafiken zu benennen
-df_name = 'Grundmodell_Speicher_'  # Name des DataFrames für die Dateinamen der Grafiken
+#df_name = 'Grundmodell_Speicher_'  # Name des DataFrames für die Dateinamen der Grafiken
 #df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
-#df_name = 'Verkehrswende_'
+df_name = 'Verkehrswende_Speicher_'
 
 
 cd_palette = [

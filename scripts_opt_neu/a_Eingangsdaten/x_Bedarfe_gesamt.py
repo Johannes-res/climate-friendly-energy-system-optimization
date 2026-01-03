@@ -1,6 +1,6 @@
-Modellvariante = 'Grundmodell_'
+#Modellvariante = 'Grundmodell_'
 #Modellvariante = 'energetische_Gebäudesanierung_' --> faktor 0.75 bei raumwärme (zeile 59)
-#Modellvariante = 'Verkehrswende_' # Faktor 0.75 bei Flugverkehr
+Modellvariante = 'Verkehrswende_' # Faktor 0.8 bei Flugverkehr und 0.9 bei Emob
 import os
 from pathlib import Path
 import pandas as pd
@@ -53,7 +53,7 @@ prozesswärmebedarf.set_index(prozesswärmebedarf.columns[0], inplace=True)
 prozesswärmebedarf.index = pd.to_datetime(prozesswärmebedarf.index)
 
 #E-Mobilitätsbedarf hinzufügen (261,05 TWh im Jahr)
-bedarf_gesamt['E_Mob_Bedarf [MW]'] = e_mob_bedarf['Last_emob']*1000  # Umrechnung in MW
+bedarf_gesamt['E_Mob_Bedarf [MW]'] = e_mob_bedarf['Last_emob']*1000* 0.9  # Umrechnung in MW #Faktor 0.9 für Verkehrswende
 
 # Raumwärmebedarf hinzufügen (434,4TWh im Jahr)
 bedarf_gesamt['Raumwärmebedarf [MW]'] = raumwärmebedarf['Strombedarf_Raumwärme [GW]']*1000  # Umrechnung in MW #energetische_Gebäudesanierung
@@ -88,7 +88,7 @@ bedarf_gesamt['Wasserstoffbedarf [MW]'] = (wasserstoff_industrie_jahr + wasserst
 bedarf_gesamt['Prozesswärmebedarf [MW]'] = prozesswärmebedarf ['Prozesswärmebedarf [GW]'] * 1000/3  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 #E-Fuelbedarf für Flugzeuge
-e_fuel_flugzeuge_jahr = 111.66e3 /0.4 # in GWh mit Wirkungsgradannahme von 40% für Power-to-Liquid --> Verkehrswende ergibt ...
+e_fuel_flugzeuge_jahr = (111.66e3* 0.8) /0.4  # in GWh mit Wirkungsgradannahme von 40% für Power-to-Liquid --> Verkehrswende: *0.8
 bedarf_gesamt['E_Fuel_Flugzeuge [MW]'] = e_fuel_flugzeuge_jahr * 1000 / (365 * 24)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 
