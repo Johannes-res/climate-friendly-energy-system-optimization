@@ -34,6 +34,12 @@ def prepare_energy_charts(df, year):
 
 strom_last_23 = prepare_energy_charts(strom_last_23, 2023)
 
+
+print(f"Stromgesamtbedarf 2023: {strom_last_23['Last'].sum() / (1000 * 4):.2f} GWh")
+print(f"Maximalwert Stromgesamtbedarf in MW: {strom_last_23['Last'].max()/1000:.2f} GW zum Zeitpunkt {strom_last_23['Last'].idxmax()}")
+print(f"Minimalwert Stromgesamtbedarf in MW: {strom_last_23['Last'].min()/1000:.2f} GW zum Zeitpunkt {strom_last_23['Last'].idxmin()}")
+strom_last_23_original = strom_last_23['Last'].copy()
+strom_last_23_original = strom_last_23_original.to_frame()  # Convert Series to DataFrame
 #Biomasse und Müll von der Last abziehen, da diese nicht erweitert werden können
 strom_last_23['Last'] = strom_last_23['Last'] - strom_last_23['Biomasse'] - strom_last_23['Müll']
 

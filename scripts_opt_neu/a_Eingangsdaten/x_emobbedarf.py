@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.ndimage import gaussian_filter1d
 from matplotlib.ticker import FuncFormatter
+import holidays
 import matplotlib.pyplot as plt
 
 """Dieses Skript dient zum Erstellen von Lastprofilen in Anlehnung der des BDEW.
@@ -240,7 +241,12 @@ def saisonale_schwankungen_modellieren(spalten=None):
 
 # Aufruf der Funktion
 
-df_Lastprofil_EMob_tag = generiere_stufenfunktion( {'WT': ([0,2,4,6,8,10,12,14,16,18,20,22], [0.15,0.08,0.07,0.15,0.15,0.20,0.13,0.13,0.25,0.3,0.25,0.15]), 'SA': ([0,2,4,6,8,10,12,14,16,18,20,22], [0.15,0.1,0.08,0.2,0.25,0.2,0.18,0.18,0.25,0.28,0.2,0.15]), 'FT': ([0,2,4,6,8,10,12,14,16,18,20,22], [0.15,0.1,0.08,0.2,0.25,0.2,0.18,0.18,0.25,0.28,0.2,0.15])}, decay_rate = 0.0)
+df_Lastprofil_EMob_tag = generiere_stufenfunktion( {'WT': ([   0,  2,  4,   6,   8,  10,  12,  14,  16,  18,  20,  22],
+                                                           [0.13,0.11,0.11,0.13,0.15,0.20,0.13,0.13,0.20,0.23,0.20,0.15]), 
+                                                    'SA': ([   0,  2,  4,  6,   8, 10,  12,  14,  16,  18, 20,  22],
+                                                           [0.15,0.13,0.13,0.2,0.22,0.2,0.18,0.18,0.22,0.25,0.2,0.15]),
+                                                    'FT': ([   0,  2,  4,  6,   8, 10,  12,  14,  16,  18, 20,  22],
+                                                           [0.15,0.13,0.13,0.2,0.22,0.2,0.18,0.18,0.22,0.25,0.2,0.15])}, decay_rate = 0.0)
 #df_Lastprofil_WP_tag = generiere_stufenfunktion( {'WT': ([5,8, 12, 19], [1, 1, 1, 1]), 'SA': ([7, 14, 20], [1, 1, 1]), 'FT': ([1, 12, 18], [1, 1, 1])}, decay_rate = 0.0)
 
 #monatliche_faktoren_WP = {'WT':[0.196,0.171,0.138,0.059,0.027,0.006,0.0,0.0,0.016,0.067,0.13,0.19], 'SA': [0.196,0.171,0.138,0.059,0.027,0.006,0.0,0.0,0.016,0.067,0.13,0.19], 'FT':[0.196,0.171,0.138,0.059,0.027,0.006,0.0,0.0,0.016,0.067,0.13,0.19]}
@@ -263,7 +269,13 @@ def erstelle_jahreszeitreihe(df_lastprofile):
         stunde_minute = timestamp.strftime('%H:%M:%S')
 
         # Bestimme den Tagestyp
-        if timestamp.weekday() < 5:  # Montag bis Freitag
+         # Am Anfang der Funktion definieren (einmalig):
+        de_holidays = holidays.Germany(years=2023)
+
+        # Dann in der Schleife:
+        if timestamp in de_holidays:  # Feiertag
+            tagestyp = 'FT'
+        elif timestamp.weekday() < 5:  # Montag bis Freitag
             tagestyp = 'WT'
         elif timestamp.weekday() == 5:  # Samstag
             tagestyp = 'SA'
@@ -290,114 +302,219 @@ df_jahr.to_excel(r'data\a_Eingangsdaten\Mobilität\EMob_Zeitreihe_15min_Jahr.xls
 
 e_mob_bedarf = df_jahr['Last_emob']
 
-# Plot Linie: Datum vsE_mobbedarf (design angelehnt an x_plot_bubble_chart_2.py)
+# ========================================
+# VISUALISIERUNGEN
+# ========================================
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-# Daten für das Plot vorbereiten
-df_plot = df_jahr.copy()
-df_plot.index = pd.to_datetime(df_plot.index)
-
-#Ausschnitt einer Woche für das Plotten
-df_plot = df_plot['2023-08-04':'2023-08-05']
-
-fig, ax = plt.subplots(figsize=(12, 6))
-
-plot_color = '#001450'  # gewünschter Farbcode für Linie und Beschriftungen
+plot_color = '#001450'
 text_color = plot_color
 
-# Linie mit kleinen Markern (keine Füllung)
+# ========================================
+# 1. JAHRESANSICHT (Tägliche Werte)
+# ========================================
+
+# Tageswerte aus 15-min-Daten aggregieren
+df_plot_year = df_jahr.resample('1D').mean()
+df_plot_year.index = pd.to_datetime(df_plot_year.index)
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+# E-Mobilitätsbedarf plotten
 ax.plot(
-    df_plot.index,
-    df_plot['Last_emob'],
-    color=plot_color,
+    df_plot_year.index,
+    df_plot_year['Last_emob'],
+    color='#001450',
     linewidth=2,
-    marker='o',
-    markersize=4,
+    marker=None,
+    markersize=3,
     alpha=0.95,
-    label='E-Mobilitätsbedarf [GW]'
+    label=None
 )
 
-# Hintergrund weiß
+# Styling
 ax.set_facecolor('white')
 fig.patch.set_facecolor('white')
-
-# Nur horizontale Gitternetzlinien
 ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
-ax.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinien gezeichnet werden
+ax.grid(False, axis='x')
 
-# Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen
-ax.set_title('modellierter E-Mobilitätsbedarf 2023', fontsize=14, fontweight='bold', color=text_color)
-ax.set_xlabel('Datum', fontsize=12, color=text_color)
-ax.set_ylabel('E-Mobilitätsbedarf [GW]', fontsize=12, color=text_color)
+ax.set_title('modellierter E-Mobilitätsbedarf - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Monat', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
 
-# Y-Achse bei 0 beginnen lassen
-ax.set_ylim(bottom=0)
-
-# Datumsformatierung: Stunden auf der x-Achse (ein Tick pro Stunde)
-ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))
-de_days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
-
-def german_date_formatter(x, pos=None):
-    dt = mdates.num2date(x)
-    day = de_days[dt.weekday()]
-    return f"{day} {dt.day:02d}.{dt.month:02d} {dt.hour:02d}:{dt.minute:02d}"
-
-ax.xaxis.set_major_formatter(FuncFormatter(german_date_formatter))
+# Datumsformatierung: Monatsnamen
+ax.xaxis.set_major_locator(mdates.MonthLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))
 plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)
 plt.setp(ax.get_yticklabels(), color=text_color)
 
-# Achsenränder ebenfalls einfärben
+# Achsen und Legende einfärben
 for spine in ax.spines.values():
     spine.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
 
-# Legende einfärben
-leg = ax.legend(frameon=False)
-for text in leg.get_texts():
-    text.set_color(text_color)
-
-# Achsenticks einfärben
-ax.tick_params(axis='x', colors=text_color)
-ax.tick_params(axis='y', colors=text_color)
-
-# --- Pfeile an die Achsen setzen ---
-# Grenzen holen und leicht erweitern, damit die Pfeilspitzen sichtbar sind
+# Pfeile an Achsen
 x_min, x_max = ax.get_xlim()
 y_min, y_max = ax.get_ylim()
 x_range = x_max - x_min if x_max != x_min else 1.0
 y_range = y_max - y_min if y_max != y_min else 1.0
-
-x_pad = 0.03 * x_range
+x_pad = 0.02 * x_range
 y_pad = 0.05 * y_range
 
-# Neue Grenzen setzen (erweitert nach oben/rechts)
 ax.set_xlim(x_min, x_max + x_pad)
 ax.set_ylim(y_min, y_max + y_pad)
 
-# X-Achsenpfeil (von links nach rechts)
-ax.annotate(
-    '',
-    xy=(x_max + x_pad, y_min),
-    xytext=(x_min, y_min),
-    arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
-    clip_on=False
-)
-
-# Y-Achsenpfeil (von unten nach oben)
-ax.annotate(
-    '',
-    xy=(x_min, y_max + y_pad),
-    xytext=(x_min, y_min),
-    arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
-    clip_on=False
-)
-# --- Ende Pfeile ---
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
 
 plt.tight_layout()
-
-# Grafik speichern
-plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mob_Woche_plot.png', dpi=150)
+plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
+print("✓ Jahresansicht gespeichert: E_Mobilitätsbedarf_Jahresansicht_2023.png")
+
+
+# ========================================
+# 2. WOCHENANSICHT (15-min-Werte)
+# ========================================
+
+week_start = pd.Timestamp('2023-01-09')
+week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
+
+df_week = df_jahr[(df_jahr.index >= week_start) & (df_jahr.index <= week_end)]
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(
+    df_week.index,
+    df_week['Last_emob'],
+    color='#001450',
+    linewidth=2,
+    alpha=0.95,
+    label=None
+)
+
+# Styling
+ax.set_facecolor('white')
+fig.patch.set_facecolor('white')
+ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
+ax.grid(which='major', axis='x', color='#e6e6e6', linewidth=0.5, alpha=0.5)
+
+ax.set_title(f'modellierter E-Mobilitätsbedarf - Wochenansicht ({week_start.strftime("%d.%m.")} - {week_end.strftime("%d.%m.%Y")})', 
+             fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Datum', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
+
+ax.xaxis.set_major_locator(mdates.DayLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%a\n%d.%m'))
+ax.xaxis.set_minor_locator(mdates.HourLocator(interval=6))
+plt.setp(ax.get_xticklabels(), rotation=0, ha='center', color=text_color)
+plt.setp(ax.get_yticklabels(), color=text_color)
+
+# Achsen
+for spine in ax.spines.values():
+    spine.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
+
+# Pfeile
+x_min, x_max = ax.get_xlim()
+y_min, y_max = ax.get_ylim()
+x_range = x_max - x_min if x_max != x_min else 1.0
+y_range = y_max - y_min if y_max != y_min else 1.0
+x_pad = 0.02 * x_range
+y_pad = 0.05 * y_range
+
+ax.set_xlim(x_min, x_max + x_pad)
+ax.set_ylim(y_min, y_max + y_pad)
+
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+
+plt.tight_layout()
+plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.close(fig)
+print("✓ Wochenansicht gespeichert: E_Mobilitätsbedarf_Wochenansicht_2023.png")
+
+
+# ========================================
+# 3. TAGESANSICHT (15-Minuten-Werte)
+# ========================================
+
+day_start = pd.Timestamp('2023-01-13')
+day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
+
+df_day = df_jahr[(df_jahr.index >= day_start) & (df_jahr.index <= day_end)]
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(
+    df_day.index,
+    df_day['Last_emob'],
+    color='#001450',
+    linewidth=2,
+    alpha=0.95,
+    label=None
+)
+
+# Styling
+ax.set_facecolor('white')
+fig.patch.set_facecolor('white')
+ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
+ax.grid(which='major', axis='x', color='#e6e6e6', linewidth=0.5, alpha=0.5)
+
+ax.set_title(f'modellierter E-Mobilitätsbedarf - Tagesansicht ({day_start.strftime("%d.%m.%Y")})', 
+             fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Uhrzeit', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
+
+# Datumsformatierung: Stündliche Ticks
+ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+ax.xaxis.set_minor_locator(mdates.MinuteLocator(interval=15))
+plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)
+plt.setp(ax.get_yticklabels(), color=text_color)
+
+# Achsen
+for spine in ax.spines.values():
+    spine.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
+
+# Pfeile
+x_min, x_max = ax.get_xlim()
+y_min, y_max = ax.get_ylim()
+x_range = x_max - x_min if x_max != x_min else 1.0
+y_range = y_max - y_min if y_max != y_min else 1.0
+x_pad = 0.02 * x_range
+y_pad = 0.05 * y_range
+
+ax.set_xlim(x_min, x_max + x_pad)
+ax.set_ylim(y_min, y_max + y_pad)
+
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+
+plt.tight_layout()
+plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.close(fig)
+print("✓ Tagesansicht gespeichert: E_Mobilitätsbedarf_Tagesansicht_2023.png")
+
+print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
+print("  1. Jahresansicht (täglich)")
+print("  2. Wochenansicht (15-min)")
+print("  3. Tagesansicht (15-min)")
 
 print('Ende x_emob.py')
 

@@ -1,3 +1,6 @@
+Modellvariante = 'Grundmodell_'
+# Modellvariante = 'energetische_Gebäudesanierung_'
+# Modellvariante = 'Verkehrswende_'
 import pandas as pd
 import pyomo.environ as pyo
 
@@ -14,7 +17,7 @@ def speichere_ergebnisse(model):
                 results[var_name][index] = pyo.value(v[index])
     
     # ========== INSTALLIERTE LEISTUNGEN (wie bisher) ==========
-    with pd.ExcelWriter(r'data\b_Optimierung\opt_inst_Leistung.xlsx') as writer:
+    with pd.ExcelWriter(f'data/b_Optimierung/{Modellvariante}opt_inst_Leistung.xlsx') as writer:
         for var_name, data in results.items():
             # Nur inst_leistung und kapazitaet (keine Zeitreihen)
             if var_name in ['inst_leistung', 'kapazitaet', 'batterie_kapazitaet', 'pump_kapazitaet']:
@@ -148,7 +151,7 @@ def speichere_ergebnisse(model):
     
     # Speicher-Zeitreihen in Excel schreiben
     if speicher_daten:
-        with pd.ExcelWriter(r'data\b_Optimierung\opt_speicher_zeitreihen.xlsx') as writer:
+        with pd.ExcelWriter(f'data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx') as writer:
             for speicher_name, df_speicher in speicher_daten.items():
                 df_speicher.to_excel(writer, sheet_name=speicher_name[:31])
                 print(f"Speicher-Zeitreihe gespeichert: {speicher_name} ({len(df_speicher)} Zeitschritte)")
@@ -174,14 +177,14 @@ def speichere_ergebnisse(model):
         
         df_stats = pd.DataFrame(statistiken)
         
-        with pd.ExcelWriter(r'data\b_Optimierung\opt_speicher_statistiken.xlsx') as writer:
+        with pd.ExcelWriter(f'data/b_Optimierung/{Modellvariante}opt_speicher_statistiken.xlsx') as writer:
             df_stats.to_excel(writer, sheet_name='Speicher_Statistiken', index=False)
             print(f"\nSpeicher-Statistiken gespeichert: {len(df_stats)} Speicher")
     
     print("\n=== SPEICHERN ABGESCHLOSSEN ===")
-    print(f"1. Installierte Leistungen: data\\b_Optimierung\\opt_inst_Leistung.xlsx")
-    print(f"2. Speicher-Zeitreihen: data\\b_Optimierung\\opt_speicher_zeitreihen.xlsx")
-    print(f"3. Speicher-Statistiken: data\\b_Optimierung\\opt_speicher_statistiken.xlsx")
+    print(f"1. Installierte Leistungen: data/b_Optimierung/{Modellvariante}opt_inst_Leistung.xlsx")
+    print(f"2. Speicher-Zeitreihen: data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx")
+    print(f"3. Speicher-Statistiken: data/b_Optimierung/{Modellvariante}opt_speicher_statistiken.xlsx")
     # Drucke annualisierte Kosten pro Technologie (als Pyomo-Ausdrücke, nach Lösung)
     
     WACC = 0.05  # 5% Standard für Energieprojekte
@@ -242,7 +245,7 @@ def speichere_ergebnisse(model):
     print(f"Gesamt annualisierte CAPEX: {total_annualized:.2f} pro Jahr")
     
     # Speichere Kosten in opt_inst_Leistung.xlsx
-    with pd.ExcelWriter(r'data\b_Optimierung\opt_inst_Leistung.xlsx', mode='a', if_sheet_exists='replace') as writer:
+    with pd.ExcelWriter(f'data/b_Optimierung/{Modellvariante}opt_inst_Leistung.xlsx', mode='a', if_sheet_exists='replace') as writer:
         df_costs = pd.DataFrame({
             'Technologie': list(per_tech.keys()),
             'Annualisierte CAPEX [EUR/Jahr]': list(per_tech.values())

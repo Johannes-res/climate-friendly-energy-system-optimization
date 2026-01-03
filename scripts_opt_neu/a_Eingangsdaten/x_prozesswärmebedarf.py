@@ -2,13 +2,14 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 from matplotlib.ticker import FuncFormatter
+import holidays
 
 # Zeitraum definieren
 start = datetime(2023, 1, 1)
 end = datetime(2023, 12, 31)
 
 # Prozesswärmebedarf für das Jahr 2023 in GWh (Beispielwert, bitte anpassen)
-PWB_a = 400e3  # Beispielwert für Industrie, bitte anpassen
+PWB_a = 40.5e3  # Gebäude und Fernwärme-Industrie in GWh
 
 # Erstellt einen DataFrame mit konstantem Prozesswärmebedarf pro Tag, verteilt über das Jahr
 date_range = pd.date_range(start=start, end=end, freq='D')
@@ -27,11 +28,11 @@ def expand_daily_to_15min_with_workhours(df_daily,
                                          smooth_hours=2.0):
     """
     Erzeugt eine 15-Minuten-Zeitreihe aus täglichen Werten.
-    Innerhalb der Kernarbeitszeit (work_start..work_end) wird der Bedarf um
-    den Faktor work_multiplier erhöht; außerhalb wird der Basiswert verwendet.
-    Die Gewichte werden anschließend mit einem gaußschen Filter geglättet
-    (smooth_hours steuert die Breite der Glättung in Stunden), so dass Anstieg
-    und Abfall flacher über einen längeren Zeitraum erfolgen.
+    - Werktage: Kernarbeitszeit (work_start..work_end) mit work_multiplier erhöht
+    - Samstage: Bedarf um 20% gesenkt (Faktor 0.8)
+    - Sonn-/Feiertage: Bedarf um 30% gesenkt (Faktor 0.7)
+    Die Gewichte werden mit einem gaußschen Filter geglättet.
+    Die Gesamtsumme über das Jahr bleibt konstant (Normierung).
     Rückgabe: DataFrame mit 15-Minuten-Index und Spalte value_col.
     """
     df_daily = df_daily.copy()
@@ -45,35 +46,74 @@ def expand_daily_to_15min_with_workhours(df_daily,
     work_start_t = pd.to_datetime(work_start).time()
     work_end_t = pd.to_datetime(work_end).time()
 
-    # Erstelle Gewichtungs-Array (Basis=1, Arbeitszeit = work_multiplier)
-    weights_template = np.ones(n_per_day, dtype=float)
+    # Feiertage definieren
+    de_holidays = holidays.Germany(years=[d.year for d in df_daily.index.unique()])
+
+    # Schritt 1: Tagesskalierungsfaktoren bestimmen
+    day_scale_factors = {}
+    for timestamp in df_daily.index:
+        if timestamp in de_holidays or timestamp.weekday() == 6:  # Sonn-/Feiertag
+            day_scale_factors[timestamp] = 0.7  # 30% Reduktion
+        elif timestamp.weekday() == 5:  # Samstag
+            day_scale_factors[timestamp] = 0.8  # 20% Reduktion
+        else:  # Werktag
+            day_scale_factors[timestamp] = 1.0
+
+    # Schritt 2: Normierungsfaktor berechnen, damit Gesamtsumme gleich bleibt
+    original_sum = df_daily[value_col].sum()
+    scaled_sum = sum(df_daily.loc[day, value_col] * day_scale_factors[day] 
+                     for day in df_daily.index)
+    norm_factor = original_sum / scaled_sum if scaled_sum > 0 else 1.0
+
+    # Schritt 3: Gewichtungstemplate für Werktage erstellen (mit Arbeitszeit)
+    weights_weekday = np.ones(n_per_day, dtype=float)
     if work_start_t <= work_end_t:
         mask = [(t >= work_start_t) and (t < work_end_t) for t in day_idx]
     else:
         mask = [(t >= work_start_t) or (t < work_end_t) for t in day_idx]
-    weights_template = np.where(mask, work_multiplier, 1.0)
+    weights_weekday = np.where(mask, work_multiplier, 1.0)
 
-    # Gauß-Glättung der Gewichtung (optional, smooth_hours in Stunden)
-    if smooth_hours is not None and smooth_hours > 0:
-        # sigma in Slots (4 Slots pro Stunde)
+    # Gewichtungstemplate für Samstag und Sonntag (gleichmäßig)
+    weights_saturday = np.ones(n_per_day, dtype=float)
+    weights_sunday = np.ones(n_per_day, dtype=float)
+
+    # Schritt 4: Gauß-Glättung auf alle Templates anwenden
+    def smooth_weights(weights, smooth_hours):
+        if smooth_hours is None or smooth_hours <= 0:
+            return weights
         sigma_slots = smooth_hours * 4.0
-        # Radius so wählen, dass Kernel ausreichend breit ist
         radius = max(1, int(np.ceil(4 * sigma_slots)))
         x = np.arange(-radius, radius + 1)
         kernel = np.exp(-0.5 * (x / sigma_slots) ** 2)
         kernel = kernel / kernel.sum()
-        # Um Randeffekte und Übergänge über Mitternacht zu behandeln, tile 3x und dann mittleren Teil nehmen
-        ext = np.tile(weights_template, 3)
+        ext = np.tile(weights, 3)
         conv_ext = np.convolve(ext, kernel, mode='same')
         smoothed = conv_ext[n_per_day:2 * n_per_day]
-        weights_template = smoothed.astype(float)
+        return smoothed.astype(float)
 
+    weights_weekday = smooth_weights(weights_weekday, smooth_hours)
+    weights_saturday = smooth_weights(weights_saturday, smooth_hours)
+    weights_sunday = smooth_weights(weights_sunday, smooth_hours)
+
+    # Schritt 5: Für jeden Tag die passende Gewichtung und Skalierung anwenden
     rows = []
     for day, row in df_daily.iterrows():
         day_total = float(row[value_col])
-        # Normiere Gewichte so dass Sum(weights) = 1 (über Slots)
-        norm = weights_template.sum()
-        slot_values = day_total * (weights_template / norm)
+        
+        # Tagesskalierung mit Normierung
+        scaled_day_total = day_total * day_scale_factors[day] * norm_factor
+        
+        # Passende Gewichtung wählen
+        if day in de_holidays or day.weekday() == 6:  # Sonn-/Feiertag
+            weights = weights_sunday
+        elif day.weekday() == 5:  # Samstag
+            weights = weights_saturday
+        else:  # Werktag
+            weights = weights_weekday
+        
+        # Normiere Gewichte für diesen Tag
+        norm = weights.sum()
+        slot_values = scaled_day_total * (weights / norm)
         timestamps = [pd.Timestamp.combine(day, t) for t in day_idx]
         rows.append(pd.DataFrame({value_col: slot_values}, index=timestamps))
 
@@ -90,158 +130,252 @@ df_15min_weighted = expand_daily_to_15min_with_workhours(
     work_multiplier=1.1,
     smooth_hours=2.0)
 
+df_15min_weighted ['Prozesswärmebedarf [GW]'] = df_15min_weighted['Prozesswärmebedarf [GWh]']*4  # Umrechnung in GW
+
+
 # Speichern (separat vom gleichmäßigen 15-min-File)
 df_15min_weighted.to_excel(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_15min_23_weighted.xlsx')
 
 
 
+print("✓ Prozesswärmebedarf (15min, gewichtet) importiert")
 
-# Plot Linie: Datum vs Raumwärmebedarf (design angelehnt an x_plot_bubble_chart_2.py)
+
+# ...existing code (bis df_15min_weighted.to_excel)...
+
+print("✓ Prozesswärmebedarf (15min, gewichtet) gespeichert:")
+print(f"  - Spalten: {list(df_15min_weighted.columns)}")
+print(f"  - Zeitraum: {df_15min_weighted.index.min()} bis {df_15min_weighted.index.max()}")
+print(f"  - Anzahl Zeitpunkte: {len(df_15min_weighted)}")
+
+
+# ========================================
+# VISUALISIERUNGEN
+# ========================================
+
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
-# Plot Linie: Datum vsE_mobbedarf (design angelehnt an x_plot_bubble_chart_2.py)
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-
-# Daten für das Plot vorbereiten
-df_plot = df_15min_weighted.copy()
-df_plot.index = pd.to_datetime(df_plot.index)
-
-#Ausschnitt einer Woche für das Plotten
-df_plot = df_plot['2023-07-31':'2023-08-06']
-
-fig, ax = plt.subplots(figsize=(12, 6))
-
-plot_color = '#001450'  # gewünschter Farbcode für Linie und Beschriftungen
+plot_color = '#001450'
 text_color = plot_color
 
-# Linie mit kleinen Markern (keine Füllung)
+# ========================================
+# 1. JAHRESANSICHT (Tägliche Werte)
+# ========================================
+
+# Tageswerte aus 15-min-Daten aggregieren
+df_plot_year = df_15min_weighted.resample('1D').mean()
+df_plot_year.index = pd.to_datetime(df_plot_year.index)
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+# Prozesswärmebedarf plotten
 ax.plot(
-    df_plot.index,
-    df_plot['Prozesswärmebedarf [GWh]'],
-    color=plot_color,
+    df_plot_year.index,
+    df_plot_year['Prozesswärmebedarf [GW]'],
+    color='#001450',
     linewidth=2,
-    marker='o',
-    markersize=4,
+    marker=None,
+    markersize=3,
     alpha=0.95,
-    label='Prozesswärmebedarf in GWh'
+    label=None
 )
 
-# Hintergrund weiß
+# Styling
 ax.set_facecolor('white')
 fig.patch.set_facecolor('white')
-
-# Nur horizontale Gitternetzlinien
 ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
-ax.grid(False, axis='x')  # sicherstellen, dass keine vertikalen Gitternetzlinien gezeichnet werden
+ax.grid(False, axis='x')
 
-# Styling (ähnlich wie x_plot_bubble_chart_2.py) — Farben auf #001450 setzen
-ax.set_title('modellierter Prozesswärmebedarf 2023', fontsize=14, fontweight='bold', color=text_color)
-ax.set_xlabel('Datum', fontsize=12, color=text_color)
-ax.set_ylabel('Prozesswärmebedarf in GWh', fontsize=12, color=text_color)
+ax.set_title('modellierter Prozesswärmebedarf - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Monat', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
 
-# Y-Achse bei 0 beginnen lassen
-ax.set_ylim(bottom=0)
-
-# Datumsformatierung: Stunden auf der x-Achse (ein Tick pro Stunde)
-ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))  # jeden Tag ein Major-Tick
-ax.xaxis.set_minor_locator(mdates.HourLocator(interval=2))  # alle 2 Stunden ein Minor-Tick
-de_days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
-
-def german_date_formatter(x, pos=None):
-    dt = mdates.num2date(x)
-    day = de_days[dt.weekday()]
-    return f"{day} {dt.day:02d}.{dt.month:02d} {dt.hour:02d}:{dt.minute:02d}"
-
-ax.xaxis.set_major_formatter(FuncFormatter(german_date_formatter))
+# Datumsformatierung: Monatsnamen
+ax.xaxis.set_major_locator(mdates.MonthLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%b'))
 plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)
 plt.setp(ax.get_yticklabels(), color=text_color)
 
-# Achsenränder ebenfalls einfärben
+# Achsen und Legende einfärben
 for spine in ax.spines.values():
     spine.set_color(text_color)
-
-# Legende einfärben
-leg = ax.legend(frameon=False)
+leg = ax.legend(frameon=False, loc='upper right')
 for text in leg.get_texts():
     text.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
 
-# Achsenticks einfärben
-ax.tick_params(axis='x', colors=text_color)
-ax.tick_params(axis='y', colors=text_color)
-
-# --- Pfeile an die Achsen setzen ---
-# Grenzen holen und leicht erweitern, damit die Pfeilspitzen sichtbar sind
+# Pfeile an Achsen
 x_min, x_max = ax.get_xlim()
 y_min, y_max = ax.get_ylim()
 x_range = x_max - x_min if x_max != x_min else 1.0
 y_range = y_max - y_min if y_max != y_min else 1.0
-
-x_pad = 0.03 * x_range
+x_pad = 0.02 * x_range
 y_pad = 0.05 * y_range
 
-# Neue Grenzen setzen (erweitert nach oben/rechts)
 ax.set_xlim(x_min, x_max + x_pad)
 ax.set_ylim(y_min, y_max + y_pad)
 
-# X-Achsenpfeil (von links nach rechts)
-ax.annotate(
-    '',
-    xy=(x_max + x_pad, y_min),
-    xytext=(x_min, y_min),
-    arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
-    clip_on=False
-)
-
-# Y-Achsenpfeil (von unten nach oben)
-ax.annotate(
-    '',
-    xy=(x_min, y_max + y_pad),
-    xytext=(x_min, y_min),
-    arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
-    clip_on=False
-)
-# --- Ende Pfeile ---
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
 
 plt.tight_layout()
-
-# Grafik speichern
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_15min_Woche_23_a_plot.png', dpi=150)
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-
-def expand_daily_to_15min(df_daily, value_col='Prozesswärmebedarf [GWh]'):
-    """
-    Erweitert ein tägliches DataFrame zu einer 15-Minuten-Zeitreihe.
-    Der Tageswert in `value_col` wird gleichmäßig auf 96 Intervalle verteilt.
-    Rückgabe: DataFrame mit 15-min Index und gleicher Spaltenbezeichnung.
-    """
-    df_daily = df_daily.copy()
-    df_daily.index = pd.to_datetime(df_daily.index)  # sicherstellen, dass Index datetime ist
-
-    # 15-Minuten-Index vom ersten bis zum letzten Tag (inklusive letzter Tag 23:45)
-    start = df_daily.index.min()
-    end = df_daily.index.max() + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
-    idx_15 = pd.date_range(start=start, end=end, freq='15T')
-
-    # Tageswerte normalisieren (Datum ohne Uhrzeit)
-    day_vals = df_daily[value_col].copy()
-    day_vals.index = day_vals.index.normalize()
-
-    # Für jeden 15-min-Zeitpunkt den zugehörigen Tageswert holen und durch 96 teilen
-    day_index_for_15 = idx_15.normalize()
-    values_15 = day_vals.reindex(day_index_for_15).values / 96.0  # 96 * 15min = 1 Tag
-
-    series_15 = pd.Series(data=values_15, index=idx_15, name=value_col)
-    df_15 = series_15.to_frame()
-
-    return df_15
-
-# Erzeuge 15-Minuten-Zeitreihen und speichern
-# df_15min = expand_daily_to_15min(df, value_col='Prozesswärmebedarf [GWh]')
-# df_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_15min_23.xlsx')
+print("✓ Jahresansicht gespeichert: Prozesswärmebedarf_Jahresansicht_2023.png")
 
 
+# ========================================
+# 2. WOCHENANSICHT (15-min-Werte)
+# ========================================
+
+week_start = pd.Timestamp('2023-01-09')
+week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
+
+df_week = df_15min_weighted[(df_15min_weighted.index >= week_start) & (df_15min_weighted.index <= week_end)]
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(
+    df_week.index,
+    df_week['Prozesswärmebedarf [GW]'],
+    color='#001450',
+    linewidth=2,
+    alpha=0.95,
+    label=None
+)
+
+# Styling
+ax.set_facecolor('white')
+fig.patch.set_facecolor('white')
+ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
+ax.grid(which='major', axis='x', color='#e6e6e6', linewidth=0.5, alpha=0.5)
+
+ax.set_title(f'modellierter Prozesswärmebedarf - Wochenansicht ({week_start.strftime("%d.%m.")} - {week_end.strftime("%d.%m.%Y")})', 
+             fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Datum', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
+
+ax.xaxis.set_major_locator(mdates.DayLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%a\n%d.%m'))
+ax.xaxis.set_minor_locator(mdates.HourLocator(interval=6))
+plt.setp(ax.get_xticklabels(), rotation=0, ha='center', color=text_color)
+plt.setp(ax.get_yticklabels(), color=text_color)
+
+# Achsen und Legende
+for spine in ax.spines.values():
+    spine.set_color(text_color)
+leg = ax.legend(frameon=False, loc='upper right')
+for text in leg.get_texts():
+    text.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
+
+# Pfeile
+x_min, x_max = ax.get_xlim()
+y_min, y_max = ax.get_ylim()
+x_range = x_max - x_min if x_max != x_min else 1.0
+y_range = y_max - y_min if y_max != y_min else 1.0
+x_pad = 0.02 * x_range
+y_pad = 0.05 * y_range
+
+ax.set_xlim(x_min, x_max + x_pad)
+ax.set_ylim(y_min, y_max + y_pad)
+
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+
+plt.tight_layout()
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.close(fig)
+print("✓ Wochenansicht gespeichert: Prozesswärmebedarf_Wochenansicht_2023.png")
+
+
+# ========================================
+# 3. TAGESANSICHT (15-Minuten-Werte)
+# ========================================
+
+day_start = pd.Timestamp('2023-01-13')
+day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
+
+df_day = df_15min_weighted[(df_15min_weighted.index >= day_start) & (df_15min_weighted.index <= day_end)]
+
+fig, ax = plt.subplots(figsize=(14, 6))
+
+ax.plot(
+    df_day.index,
+    df_day['Prozesswärmebedarf [GW]'],
+    color='#001450',
+    linewidth=2,
+    alpha=0.95,
+    label=None
+)
+
+# Arbeitszeit-Bereich markieren (optional)
+work_start = day_start + pd.Timedelta(hours=7)
+work_end = day_start + pd.Timedelta(hours=16)
+ax.axvspan(work_start, work_end, color='#001450', alpha=0.1, label='Kernarbeitszeit (7-16 Uhr)')
+
+# Styling
+ax.set_facecolor('white')
+fig.patch.set_facecolor('white')
+ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
+ax.grid(which='major', axis='x', color='#e6e6e6', linewidth=0.5, alpha=0.5)
+
+ax.set_title(f'modellierter Prozesswärmebedarf - Tagesansicht ({day_start.strftime("%d.%m.%Y")})', 
+             fontsize=14, fontweight='bold', color=text_color)
+ax.set_xlabel('Uhrzeit', fontsize=12, color=text_color)
+ax.set_ylabel('Leistung in GW', fontsize=12, color=text_color)
+
+# Datumsformatierung: Stündliche Ticks
+ax.xaxis.set_major_locator(mdates.HourLocator(interval=2))
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+ax.xaxis.set_minor_locator(mdates.MinuteLocator(interval=15))
+plt.setp(ax.get_xticklabels(), rotation=45, ha='right', color=text_color)
+plt.setp(ax.get_yticklabels(), color=text_color)
+
+# Achsen und Legende
+for spine in ax.spines.values():
+    spine.set_color(text_color)
+leg = ax.legend(frameon=False, loc='upper right')
+for text in leg.get_texts():
+    text.set_color(text_color)
+ax.tick_params(axis='both', colors=text_color)
+
+# Pfeile
+x_min, x_max = ax.get_xlim()
+y_min, y_max = ax.get_ylim()
+x_range = x_max - x_min if x_max != x_min else 1.0
+y_range = y_max - y_min if y_max != y_min else 1.0
+x_pad = 0.02 * x_range
+y_pad = 0.05 * y_range
+
+ax.set_xlim(x_min, x_max + x_pad)
+ax.set_ylim(y_min, y_max + y_pad)
+
+ax.annotate('', xy=(x_max + x_pad, y_min), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
+            arrowprops=dict(arrowstyle='->', color=text_color, linewidth=1.5, mutation_scale=12),
+            clip_on=False)
+
+plt.tight_layout()
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.close(fig)
+print("✓ Tagesansicht gespeichert: Prozesswärmebedarf_Tagesansicht_2023.png")
+
+print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
+print("  1. Jahresansicht (täglich)")
+print("  2. Wochenansicht (15-min, mit Wochenend-Effekt)")
+print("  3. Tagesansicht (15-min, mit Kernarbeitszeit)")
 
 
 print('Prozesswärmebedarf skript beendet')
