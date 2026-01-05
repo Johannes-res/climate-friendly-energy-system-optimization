@@ -13,8 +13,8 @@ from vorbereitung import bedarf_gesamt as df
 
 #Hier noch Namen eintragen um Grafiken zu benennen
 #df_name = 'Grundmodell_Bedarf_'  # Name des DataFrames für die Dateinamen der Grafiken
-#df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
-df_name = 'Verkehrswende_Bedarf_'
+df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
+#df_name = 'Verkehrswende_Bedarf_'
 
 
 cd_palette = [
