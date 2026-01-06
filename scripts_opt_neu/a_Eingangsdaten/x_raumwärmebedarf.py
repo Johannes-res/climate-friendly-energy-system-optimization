@@ -11,7 +11,7 @@ df_gradtagzahlen_2023 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2
 #df_gradtagzahlen_2024 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2024.xlsx', index_col=0)
 
 #erstmal händisch für 2023
-RWB_a = 434600* 0.70  # Raumwärmebedarf in GWh für das Jahr 2023
+RWB_a = 434600  # Raumwärmebedarf in GWh für das Jahr 2023
 
 #Gradtagzahlen durch die Summe der Gradtagzahlen teilen.
 df_rwb = df_gradtagzahlen_2023.copy()
@@ -277,7 +277,7 @@ df_strom_15min = expand_daily_to_15min(df_rwb, value_col='Raumwärmebedarf [GWh]
 
 df_strom = raumwärme_mit_strom_decken(df_strom_15min, df_gradtagzahlen_2023)
 
-df_strom.to_excel(r'data\a_Eingangsdaten\Wärme\Gebäudesanierung_Raumwärme_Strombedarf_15min_23.xlsx')
+df_strom.to_excel(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärme_Strombedarf_15min_23.xlsx')
 
 
 
@@ -371,9 +371,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Gebäudesanierung_Raumwärmebedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Jahresansicht gespeichert: Gebäudesanierung_Raumwärmebedarf_Jahresansicht_2023.png")
+print("✓ Jahresansicht gespeichert: Grundmodell_Raumwärmebedarf_Jahresansicht_2023.png")
 
 
 # ========================================
@@ -449,9 +449,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Gebäudesanierung_Raumwärmebedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Wochenansicht gespeichert: Gebäudesanierung_Raumwärmebedarf_Wochenansicht_2023.png")
+print("✓ Wochenansicht gespeichert: Grundmodell_Raumwärmebedarf_Wochenansicht_2023.png")
 
 
 # ========================================
@@ -528,9 +528,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Gebäudesanierung_Raumwärmebedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Tagesansicht gespeichert: Gebäudesanierung_Raumwärmebedarf_Tagesansicht_2023.png")
+print("✓ Tagesansicht gespeichert: Grundmodell_Raumwärmebedarf_Tagesansicht_2023.png")
 
 print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
 print("  1. Jahresansicht (täglich, beide Spalten)")

@@ -1,6 +1,8 @@
 #Modellvariante = 'Grundmodell_'
-Modellvariante = 'energetische_Gebäudesanierung_' # faktor 0.70 bei raumwärme im raumwärmeskript geändert
+#Modellvariante = 'energetische_Gebäudesanierung_' # faktor 0.70 bei raumwärme im raumwärmeskript geändert
 #Modellvariante = 'Verkehrswende_' # Faktor 0.8 bei Flugverkehr und 0.9 bei Emob
+#Modellvariante = 'Import_H2_E_Fuel_' # Wasserstoff und E-Fuelbedarf werden entfernt
+Modellvariante = 'Erzeugervariation_WEA_on_'
 import os
 from pathlib import Path
 import pandas as pd
@@ -29,7 +31,7 @@ e_mob_bedarf = pd.read_excel(r'data\a_Eingangsdaten\Mobilität\EMob_Zeitreihe_15
 # from x_warmwasserbedarf import df_15min as warmwasserbedarf
 # print("✓ warmwasserbedarf importiert")
 
-raumwärmebedarf = pd.read_excel(r'data\a_Eingangsdaten\Wärme\Gebäudesanierung_Raumwärme_Strombedarf_15min_23.xlsx')
+raumwärmebedarf = pd.read_excel(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärme_Strombedarf_15min_23.xlsx')
 print("✓ raumwärmebedarf importiert")
 warmwasserbedarf = pd.read_excel(r'data\a_Eingangsdaten\Wärme\Warmwasser_Strombedarf_15min_23.xlsx')
 print("✓ warmwasserbedarf importiert")
@@ -72,8 +74,8 @@ bedarf_gesamt['Industrie_Strom_Last [MW]'] = jahresstrombedarf_industrie * 1000 
 eta_elektrolyse = 0.65  # 65% Wirkungsgrad
 
 #Wasserstoffbedarf Verkehr und Industrie (100,74 TWh im Jahr)
-wasserstoff_verkehr_jahr = 7.74e3  # in GWh Schifffahrt und MIV
-wasserstoff_industrie_jahr = 93e3  # in GWh
+wasserstoff_verkehr_jahr = 7.74e3  # in GWh Schifffahrt und MIV       #*0 bei Import
+wasserstoff_industrie_jahr = 93e3  # in GWh                           #*0 bei Import
 bedarf_gesamt['Wasserstoffbedarf [MW]'] = (wasserstoff_industrie_jahr + wasserstoff_verkehr_jahr) * 1000 / (365 * 24 *eta_elektrolyse)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 
@@ -88,7 +90,7 @@ bedarf_gesamt['Wasserstoffbedarf [MW]'] = (wasserstoff_industrie_jahr + wasserst
 bedarf_gesamt['Prozesswärmebedarf [MW]'] = prozesswärmebedarf ['Prozesswärmebedarf [GW]'] * 1000/3  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 #E-Fuelbedarf für Flugzeuge
-e_fuel_flugzeuge_jahr = 111.66e3 /0.4  # in GWh mit Wirkungsgradannahme von 40% für Power-to-Liquid --> Verkehrswende: *0.8
+e_fuel_flugzeuge_jahr = 111.66e3 /0.4 # in GWh mit Wirkungsgradannahme von 40% für Power-to-Liquid --> Verkehrswende: *0.8 #*0 bei Import
 bedarf_gesamt['E_Fuel_Flugzeuge [MW]'] = e_fuel_flugzeuge_jahr * 1000 / (365 * 24)  # Umrechnung in MW und Verteilung auf 15-Minuten-Intervalle
 
 

@@ -1,6 +1,8 @@
 #Modellvariante = 'Grundmodell_'
-Modellvariante = 'energetische_Gebäudesanierung_'
+#Modellvariante = 'energetische_Gebäudesanierung_'
 #Modellvariante = 'Verkehrswende_'
+#Modellvariante = 'Import_H2_E_Fuel_'
+Modellvariante = 'Erzeugervariation_WEA_on_'
 import pandas as pd
 import pyomo.environ as pyo
 
