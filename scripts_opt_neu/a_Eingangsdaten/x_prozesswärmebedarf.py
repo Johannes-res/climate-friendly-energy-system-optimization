@@ -3,12 +3,12 @@ import pandas as pd
 import numpy as np
 from matplotlib.ticker import FuncFormatter
 import holidays
+jahr = 2024
 
 # Zeitraum definieren
-start = datetime(2023, 1, 1)
-end = datetime(2023, 12, 31)
-
-# Prozesswärmebedarf für das Jahr 2023 in GWh (Beispielwert, bitte anpassen)
+start = datetime(jahr, 1, 1)
+end = datetime(jahr, 12, 31)
+# Prozesswärmebedarf für das Jahr 2023 in GWh 
 PWB_a = 40.5e3  # Gebäude und Fernwärme-Industrie in GWh
 
 # Erstellt einen DataFrame mit konstantem Prozesswärmebedarf pro Tag, verteilt über das Jahr
@@ -17,7 +17,7 @@ df = pd.DataFrame(index=date_range)
 df['Prozesswärmebedarf [GWh]'] = PWB_a / len(date_range)  # Gleichmäßige Verteilung
 
 # Ergebnis in eine Excel-Datei speichern
-df.to_excel(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_täglich_23.xlsx')
+df.to_excel(rf'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_täglich_{jahr}.xlsx')
 
 # tägliche Schwankungen innerhalb der Kernarbeitszeit einbauen (mit Gauß-Glättung)
 def expand_daily_to_15min_with_workhours(df_daily,
@@ -134,7 +134,7 @@ df_15min_weighted ['Prozesswärmebedarf [GW]'] = df_15min_weighted['Prozesswärm
 
 
 # Speichern (separat vom gleichmäßigen 15-min-File)
-df_15min_weighted.to_excel(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_15min_23_weighted.xlsx')
+df_15min_weighted.to_excel(rf'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_15min_{jahr}_weighted.xlsx')
 
 
 
@@ -224,16 +224,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Jahresansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Jahresansicht gespeichert: Prozesswärmebedarf_Jahresansicht_2023.png")
+print(f"✓ Jahresansicht gespeichert: Prozesswärmebedarf_Jahresansicht_{jahr}.png")
 
 
 # ========================================
 # 2. WOCHENANSICHT (15-min-Werte)
 # ========================================
 
-week_start = pd.Timestamp('2023-01-09')
+week_start = pd.Timestamp(f'{jahr}-01-09')
 week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
 
 df_week = df_15min_weighted[(df_15min_weighted.index >= week_start) & (df_15min_weighted.index <= week_end)]
@@ -293,16 +293,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Wochenansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Wochenansicht gespeichert: Prozesswärmebedarf_Wochenansicht_2023.png")
+print(f"✓ Wochenansicht gespeichert: Prozesswärmebedarf_Wochenansicht_{jahr}.png")
 
 
 # ========================================
 # 3. TAGESANSICHT (15-Minuten-Werte)
 # ========================================
 
-day_start = pd.Timestamp('2023-01-13')
+day_start = pd.Timestamp(f'{jahr}-01-13')
 day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
 
 df_day = df_15min_weighted[(df_15min_weighted.index >= day_start) & (df_15min_weighted.index <= day_end)]
@@ -368,9 +368,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Prozesswärmebedarf_Tagesansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Tagesansicht gespeichert: Prozesswärmebedarf_Tagesansicht_2023.png")
+print(f"✓ Tagesansicht gespeichert: Prozesswärmebedarf_Tagesansicht_{jahr}.png")
 
 print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
 print("  1. Jahresansicht (täglich)")

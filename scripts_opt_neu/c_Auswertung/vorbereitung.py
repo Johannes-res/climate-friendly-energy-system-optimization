@@ -1,6 +1,8 @@
-#Modellvariante = 'Grundmodell_'
-Modellvariante = 'energetische_Gebäudesanierung_'
+Modellvariante = 'Grundmodell_'
+#Modellvariante = 'energetische_Gebäudesanierung_'
 #Modellvariante = 'Verkehrswende_'
+#Modellvariante = 'Basisjahr_2023_'
+Jahr = 2023
 import pandas as pd
 
 import os
@@ -17,9 +19,9 @@ Batterie_zeitreihen = pd.read_excel(f'data/b_Optimierung/{Modellvariante}opt_spe
 Pumpspeicher_zeitreihen = pd.read_excel(f'data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Pumpspeicher_Pump')
 H2_speicher_zeitreihen = pd.read_excel(f'data/b_Optimierung/{Modellvariante}opt_speicher_zeitreihen.xlsx', index_col=0, sheet_name='Wasserstoffkaverne_H2')
 
-bedarf_gesamt = pd.read_excel(f'data/b_Optimierung/{Modellvariante}Bedarfe_Gesamt_alles_Strom_15min_2023.xlsx', index_col=0)
+bedarf_gesamt = pd.read_excel(f'data/b_Optimierung/{Modellvariante}Bedarfe_Gesamt_alles_Strom_15min_{Jahr}.xlsx', index_col=0)
 
-verfügbarkeiten_strom = pd.read_excel(r'data/b_Optimierung/Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index_col=0)
+verfügbarkeiten_strom = pd.read_excel(rf'data/b_Optimierung/Verfügbarkeiten_Stromerzeuger_15min_{Jahr}.xlsx', index_col=0)
 
 #DataFrame für Auswertung vorbereiten
 # Verfügbarkeitsfaktoren werden mit optimierten installierten Leistungen multipliziert

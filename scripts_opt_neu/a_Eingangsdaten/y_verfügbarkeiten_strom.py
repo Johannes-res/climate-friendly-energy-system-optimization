@@ -1,6 +1,8 @@
 import pandas as pd
 
 strom_erzeuger_23 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2023.xlsx')
+strom_erzeuger_22 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2022.xlsx')
+strom_erzeuger_24 = pd.read_excel(r'data\a_Eingangsdaten\Strom\energy-charts_Öffentliche_Nettostromerzeugung_in_Deutschland_2024.xlsx')
 
 #strom_last_23.index = pd.to_datetime(strom_last_23.iloc[:, 0], format='%Y-%m-%d %H:%M:%S')
 
@@ -37,8 +39,12 @@ def prepare_energy_charts(df, year):
     return df_selected
 
 strom_verfügbarkeiten_23 = prepare_energy_charts(strom_erzeuger_23, 2023)
+strom_verfügbarkeiten_22 = prepare_energy_charts(strom_erzeuger_22, 2022)
+strom_verfügbarkeiten_24 = prepare_energy_charts(strom_erzeuger_24, 2024)
 
 strom_verfügbarkeiten_23.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2023.xlsx', index=True)
+strom_verfügbarkeiten_22.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2022.xlsx', index=True)
+strom_verfügbarkeiten_24.to_excel(r'data\b_Optimierung\Verfügbarkeiten_Stromerzeuger_15min_2024.xlsx', index=True)
 
 
 print('Ende y_verfügbarkeiten_strom.py')

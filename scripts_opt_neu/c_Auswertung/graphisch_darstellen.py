@@ -11,10 +11,11 @@ plt.rcParams['font.sans-serif'] = ['Open Sans', 'Arial', 'DejaVu Sans']
 from vorbereitung import bedarf_deckung as df
 
 #Hier noch Namen eintragen um Grafiken zu benennen
-#df_name = 'Grundmodell_Erzeugung_'  # Name des DataFrames für die Dateinamen der Grafiken
-df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
+df_name = 'Grundmodell_Erzeugung_'  # Name des DataFrames für die Dateinamen der Grafiken
+#df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
 #df_name = 'Verkehrswende_Erzeugung'
-
+#df_name = 'Basisjahr_2023_Erzeugung_'
+Jahr = 2023
 
 cd_palette = [
      # (0/255, 20/255, 80/255),
@@ -548,7 +549,7 @@ def plot_monthly_aggregation(df, columns, month_start, title=None, ylabel=None, 
 selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Fotovoltaik', 'Wind_Onshore', 'Wind_Offshore', 'Laufwasser','Summe_Speicher_Leistung [MW]' ]
 
 custom_labels = ['Gesamtbedarf', 'Fotovoltaik', 'Wind Onshore', 'Wind Offshore', 'Laufwasser','Summe der Entladeleistung der Speicher' ]
-title =                 'optimierte Bedarfsdeckung im Jahresverlauf'
+title =                 f'optimierte Bedarfsdeckung im Jahresverlauf {Jahr}'
 ylabel =                'Leistung in GW'
 highlight_date=         None
 
@@ -571,7 +572,7 @@ plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 
 # Beispielaufruf für die Darstellung eines spezifischen Tages
-selected_days =                         '2023-12-04'
+selected_days =                         f'{Jahr}-12-04'
 # selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Fotovoltaik', 'Wind_Onshore', 'Wind_Offshore', 'Laufwasser','Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]', 'H2_Speicher_Leistung [MW]' ]
 
 # custom_labels = ['Gesamtbedarf', 'Fotovoltaik', 'Wind Onshore', 'Wind Offshore', 'Laufwasser','Batterie', 'Pumpspeicher', 'Wasserstoff' ]
@@ -588,7 +589,7 @@ plt.savefig(f'data/c_Auswertung/{df_name}_{selected_days}.png', dpi=300, bbox_in
 plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 # Beispielaufruf für die Darstellung einer Woche
-week_start =                            '2023-12-01'  # Startdatum der Woche
+week_start =                            f'{Jahr}-12-01'  # Startdatum der Woche
 #selected_columns =                       ['EMobilität', 'Wärmepumpen']
 #custom_labels =                         ['Netzlast', 'Modellierung']
 title =                                 f'optimierte Bedarfsdeckung für die Woche ab {week_start}'
@@ -603,7 +604,7 @@ plt.savefig(f'data/c_Auswertung/{df_name}_{week_start}.png', dpi=300, bbox_inche
 plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 # Beispielaufruf für die Darstellung eines Monats
-month_start =                           '2023-12-01'  # Startdatum des Monats
+month_start =                           f'{Jahr}-12-01'  # Startdatum des Monats
 #selected_columns =                       ['EMobilität', 'Wärmepumpen']
 #custom_labels =                         ['Netzlast', 'Modellierung']
 title =                                 f'optimierte Bedarfsdeckung für den Monat {pd.to_datetime(month_start).strftime("%B %Y")}'

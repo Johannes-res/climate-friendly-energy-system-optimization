@@ -1,14 +1,14 @@
 from datetime import datetime
 import pandas as pd
 import numpy as np
-
-df_tavg =pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2023.xlsx', index_col=0)
+jahr = 2024
+df_tavg =pd.read_excel(rf'data\Wetterdaten\durchschnitt_täglich_{jahr}.xlsx', index_col=0)
 
 # Zeitraum definieren
-start = datetime(2023, 1, 1)
-end = datetime(2023, 12, 31)
+start = datetime(jahr, 1, 1)
+end = datetime(jahr, 12, 31)
 
-# Warmwasserbedarf für das Jahr 2023 in GWh (Beispielwert, bitte anpassen)
+# Warmwasserbedarf für das Jahr 2023 in GWh
 WWB_a = 80.7e3  # WWB_Gebäude 2023 in GWh
 
 # Erstellt einen DataFrame mit konstantem Warmwasserbedarf pro Tag, variiert durch eine saisonale Sinusfunktion (±10%),
@@ -40,7 +40,7 @@ df_wwb = pd.DataFrame({'Warmwasserbedarf [GWh]': daily_values_gwh}, index=dates)
 
 
 # Ergebnis in eine Excel-Datei speichern
-df_wwb.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_23.xlsx')
+df_wwb.to_excel(rf'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_täglich_{jahr}.xlsx')
 
 def bedarf_mit_strom_decken(df,df_tavg):
     """
@@ -294,7 +294,7 @@ df_15min = expand_daily_to_15min(
     peak_factor=1.15
 )
 df_15min.drop(columns=["Warmwasserbedarf [GW]"], inplace=True)  # Diese Spalte wird nicht benötigt
-df_15min.to_excel(r'data\a_Eingangsdaten\Wärme\Warmwasser_Strombedarf_15min_23.xlsx')
+df_15min.to_excel(rf'data\a_Eingangsdaten\Wärme\Warmwasser_Strombedarf_15min_{jahr}.xlsx')
 
 
 
@@ -351,7 +351,7 @@ fig.patch.set_facecolor('white')
 ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
 ax.grid(False, axis='x')
 
-ax.set_title('Warmwasserbedarf 2023 - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
+ax.set_title(f'Warmwasserbedarf {jahr} - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
 ax.set_xlabel('Monat', fontsize=12, color=text_color)
 ax.set_ylabel('Leistung [GW]', fontsize=12, color=text_color)
 
@@ -388,16 +388,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Jahresansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Jahresansicht gespeichert: Warmwasserbedarf_Jahresansicht_2023.png")
+print(f"✓ Jahresansicht gespeichert: Warmwasserbedarf_Jahresansicht_{jahr}.png")
 
 
 # ========================================
 # 2. WOCHENANSICHT (15-min-Werte) - BEIDE SPALTEN
 # ========================================
 
-week_start = pd.Timestamp('2023-01-09')
+week_start = pd.Timestamp(f'{jahr}-01-09')
 week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
 
 df_week = df_15min[(df_15min.index >= week_start) & (df_15min.index <= week_end)]
@@ -466,16 +466,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Wochenansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Wochenansicht gespeichert: Warmwasserbedarf_Wochenansicht_2023.png")
+print(f"✓ Wochenansicht gespeichert: Warmwasserbedarf_Wochenansicht_{jahr}.png")
 
 
 # ========================================
 # 3. TAGESANSICHT (15-Minuten-Werte) - BEIDE SPALTEN
 # ========================================
 
-day_start = pd.Timestamp('2023-01-15')
+day_start = pd.Timestamp(f'{jahr}-01-15')
 day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
 
 df_day = df_15min[(df_15min.index >= day_start) & (df_15min.index <= day_end)]
@@ -545,9 +545,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Warmwasserbedarf_Tagesansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Tagesansicht gespeichert: Warmwasserbedarf_Tagesansicht_2023.png")
+print(f"✓ Tagesansicht gespeichert: Warmwasserbedarf_Tagesansicht_{jahr}.png")
 
 print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
 print("  1. Jahresansicht (täglich, beide Spalten)")

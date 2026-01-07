@@ -4,6 +4,7 @@ from scipy.ndimage import gaussian_filter1d
 from matplotlib.ticker import FuncFormatter
 import holidays
 import matplotlib.pyplot as plt
+jahr = 2024
 
 """Dieses Skript dient zum Erstellen von Lastprofilen in Anlehnung der des BDEW.
 Hierfür gibt es zunächst die Funktion 'def generiere_stufenfunktion', die mittels anpassbarer Stufen einen Tagesgang modelliert. Dazu muss die Uhrzeit und der Wert zu dieser festgelegt werden. Die festgelegten Punkte werden linear miteinander verbunden.
@@ -122,7 +123,7 @@ def generiere_stufenfunktion(profiles, decay_rate, smoothing_sigma=1.0):
     """
     # Zeitachse in 15-Minuten-Intervallen
     time = np.arange(0, 24, 0.25)
-    date_range = pd.date_range(start="2023-01-01 00:00", periods=len(time), freq="15T")
+    date_range = pd.date_range(start=f"{jahr}-01-01 00:00", periods=len(time), freq="15T")
     df = pd.DataFrame({'timestamp': date_range}).set_index('timestamp')
 
     for tagestyp, (stufenzeiten, laststufen) in profiles.items():
@@ -258,8 +259,8 @@ df_Lastprofil_EMob_jahr.to_excel(r'data\a_Eingangsdaten\Mobilität\EMob_Lastprof
 
 
 #Erstellt einen df mit einer 15min Zeitreihe für ein Jahr und fügt die Lastprofile je nach Tagestyp ein
-def erstelle_jahreszeitreihe(df_lastprofile):
-    date_range = pd.date_range(start="2023-01-01 00:00", end="2023-12-31 23:45", freq="15T")
+def erstelle_jahreszeitreihe(df_lastprofile, jahr):
+    date_range = pd.date_range(start=f"{jahr}-01-01 00:00", end=f"{jahr}-12-31 23:45", freq="15T")
     df_jahr = pd.DataFrame({'timestamp': date_range}).set_index('timestamp')
     df_jahr['Zeitreihe'] = 0.0
 
@@ -270,7 +271,7 @@ def erstelle_jahreszeitreihe(df_lastprofile):
 
         # Bestimme den Tagestyp
          # Am Anfang der Funktion definieren (einmalig):
-        de_holidays = holidays.Germany(years=2023)
+        de_holidays = holidays.Germany(years=jahr)
 
         # Dann in der Schleife:
         if timestamp in de_holidays:  # Feiertag
@@ -291,14 +292,14 @@ def erstelle_jahreszeitreihe(df_lastprofile):
 
     return df_jahr
 
-df_jahr = erstelle_jahreszeitreihe(df_Lastprofil_EMob_jahr)
+df_jahr = erstelle_jahreszeitreihe(df_Lastprofil_EMob_jahr,jahr)
 
 
 df_jahr['EEV_aufgeteilt'] = df_jahr['Zeitreihe'] * 261.05*1e3/365  # Annahme: 261,05 TWh/Jahr E-Mobilität in Deutschland --> in GWh umrechnen/365 Tage
 df_jahr['Last_emob'] = df_jahr['EEV_aufgeteilt']*4  # Umrechnung von 15min Energiewerten auf Leistung in GW (4*15min = 1h)
 
 
-df_jahr.to_excel(r'data\a_Eingangsdaten\Mobilität\EMob_Zeitreihe_15min_Jahr.xlsx', index=True)
+df_jahr.to_excel(rf'data\a_Eingangsdaten\Mobilität\EMob_Zeitreihe_15min_{jahr}.xlsx', index=True)
 
 e_mob_bedarf = df_jahr['Last_emob']
 
@@ -374,16 +375,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Jahresansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Jahresansicht gespeichert: E_Mobilitätsbedarf_Jahresansicht_2023.png")
+print(f"✓ Jahresansicht gespeichert: E_Mobilitätsbedarf_Jahresansicht_{jahr}.png")
 
 
 # ========================================
 # 2. WOCHENANSICHT (15-min-Werte)
 # ========================================
 
-week_start = pd.Timestamp('2023-01-09')
+week_start = pd.Timestamp(f'{jahr}-01-09')
 week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
 
 df_week = df_jahr[(df_jahr.index >= week_start) & (df_jahr.index <= week_end)]
@@ -440,16 +441,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Wochenansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Wochenansicht gespeichert: E_Mobilitätsbedarf_Wochenansicht_2023.png")
+print(f"✓ Wochenansicht gespeichert: E_Mobilitätsbedarf_Wochenansicht_{jahr}.png")
 
 
 # ========================================
 # 3. TAGESANSICHT (15-Minuten-Werte)
 # ========================================
 
-day_start = pd.Timestamp('2023-01-13')
+day_start = pd.Timestamp(f'{jahr}-01-13')
 day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
 
 df_day = df_jahr[(df_jahr.index >= day_start) & (df_jahr.index <= day_end)]
@@ -507,9 +508,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Mobilität\E_Mobilitätsbedarf_Tagesansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Tagesansicht gespeichert: E_Mobilitätsbedarf_Tagesansicht_2023.png")
+print(f"✓ Tagesansicht gespeichert: E_Mobilitätsbedarf_Tagesansicht_{jahr}.png")
 
 print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
 print("  1. Jahresansicht (täglich)")

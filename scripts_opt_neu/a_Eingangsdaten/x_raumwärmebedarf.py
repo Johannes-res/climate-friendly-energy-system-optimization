@@ -1,21 +1,21 @@
 from datetime import datetime
 import pandas as pd
-
+jahr = 2024
 
 import locale
 # Datumsformatierung: Wochentage (German) + Uhrzeiten
 locale.setlocale(locale.LC_TIME, 'de_DE.UTF-8')
 
 df_gradtagzahlen_2023 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2023.xlsx', index_col=0)
-#df_gradtagzahlen_2022 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2022.xlsx', index_col=0)
-#df_gradtagzahlen_2024 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2024.xlsx', index_col=0)
+df_gradtagzahlen_2022 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2022.xlsx', index_col=0)
+df_gradtagzahlen_2024 = pd.read_excel(r'data\Wetterdaten\durchschnitt_täglich_2024.xlsx', index_col=0)
 
 #erstmal händisch für 2023
 RWB_a = 434600  # Raumwärmebedarf in GWh für das Jahr 2023
 
 #Gradtagzahlen durch die Summe der Gradtagzahlen teilen.
-df_rwb = df_gradtagzahlen_2023.copy()
-df_rwb['Raumwärmebedarf [GWh]'] = df_gradtagzahlen_2023['Gradtagzahl'] / df_gradtagzahlen_2023['Gradtagzahl'].sum() * RWB_a
+df_rwb = df_gradtagzahlen_2024.copy()
+df_rwb['Raumwärmebedarf [GWh]'] = df_gradtagzahlen_2024['Gradtagzahl'] / df_gradtagzahlen_2024['Gradtagzahl'].sum() * RWB_a
 
 
 #Raumwärmebedarf mit Strom decken und COP einbauen
@@ -275,9 +275,9 @@ def smooth_energy_transitions(series_energie, tägliche_energie, transition_step
 
 df_strom_15min = expand_daily_to_15min(df_rwb, value_col='Raumwärmebedarf [GWh]', transition_steps=4, add_peaks=True, peak_factor=1.1)
 
-df_strom = raumwärme_mit_strom_decken(df_strom_15min, df_gradtagzahlen_2023)
+df_strom = raumwärme_mit_strom_decken(df_strom_15min, df_gradtagzahlen_2024)
 
-df_strom.to_excel(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärme_Strombedarf_15min_23.xlsx')
+df_strom.to_excel(rf'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärme_Strombedarf_15min_{jahr}.xlsx')
 
 
 
@@ -334,7 +334,7 @@ fig.patch.set_facecolor('white')
 ax.grid(which='major', axis='y', color='#e6e6e6', linewidth=0.8)
 ax.grid(False, axis='x')
 
-ax.set_title('Raumwärmebedarf 2023 - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
+ax.set_title(f'Raumwärmebedarf {jahr} - Jahresübersicht', fontsize=14, fontweight='bold', color=text_color)
 ax.set_xlabel('Monat', fontsize=12, color=text_color)
 ax.set_ylabel('Leistung [GW]', fontsize=12, color=text_color)
 
@@ -371,16 +371,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Jahresansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Jahresansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Jahresansicht gespeichert: Grundmodell_Raumwärmebedarf_Jahresansicht_2023.png")
+print(f"✓ Jahresansicht gespeichert: Grundmodell_Raumwärmebedarf_Jahresansicht_{jahr}.png")
 
 
 # ========================================
 # 2. WOCHENANSICHT (15-min-Werte) - BEIDE SPALTEN
 # ========================================
 
-week_start = pd.Timestamp('2023-01-09')
+week_start = pd.Timestamp(f'{jahr}-01-09')
 week_end = week_start + pd.Timedelta(days=7) - pd.Timedelta(minutes=15)
 
 df_week = df_strom[(df_strom.index >= week_start) & (df_strom.index <= week_end)]
@@ -449,16 +449,16 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Wochenansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Wochenansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Wochenansicht gespeichert: Grundmodell_Raumwärmebedarf_Wochenansicht_2023.png")
+print(f"✓ Wochenansicht gespeichert: Grundmodell_Raumwärmebedarf_Wochenansicht_{jahr}.png")
 
 
 # ========================================
 # 3. TAGESANSICHT (15-Minuten-Werte) - BEIDE SPALTEN
 # ========================================
 
-day_start = pd.Timestamp('2023-01-15')
+day_start = pd.Timestamp(f'{jahr}-01-15')
 day_end = day_start + pd.Timedelta(days=1) - pd.Timedelta(minutes=15)
 
 df_day = df_strom[(df_strom.index >= day_start) & (df_strom.index <= day_end)]
@@ -528,9 +528,9 @@ ax.annotate('', xy=(x_min, y_max + y_pad), xytext=(x_min, y_min),
             clip_on=False)
 
 plt.tight_layout()
-plt.savefig(r'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Tagesansicht_2023.png', dpi=150, bbox_inches='tight')
+plt.savefig(rf'data\a_Eingangsdaten\Wärme\Grundmodell_Raumwärmebedarf_Tagesansicht_{jahr}.png', dpi=150, bbox_inches='tight')
 plt.close(fig)
-print("✓ Tagesansicht gespeichert: Grundmodell_Raumwärmebedarf_Tagesansicht_2023.png")
+print(f"✓ Tagesansicht gespeichert: Grundmodell_Raumwärmebedarf_Tagesansicht_{jahr}.png")
 
 print("\n✓ Alle 3 Visualisierungen erfolgreich erstellt!")
 print("  1. Jahresansicht (täglich, beide Spalten)")
