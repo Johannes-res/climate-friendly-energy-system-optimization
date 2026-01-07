@@ -11,11 +11,12 @@ plt.rcParams['font.sans-serif'] = ['Open Sans', 'Arial', 'DejaVu Sans']
 from vorbereitung import bedarf_deckung as df
 
 #Hier noch Namen eintragen um Grafiken zu benennen
-df_name = 'Grundmodell_Erzeugung_'  # Name des DataFrames für die Dateinamen der Grafiken
+#df_name = 'Grundmodell_Erzeugung_'  # Name des DataFrames für die Dateinamen der Grafiken
 #df_name = 'energetische_Gebäudesanierung_'  # Name des DataFrames für die Dateinamen der Grafiken
 #df_name = 'Verkehrswende_Erzeugung'
 #df_name = 'Basisjahr_2023_Erzeugung_'
-Jahr = 2023
+df_name = 'Test2_Erzeugung_'
+Jahr = 2022
 
 cd_palette = [
      # (0/255, 20/255, 80/255),
@@ -546,9 +547,9 @@ def plot_monthly_aggregation(df, columns, month_start, title=None, ylabel=None, 
 #%% Grafik generieren
 
 # Grafik generieren für den Jahresgang
-selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Fotovoltaik', 'Wind_Onshore', 'Wind_Offshore', 'Laufwasser','Summe_Speicher_Leistung [MW]' ]
+selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'teuer_stetig', 'billig_fluktual1', 'billig_fluktual2']
 
-custom_labels = ['Gesamtbedarf', 'Fotovoltaik', 'Wind Onshore', 'Wind Offshore', 'Laufwasser','Summe der Entladeleistung der Speicher' ]
+custom_labels = ['Gesamtbedarf', 'teuer und stetig', 'günstig und fluktual 1', 'günstig und fluktual 2']
 title =                 f'optimierte Bedarfsdeckung im Jahresverlauf {Jahr}'
 ylabel =                'Leistung in GW'
 highlight_date=         None
@@ -572,7 +573,7 @@ plt.close(fig)  # Schließt die Figur, um Ressourcen freizugeben
 
 
 # Beispielaufruf für die Darstellung eines spezifischen Tages
-selected_days =                         f'{Jahr}-12-04'
+selected_days =                         f'{Jahr}-01-01'
 # selected_columns =      ['Strom_Gesamt_Bedarf [MW]', 'Fotovoltaik', 'Wind_Onshore', 'Wind_Offshore', 'Laufwasser','Batterie_Leistung [MW]', 'Pumpspeicher_Leistung [MW]', 'H2_Speicher_Leistung [MW]' ]
 
 # custom_labels = ['Gesamtbedarf', 'Fotovoltaik', 'Wind Onshore', 'Wind Offshore', 'Laufwasser','Batterie', 'Pumpspeicher', 'Wasserstoff' ]
