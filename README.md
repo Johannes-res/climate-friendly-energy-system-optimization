@@ -29,7 +29,7 @@ Die Daten sind im gleichbenannten Ordner unter data einzusehen.
 
 Innerhalb der Skripte können die Variationen stattfinden. Dazu sei die Modellvariante zu ändern und die gewünschten Variationen durchzuführen.
 
-
+# Module
 Liste der wichtigsten notwendigen Module:
 - pandas - Tabellenhandling
 - meteostat - Wetterdaten
